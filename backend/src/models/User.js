@@ -7,12 +7,12 @@ const userSchema = new mongoose.Schema({
     role: { type: String, enum: ['student','professor'] , required: true },
     email: { type: String, unique: true, required: true },
     password: { type: String, required: true },
-    user_picture: { type: String },
+    user_picture: { type: String, default: "./defaultPFP"},
     assigned_projects: [{type: String, ref:'Project' }],
     create_date: { type: Date, default: Date.now() },
     archive_date: { type: Date},
     modify_date: { type: Date}
 });
   
-const User = mongoose.model('User',userSchema);
+const User = mongoose.model('User',userSchema, 'Users');
 module.exports = User;

@@ -17,5 +17,5 @@ const activitySchema = new mongoose.Schema({
     modify_date: { type: Date}
 });
   
-const Activity = mongoose.model('Activity', activitySchema);
+const Activity = mongoose.model('Activity', activitySchema, 'Activities');
 module.exports = Activity;

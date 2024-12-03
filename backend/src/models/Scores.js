@@ -10,5 +10,5 @@ const scoreSchema = new mongoose.Schema({
     project_id: { type: String, ref: 'Project', required: true }, 
 });
   
-const Score = mongoose.model('Score', scoreSchema);
+const Score = mongoose.model('Score', scoreSchema, 'Scores');
 module.exports = Score;

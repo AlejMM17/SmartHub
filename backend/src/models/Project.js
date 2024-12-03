@@ -16,5 +16,5 @@ const projectSchema = new mongoose.Schema({
     modify_date: { type: Date}
 });
   
-const Project = mongoose.model('Project', projectSchema);
+const Project = mongoose.model('Project', projectSchema, 'Projects');
 module.exports = Project;

@@ -11,5 +11,5 @@ const skillSchema = new mongoose.Schema({
     modify_date: { type: Date}
 });
   
-const Skill = mongoose.model('Skill', skillSchema);
+const Skill = mongoose.model('Skill', skillSchema, 'Skills');
 module.exports = Skill;
