@@ -1,4 +1,8 @@
-/** @format */
+
+require("dotenv").config();
+const uri = process.env.MONGODB_URI;
+const mongoose = require("mongoose");
+const cors = require('cors')
 
 // Importa el paquete de Express
 const express = require("express");
@@ -6,17 +10,8 @@ const express = require("express");
 // Crea una instancia de la aplicación Express
 const app = express();
 
-// Configura el puerto
-const PORT = process.env.PORT || 3000;
-
 // Middleware para manejar JSON
 app.use(express.json());
-
-require("dotenv").config();
-const User = require("./models/User");
-const uri = process.env.MONGODB_URI;
-const mongoose = require("mongoose");
-const cors = require('cors')
 
 app.use(cors());
 
@@ -25,63 +20,26 @@ mongoose
   .then(() => console.log("Conectado a MongoDB"))
   .catch((err) => console.error("Error al conectar a MongoDB", err));
 
+// Configura el puerto
+const PORT = process.env.PORT || 3000;
+
+// Importar las rutas
+const userRoutes = require('./routes/userRoutes');
+const authRoutes = require('./routes/authRoutes');
+const activityRoutes = require('./routes/activityRoutes');
+// const projectRoutes = require('./routes/projectRoutes');
+// const skillRoutes = require('./routes/skillRoutes');
 
 // Cargar rutas
-// app.use('/api/v1/users', require('./routes/userRoutes'));
-// app.use('/api/v1/auth', require('./routes/authRoutes')); 
+app.use('/api/v1/users', userRoutes);
+app.use('/api/v1/auth', authRoutes); 
 // app.use('/api/v1/projects', require('./routes/projectRoutes')); 
-// app.use('/api/v1/activities', require('./routes/activityRoutes')); 
+app.use('/api/v1/activities', activityRoutes); 
 // app.use('/api/v1/skill', require('./routes/skillRoutes'));
-
-const projectRoutes = require('./routes/projectRoutes');
-const skillsRoutes = require('./routes/skillsRoutes');
-const scoresRoutes = require('./routes/scoresRoutes');
-
-app.use('/api/v1/projects',projectRoutes);
-app.use('/api/v1/skills',skillsRoutes);
-app.use('/api/v1/scores',scoresRoutes);
 
 // Define una ruta básica
 app.get("/", (req, res) => {
   res.send("¡Hola, mundo desde Express!");
-});
-
-
-app.post("/api/v1/user", async (req, res) => {
-  try {
-    const { name, role, email, password } = req.body;
-
-    if (!name || !email || !password || !role) {
-      return res.status(400).json({
-        error: "Faltan campos obligatorios: name, email, password, role",
-      });
-    }
-
-    const newUser = new User({
-      name,
-      role,
-      email,
-      password,
-    });
-
-    const savedUser = await newUser.save();
-
-    res.status(201).json({
-      message: "Usuario creado correctamente",
-      user: {
-        id: savedUser._id,
-        name: savedUser.name,
-        role: savedUser.role,
-        email: savedUser.email,
-        create_date: savedUser.create_date,
-      },
-    });
-  } catch (e) {
-    res.status(400).json({
-      message: "Usuario no creado",
-    });
-    return;
-  }
 });
 
 // Inicia el servidor y escucha en el puerto configurado
