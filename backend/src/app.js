@@ -1,3 +1,4 @@
+
 require("dotenv").config();
 const uri = process.env.MONGODB_URI;
 const mongoose = require("mongoose");
@@ -35,7 +36,6 @@ app.use('/api/v1/auth', authRoutes);
 // app.use('/api/v1/projects', require('./routes/projectRoutes')); 
 app.use('/api/v1/activities', activityRoutes); 
 // app.use('/api/v1/skill', require('./routes/skillRoutes'));
-
 
 // Define una ruta básica
 app.get("/", (req, res) => {
