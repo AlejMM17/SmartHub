@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const skillController = require('../controllers/skillController');
+const skillController = require('../controllers/skillsController');
 
 router.get('/', skillController.getAllSkills);
 router.get('/:id', skillController.getSkillById);
