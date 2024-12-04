@@ -38,7 +38,7 @@ const userController = {
 
       res.status(201).json({
         message: "Usuario creado correctamente",
-        savedUser,
+        user: savedUser,
       });
     } catch (e) {
       res.status(400).json({
@@ -58,8 +58,12 @@ const userController = {
   },
   deleteUser: async (req, res) => {
     try {
-      await User.findByIdAndDelete(req.params.id);
-      res.status(200).json({ message: "Usuario eliminado" });
+      const user = await User.findByIdAndUpdate(req.params.id, { archive_date: Date.now() }, {new: true})
+      if (!user) {
+        throw new Error("No se ha encontrado el User")
+      } 
+      res.status(200).json({ message: "Usuario archivado" });
+      
     } catch (e) {
       res.status(500).json({ message: "No se ha podido eliminar el usuario" });
     }
