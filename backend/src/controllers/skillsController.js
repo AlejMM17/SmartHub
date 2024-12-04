@@ -35,7 +35,11 @@ exports.createSkill = async (req, res) => {
 // Actualizar una habilidad por ID
 exports.updateSkill = async (req, res) => {
   try {
-    const updatedSkill = await Skill.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const updatedSkill = await Skill.findByIdAndUpdate(
+      req.params.id,
+      { ...req.body, modify_date: Date.now() },
+      { new: true }
+    );
     if (!updatedSkill) return res.status(404).json({ message: 'Skill not found' });
     res.status(200).json(updatedSkill);
   } catch (error) {
@@ -43,12 +47,16 @@ exports.updateSkill = async (req, res) => {
   }
 };
 
-// Eliminar una habilidad por ID
+// Archivar una habilidad por ID
 exports.deleteSkill = async (req, res) => {
   try {
-    const deletedSkill = await Skill.findByIdAndDelete(req.params.id);
-    if (!deletedSkill) return res.status(404).json({ message: 'Skill not found' });
-    res.status(200).json({ message: 'Skill deleted' });
+    const archivedSkill = await Skill.findByIdAndUpdate(
+      req.params.id,
+      { archive_date: Date.now() },
+      { new: true }
+    );
+    if (!archivedSkill) return res.status(404).json({ message: 'Skill not found' });
+    res.status(200).json({ message: 'Skill archived', skill: archivedSkill });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

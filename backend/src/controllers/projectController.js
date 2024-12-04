@@ -35,7 +35,11 @@ exports.createProject = async (req, res) => {
 // Update a project by ID
 exports.updateProject = async (req, res) => {
   try {
-    const updatedProject = await Project.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const updatedProject = await Project.findByIdAndUpdate(
+      req.params.id,
+      { ...req.body, modify_date: Date.now() },
+      { new: true }
+    );
     if (!updatedProject) return res.status(404).json({ message: 'Project not found' });
     res.status(200).json(updatedProject);
   } catch (error) {
@@ -43,12 +47,16 @@ exports.updateProject = async (req, res) => {
   }
 };
 
-// Delete a project by ID
+// Archive a project by ID
 exports.deleteProject = async (req, res) => {
   try {
-    const deletedProject = await Project.findByIdAndDelete(req.params.id);
-    if (!deletedProject) return res.status(404).json({ message: 'Project not found' });
-    res.status(200).json({ message: 'Project deleted' });
+    const archivedProject = await Project.findByIdAndUpdate(
+      req.params.id,
+      { archive_date: Date.now() },
+      { new: true }
+    );
+    if (!archivedProject) return res.status(404).json({ message: 'Project not found' });
+    res.status(200).json({ message: 'Project archived', project: archivedProject });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

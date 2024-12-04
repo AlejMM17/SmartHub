@@ -35,7 +35,11 @@ exports.createScore = async (req, res) => {
 // Actualizar una puntuación por ID
 exports.updateScore = async (req, res) => {
   try {
-    const updatedScore = await Score.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const updatedScore = await Score.findByIdAndUpdate(
+      req.params.id,
+      { ...req.body, modify_date: Date.now() },
+      { new: true }
+    );
     if (!updatedScore) return res.status(404).json({ message: 'Score not found' });
     res.status(200).json(updatedScore);
   } catch (error) {
@@ -43,12 +47,16 @@ exports.updateScore = async (req, res) => {
   }
 };
 
-// Eliminar una puntuación por ID
+// Archivar una puntuación por ID
 exports.deleteScore = async (req, res) => {
   try {
-    const deletedScore = await Score.findByIdAndDelete(req.params.id);
-    if (!deletedScore) return res.status(404).json({ message: 'Score not found' });
-    res.status(200).json({ message: 'Score deleted' });
+    const archivedScore = await Score.findByIdAndUpdate(
+      req.params.id,
+      { archive_date: Date.now() },
+      { new: true }
+    );
+    if (!archivedScore) return res.status(404).json({ message: 'Score not found' });
+    res.status(200).json({ message: 'Score archived', score: archivedScore });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
