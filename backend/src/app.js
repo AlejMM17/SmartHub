@@ -3,6 +3,17 @@ require("dotenv").config();
 const uri = process.env.MONGODB_URI;
 const mongoose = require("mongoose");
 const cors = require('cors')
+const helmet = require("helmet");
+const winston = require("winston");
+const logger = winston.createLogger({
+    level: "info",
+    format: winston.format.json(),
+    transports: [
+        new winston.transports.Console(),
+        new winston.transports.File({ filename: "error.log", level: "error" }),
+    ],
+});
+
 
 // Importa el paquete de Express
 const express = require("express");
@@ -14,6 +25,10 @@ const app = express();
 app.use(express.json());
 
 app.use(cors());
+
+// Middleware contra ataques de SQL injection
+app.use(helmet());
+
 
 mongoose
   .connect(uri)
