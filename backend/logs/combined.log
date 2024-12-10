@@ -1,0 +1,22 @@
+2024-12-05T09:18:28.012Z info: Conectado a MongoDB
+2024-12-05T09:18:46.539Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-05T09:18:56.934Z warn: Project not found: e6bd6aa0-7dd3-4efa-8596-976c0a1a837012121
+2024-12-05T09:19:45.818Z info: Fetched all projects
+2024-12-05T09:19:51.155Z warn: Project not found: a
+2024-12-05T09:20:52.878Z info: Conectado a MongoDB
+2024-12-05T09:21:04.335Z info: Conectado a MongoDB
+2024-12-05T09:21:08.395Z info: Conectado a MongoDB
+2024-12-05T09:21:11.065Z error: Error fetching projects: Project is not defined
+2024-12-05T09:21:20.559Z info: Conectado a MongoDB
+2024-12-05T09:24:30.255Z info: Conectado a MongoDB
+2024-12-05T09:24:36.012Z info: Conectado a MongoDB
+2024-12-05T09:25:39.721Z info: Conectado a MongoDB
+2024-12-05T09:25:54.675Z info: Conectado a MongoDB
+2024-12-05T09:26:26.172Z info: Conectado a MongoDB
+2024-12-05T09:26:28.853Z info: Conectado a MongoDB
+2024-12-05T09:26:33.590Z info: Conectado a MongoDB
+2024-12-05T09:26:37.058Z info: Conectado a MongoDB
+2024-12-05T09:27:44.154Z info: Conectado a MongoDB
+2024-12-05T09:27:49.421Z info: Conectado a MongoDB
+2024-12-05T09:28:13.156Z info: Conectado a MongoDB
+2024-12-05T09:28:28.656Z info: Conectado a MongoDB

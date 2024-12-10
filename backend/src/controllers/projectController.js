@@ -1,11 +1,14 @@
 const Project = require('../models/Project');
+const logger = require('../utils/logger'); // Importa el logger
 
 // Get all projects
 exports.getAllProjects = async (req, res) => {
   try {
     const projects = await Project.find();
+    logger.info('Fetched all projects');
     res.status(200).json(projects);
   } catch (error) {
+    logger.error(`Error fetching projects: ${error.message}`);
     res.status(500).json({ message: error.message });
   }
 };
@@ -14,9 +17,14 @@ exports.getAllProjects = async (req, res) => {
 exports.getProjectById = async (req, res) => {
   try {
     const project = await Project.findById(req.params.id);
-    if (!project) return res.status(404).json({ message: 'Project not found' });
+    if (!project) {
+      logger.warn(`Project not found: ${req.params.id}`);
+      return res.status(404).json({ message: 'Project not found' });
+    }
+    logger.info(`Fetched project with ID: ${req.params.id}`);
     res.status(200).json(project);
   } catch (error) {
+    logger.error(`Error fetching project: ${error.message}`);
     res.status(500).json({ message: error.message });
   }
 };
@@ -26,8 +34,10 @@ exports.createProject = async (req, res) => {
   const project = new Project(req.body);
   try {
     const newProject = await project.save();
+    logger.info('Created new project');
     res.status(201).json(newProject);
   } catch (error) {
+    logger.error(`Error creating project: ${error.message}`);
     res.status(400).json({ message: error.message });
   }
 };
@@ -40,9 +50,14 @@ exports.updateProject = async (req, res) => {
       { ...req.body, modify_date: Date.now() },
       { new: true }
     );
-    if (!updatedProject) return res.status(404).json({ message: 'Project not found' });
+    if (!updatedProject) {
+      logger.warn(`Project not found: ${req.params.id}`);
+      return res.status(404).json({ message: 'Project not found' });
+    }
+    logger.info(`Updated project with ID: ${req.params.id}`);
     res.status(200).json(updatedProject);
   } catch (error) {
+    logger.error(`Error updating project: ${error.message}`);
     res.status(400).json({ message: error.message });
   }
 };
@@ -55,9 +70,14 @@ exports.deleteProject = async (req, res) => {
       { archive_date: Date.now() },
       { new: true }
     );
-    if (!archivedProject) return res.status(404).json({ message: 'Project not found' });
+    if (!archivedProject) {
+      logger.warn(`Project not found: ${req.params.id}`);
+      return res.status(404).json({ message: 'Project not found' });
+    }
+    logger.info(`Archived project with ID: ${req.params.id}`);
     res.status(200).json({ message: 'Project archived', project: archivedProject });
   } catch (error) {
+    logger.error(`Error archiving project: ${error.message}`);
     res.status(500).json({ message: error.message });
   }
 };

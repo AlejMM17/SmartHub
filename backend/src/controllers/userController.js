@@ -46,6 +46,40 @@ const userController = {
       });
     }
   },
+  importUsers: async (req, res) => {
+    try {
+      const users = req.body;
+  
+      if (!Array.isArray(users) || users.length == 0) {
+        return res.status(400).json({
+          error: "Debe proporcionar una lista de usuarios",
+        });
+      }
+  
+      const requiredFields = ["name", "role", "email", "password"];
+      for (const user of users) {
+        for (const field of requiredFields) {
+          if (!user[field]) {
+            return res.status(400).json({
+              error: `Faltan campos obligatorios en uno o más usuarios: ${requiredFields.join(", ")}`,
+            });
+          }
+        }
+      }
+  
+      const savedUsers = await User.insertMany(users);
+  
+      res.status(201).json({
+        message: "Usuarios importados correctamente",
+        users: savedUsers,
+      });
+    } catch (e) {
+      res.status(400).json({
+        message: "Usuarios no importados",
+        error: e.message,
+      });
+    }
+  },
   updateUser: async (req, res) => {
     try {
       const user = await User.findByIdAndUpdate(req.params.id, req.body);

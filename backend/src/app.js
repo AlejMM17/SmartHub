@@ -4,16 +4,9 @@ const uri = process.env.MONGODB_URI;
 const mongoose = require("mongoose");
 const cors = require('cors')
 const helmet = require("helmet");
-const winston = require("winston");
-const logger = winston.createLogger({
-    level: "info",
-    format: winston.format.json(),
-    transports: [
-        new winston.transports.Console(),
-        new winston.transports.File({ filename: "error.log", level: "error" }),
-    ],
-});
 
+// Importacion del logger
+const logger = require("./utils/logger"); 
 
 // Importa el paquete de Express
 const express = require("express");
@@ -32,8 +25,8 @@ app.use(helmet());
 
 mongoose
   .connect(uri)
-  .then(() => console.log("Conectado a MongoDB"))
-  .catch((err) => console.error("Error al conectar a MongoDB", err));
+  .then(() => logger.info("Conectado a MongoDB"))
+  .catch((err) => logger.error("Error al conectar a MongoDB", err));
 
 // Configura el puerto
 const PORT = process.env.PORT || 3000;
