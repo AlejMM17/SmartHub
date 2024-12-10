@@ -14,5 +14,9 @@ const userSchema = new mongoose.Schema({
     modify_date: { type: Date}
 });
   
+<<<<<<< Updated upstream
 const User = mongoose.model('User',userSchema, 'Users');
+=======
+const User = mongoose.model('User', userSchema);
+>>>>>>> Stashed changes
 module.exports = User;
