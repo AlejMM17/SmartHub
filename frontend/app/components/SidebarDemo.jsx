@@ -81,7 +81,7 @@ export function SidebarDemo({ children }) {
           </div>
         </SidebarBody>
       </Sidebar>
-      <Dashboard children= { children }/>
+      <Dashboard>{ children }</Dashboard>
     </div>
   );
 }
