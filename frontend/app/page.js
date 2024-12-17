@@ -1,7 +1,21 @@
+"use client"
+
+import { useRouter } from "next/navigation";
+import { useUser } from "../context/UserContext";
+import { useEffect } from "react";
+
 export default function Home() {
-  return (
-    <>
-        <p>Hola</p>
-    </>
-  );
+
+    const router = useRouter()
+    const { user } = useUser()
+
+    useEffect(() => {
+        if (!user) {
+            router.push("/login")
+        } else if (user.role === "professor") {
+            router.push("/professor")
+        } else {
+            router.push("/student")
+        }
+    }, [user, router])
 }
