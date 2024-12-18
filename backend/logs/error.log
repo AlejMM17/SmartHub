@@ -26,3 +26,6 @@
 2024-12-18T10:34:12.830Z error: Error fetching project: Operation `Projects.findOne()` buffering timed out after 10000ms
 2024-12-18T10:38:32.357Z error: Error fetching project: Operation `Projects.findOne()` buffering timed out after 10000ms
 2024-12-18T10:38:32.359Z error: Error fetching project: Operation `Projects.findOne()` buffering timed out after 10000ms
+2024-12-18T07:08:57.539Z error: MongooseServerSelectionError: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/
+    at _handleConnectionErrors (C:\Users\marcg\Desktop\DAW2\Proyecto\SmartHub\backend\node_modules\mongoose\lib\connection.js:909:11)
+    at NativeConnection.openUri (C:\Users\marcg\Desktop\DAW2\Proyecto\SmartHub\backend\node_modules\mongoose\lib\connection.js:860:11)
