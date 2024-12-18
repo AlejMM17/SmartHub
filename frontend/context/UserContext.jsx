@@ -26,7 +26,7 @@ export const UserProvider = ({ children }) => {
 
     // Cada vez que el componente UserProvider se monte se ira a las cookies a buscar "user"
     useEffect(() => {
-        const currentUser = JSON.parse(Cookies.get("user"))
+        const currentUser = JSON.parse(Cookies.get("user") || null)
         setUser(currentUser)
     }, [])
 
