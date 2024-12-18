@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { Sidebar, SidebarBody, SidebarLink } from "../../components/ui/Sidebar";
+import { Sidebar, SidebarBody, SidebarLink } from "./ui/Sidebar";
 import {
   IconArrowLeft,
   IconBrandTabler,
@@ -15,28 +15,28 @@ import { cn } from "@/lib/utils";
 export function SidebarDemo({ children }) {
   const links = [
     {
-      label: "Dashboard",
+      label: "Projectes",
       href: "#",
       icon: (
         <IconBrandTabler className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
     {
-      label: "Profile",
+      label: "Perfil",
       href: "#",
       icon: (
         <IconUserBolt className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
     {
-      label: "Settings",
+      label: "Configuració",
       href: "#",
       icon: (
         <IconSettings className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
     {
-      label: "Logout",
+      label: "Tancar sessió",
       href: "#",
       icon: (
         <IconArrowLeft className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />

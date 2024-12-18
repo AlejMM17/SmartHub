@@ -1,3 +1,5 @@
+import { SidebarDemo } from "../../components/SidebarStudent";
+
 export const metadata = {
   title: "Students Home",
   description: "Students index page",
@@ -5,8 +7,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <div>
+    <SidebarDemo>
         { children }
-    </div>
+    </SidebarDemo>
   );
 }

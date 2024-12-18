@@ -20,3 +20,150 @@
 2024-12-05T09:27:49.421Z info: Conectado a MongoDB
 2024-12-05T09:28:13.156Z info: Conectado a MongoDB
 2024-12-05T09:28:28.656Z info: Conectado a MongoDB
+2024-12-18T07:09:52.875Z error: MongooseServerSelectionError: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/
+    at _handleConnectionErrors (/home/alej/DAW_Segundo/M12_Projecte/MICRO02/SmartHub/backend/node_modules/mongoose/lib/connection.js:909:11)
+    at NativeConnection.openUri (/home/alej/DAW_Segundo/M12_Projecte/MICRO02/SmartHub/backend/node_modules/mongoose/lib/connection.js:860:11)
+2024-12-18T07:10:35.299Z info: Conectado a MongoDB
+2024-12-18T07:52:47.304Z info: Fetched all projects
+2024-12-18T08:10:17.662Z info: Conectado a MongoDB
+2024-12-18T08:16:49.338Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T08:31:32.099Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T08:59:45.354Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T08:59:45.356Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T08:59:45.428Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T08:59:45.432Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T08:59:45.508Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T08:59:45.510Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T08:59:45.567Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T08:59:45.568Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:01:36.478Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:01:36.480Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:01:36.608Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:01:36.610Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:02:10.813Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:02:10.814Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:02:10.923Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:02:10.924Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:03:35.677Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:03:35.678Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:03:35.738Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:03:35.740Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:04:26.589Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:04:26.594Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:04:26.669Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:04:26.670Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:04:51.249Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:04:51.255Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:04:51.339Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:04:51.346Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:06:48.205Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:06:48.210Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:06:48.690Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:06:48.695Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:08:42.162Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:08:42.166Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:08:42.341Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:08:42.344Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:09:00.019Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:09:00.032Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:09:00.111Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:09:00.112Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:16:49.587Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:16:49.589Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:16:50.337Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:16:50.342Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:16:51.383Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:16:51.385Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:16:52.578Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:16:52.588Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:16:53.687Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:16:53.691Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:16:59.603Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:16:59.613Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:17:00.708Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:17:00.713Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:17:02.464Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:17:02.467Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:17:07.790Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:17:07.794Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:17:08.307Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:17:08.311Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:17:08.996Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:17:09.002Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:17:09.683Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:17:10.178Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:17:11.604Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:17:12.151Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:17:14.842Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:17:14.851Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:17:14.987Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:17:14.991Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:17:15.102Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:17:15.201Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:17:15.304Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:17:15.405Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:17:15.538Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:17:15.543Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:17:15.882Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:17:15.883Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:17:16.113Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:17:16.117Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:17:16.717Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:17:16.718Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:17:17.199Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:17:17.201Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:17:40.875Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:17:40.878Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:18:42.753Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:18:42.758Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:18:42.817Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:18:42.819Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:20:24.140Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:20:24.142Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:20:40.026Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:20:40.069Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:21:12.530Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:21:12.535Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:30:21.197Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:30:21.200Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:30:52.225Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:30:52.230Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:31:06.505Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:31:06.506Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:33:19.477Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:33:19.479Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:33:50.071Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:33:50.073Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:34:02.643Z info: Fetched project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2024-12-18T09:34:02.644Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:35:37.102Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T09:35:37.103Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2024-12-18T09:35:37.171Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2024-12-18T09:35:37.174Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2024-12-18T10:31:51.041Z error: Error fetching project: Operation `Projects.findOne()` buffering timed out after 10000ms
+2024-12-18T10:31:51.046Z error: Error fetching project: Operation `Projects.findOne()` buffering timed out after 10000ms
+2024-12-18T10:32:00.861Z error: MongooseServerSelectionError: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/
+    at _handleConnectionErrors (/home/alej/DAW_Segundo/M12_Projecte/MICRO02/SmartHub/backend/node_modules/mongoose/lib/connection.js:909:11)
+    at NativeConnection.openUri (/home/alej/DAW_Segundo/M12_Projecte/MICRO02/SmartHub/backend/node_modules/mongoose/lib/connection.js:860:11)
+2024-12-18T10:32:18.070Z error: Error fetching project: Operation `Projects.findOne()` buffering timed out after 10000ms
+2024-12-18T10:32:18.071Z error: Error fetching project: Operation `Projects.findOne()` buffering timed out after 10000ms
+2024-12-18T10:32:44.671Z error: Error fetching project: Operation `Projects.findOne()` buffering timed out after 10000ms
+2024-12-18T10:32:44.674Z error: Error fetching project: Operation `Projects.findOne()` buffering timed out after 10000ms
+2024-12-18T10:32:49.784Z error: Error fetching project: Operation `Projects.findOne()` buffering timed out after 10000ms
+2024-12-18T10:32:49.788Z error: Error fetching project: Operation `Projects.findOne()` buffering timed out after 10000ms
+2024-12-18T10:33:24.481Z error: Error fetching project: Operation `Projects.findOne()` buffering timed out after 10000ms
+2024-12-18T10:33:24.486Z error: Error fetching project: Operation `Projects.findOne()` buffering timed out after 10000ms
+2024-12-18T10:33:24.487Z error: Error fetching project: Operation `Projects.findOne()` buffering timed out after 10000ms
+2024-12-18T10:33:24.488Z error: Error fetching project: Operation `Projects.findOne()` buffering timed out after 10000ms
+2024-12-18T10:33:31.585Z error: MongooseServerSelectionError: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/
+    at _handleConnectionErrors (/home/alej/DAW_Segundo/M12_Projecte/MICRO02/SmartHub/backend/node_modules/mongoose/lib/connection.js:909:11)
+    at NativeConnection.openUri (/home/alej/DAW_Segundo/M12_Projecte/MICRO02/SmartHub/backend/node_modules/mongoose/lib/connection.js:860:11)
+2024-12-18T10:34:12.829Z error: Error fetching project: Operation `Projects.findOne()` buffering timed out after 10000ms
+2024-12-18T10:34:12.829Z error: Error fetching project: Operation `Projects.findOne()` buffering timed out after 10000ms
+2024-12-18T10:34:12.830Z error: Error fetching project: Operation `Projects.findOne()` buffering timed out after 10000ms
+2024-12-18T10:34:12.830Z error: Error fetching project: Operation `Projects.findOne()` buffering timed out after 10000ms
+2024-12-18T10:38:32.357Z error: Error fetching project: Operation `Projects.findOne()` buffering timed out after 10000ms
+2024-12-18T10:38:32.359Z error: Error fetching project: Operation `Projects.findOne()` buffering timed out after 10000ms
+2024-12-18T10:38:45.598Z info: Conectado a MongoDB
+2024-12-18T10:38:49.645Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2024-12-18T10:38:49.649Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
