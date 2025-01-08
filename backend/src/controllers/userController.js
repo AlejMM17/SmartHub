@@ -87,6 +87,7 @@ const userController = {
     } catch (e) {
       res.status(500).json({
         message: "Usuario no actualizado",
+        errors: e.errors,
       });
     }
   },

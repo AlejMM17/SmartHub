@@ -16,14 +16,14 @@ export function SidebarDemo({ children }) {
   const links = [
     {
       label: "Projectes",
-      href: "#",
+      href: "/student",
       icon: (
         <IconBrandTabler className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
     {
       label: "Perfil",
-      href: "#",
+      href: "/profile",
       icon: (
         <IconUserBolt className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
