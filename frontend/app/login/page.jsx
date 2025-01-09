@@ -75,13 +75,13 @@ export default function Login() {
             description: `¡Bienvenido ${user.name} a SmartHub!`,
         })
         setUser(user)
-        router.push(user.role === "professor" ? "/professor" : "/student")
+        router.push(user.role === "professor" ? "/professor/projects" : "/student")
     } else {
         setFormData({ email: "", password: "" })
         toast({
-            variant: "destructive",
-            title: "Login incorrecto!",
             description: `Error: ${error}`,
+            title: "Login incorrecto!",
+            variant: "destructive",
         })
     }
   };

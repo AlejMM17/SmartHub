@@ -13,7 +13,7 @@ export default function Home() {
         if (!user) {
             router.push("/login")
         } else if (user.role === "professor") {
-            router.push("/professor")
+            router.push("/professor/projects")
         } else {
             router.push("/student")
         }
