@@ -300,3 +300,110 @@
 2025-01-07T21:04:11.610Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
 2025-01-07T21:04:11.611Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
 2025-01-07T21:04:26.550Z info: Conectado a MongoDB
+2025-01-08T06:57:25.094Z error: MongooseServerSelectionError: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/
+    at _handleConnectionErrors (/home/alej/DAW_Segundo/M12_Projecte/MICRO02/SmartHub/backend/node_modules/mongoose/lib/connection.js:909:11)
+    at NativeConnection.openUri (/home/alej/DAW_Segundo/M12_Projecte/MICRO02/SmartHub/backend/node_modules/mongoose/lib/connection.js:860:11)
+2025-01-08T06:57:28.251Z error: Error fetching project: Operation `Projects.findOne()` buffering timed out after 10000ms
+2025-01-08T06:57:28.252Z error: Error fetching project: Operation `Projects.findOne()` buffering timed out after 10000ms
+2025-01-08T06:57:38.268Z error: Error fetching project: Operation `Projects.findOne()` buffering timed out after 10000ms
+2025-01-08T06:57:38.269Z error: Error fetching project: Operation `Projects.findOne()` buffering timed out after 10000ms
+2025-01-08T06:58:13.967Z error: Error fetching project: Operation `Projects.findOne()` buffering timed out after 10000ms
+2025-01-08T06:58:13.968Z error: Error fetching project: Operation `Projects.findOne()` buffering timed out after 10000ms
+2025-01-08T06:58:41.824Z info: Conectado a MongoDB
+2025-01-08T06:58:56.564Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-08T06:58:56.565Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-08T06:58:56.567Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-08T06:58:56.948Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-08T06:59:47.924Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-08T06:59:47.930Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T08:34:28.341Z info: Conectado a MongoDB
+2025-01-09T08:34:35.639Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T08:34:35.643Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-09T08:34:35.705Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-09T08:34:35.708Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T08:50:39.874Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T08:50:39.877Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-09T08:50:39.944Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-09T08:50:39.955Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T09:00:56.175Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T09:00:56.177Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-09T09:00:56.250Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T09:00:56.255Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-09T09:02:33.071Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-09T09:02:33.076Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T09:02:33.136Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-09T09:02:33.175Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T09:06:55.952Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T09:06:55.953Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-09T09:06:56.035Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T09:06:56.035Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-09T09:09:21.107Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T09:09:21.114Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-09T09:09:21.204Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T09:09:21.213Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-09T09:13:20.568Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T09:13:20.570Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-09T09:13:20.639Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-09T09:13:20.641Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T09:16:46.277Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-09T09:16:46.282Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T09:16:46.352Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T09:16:46.357Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-09T09:18:06.356Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-09T09:18:06.357Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T09:18:06.430Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T09:18:06.436Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-09T09:22:26.212Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T09:22:26.215Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-09T09:22:26.216Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T09:22:26.295Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-09T09:29:00.583Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-09T09:29:00.585Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T09:29:00.686Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T09:29:00.690Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-09T09:31:16.801Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T09:31:16.802Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-09T09:31:16.877Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T09:31:16.884Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-09T09:39:11.478Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-09T09:39:11.484Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T09:39:11.559Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T09:39:11.571Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-09T09:42:16.488Z info: Conectado a MongoDB
+2025-01-09T09:42:36.967Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-09T09:42:36.977Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T09:42:37.026Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-09T09:42:37.038Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T09:44:46.578Z info: Conectado a MongoDB
+2025-01-09T09:44:59.339Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-09T09:44:59.343Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T09:44:59.417Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T09:44:59.421Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-09T09:45:03.778Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-09T09:45:03.782Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T09:45:03.846Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-09T09:45:03.851Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T09:51:19.927Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T09:51:19.931Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-09T09:51:19.987Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T09:51:19.998Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-09T09:52:03.351Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T09:52:03.353Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-09T09:52:03.410Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T09:52:03.420Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-09T09:52:06.915Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-09T09:52:06.922Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T09:52:06.992Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-09T09:52:07.016Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T09:52:09.709Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T09:52:09.713Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-09T09:52:09.768Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T09:52:09.789Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-09T09:52:11.610Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T09:52:11.612Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-09T09:52:11.679Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-09T09:52:11.683Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T09:52:32.287Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-09T09:52:32.290Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T09:52:32.349Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T09:52:32.353Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
