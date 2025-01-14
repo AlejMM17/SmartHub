@@ -407,3 +407,260 @@
 2025-01-09T09:52:32.290Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
 2025-01-09T09:52:32.349Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
 2025-01-09T09:52:32.353Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-09T12:24:01.741Z info: Conectado a MongoDB
+2025-01-09T12:24:10.533Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T12:24:10.555Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-09T12:24:10.937Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-09T12:24:11.274Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-09T12:24:17.333Z error: Error creating project: Project validation failed: professor_id: Path `professor_id` is required.
+2025-01-10T07:21:30.709Z info: Conectado a MongoDB
+2025-01-10T07:22:18.165Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-10T07:22:18.169Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-10T07:22:18.279Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-10T07:22:18.282Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-10T07:22:30.405Z error: Error creating project: Project validation failed: professor_id: Path `professor_id` is required.
+2025-01-10T07:22:57.700Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-10T07:22:57.706Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-10T07:23:10.022Z error: Error creating project: Project validation failed: professor_id: Path `professor_id` is required.
+2025-01-10T07:24:00.605Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-10T07:24:00.610Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-10T07:24:04.777Z info: Created new project
+2025-01-10T07:24:13.208Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-10T07:24:13.212Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-10T07:25:47.867Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-10T07:25:47.879Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-10T07:26:15.334Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-10T07:26:15.337Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-10T07:26:15.595Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-10T07:26:15.597Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-10T07:26:44.224Z info: Created new project
+2025-01-10T07:27:09.795Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-10T07:27:09.798Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-10T07:27:16.277Z info: Created new project
+2025-01-10T07:29:13.632Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-10T07:29:13.640Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-10T07:29:19.609Z info: Created new project
+2025-01-10T07:29:19.707Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-10T07:29:19.726Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-10T07:29:27.638Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-10T07:29:27.647Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-10T07:39:11.223Z info: Conectado a MongoDB
+2025-01-10T07:44:15.173Z info: Conectado a MongoDB
+2025-01-10T07:46:31.120Z info: Conectado a MongoDB
+2025-01-10T07:53:50.063Z info: Fetched project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-10T07:53:50.069Z info: Fetched project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-10T07:57:41.299Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T07:58:05.707Z info: Created new project
+2025-01-10T07:58:05.932Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T07:58:21.379Z info: Created new project
+2025-01-10T07:58:21.460Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T08:26:42.086Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T08:26:44.538Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T08:28:38.613Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T08:28:38.746Z info: Archived project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-10T08:28:38.748Z info: Archived project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2025-01-10T08:29:34.661Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T08:29:34.753Z info: Archived project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-10T08:29:34.759Z info: Archived project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2025-01-10T08:32:05.790Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T08:32:05.934Z info: Archived project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2025-01-10T08:32:05.936Z info: Archived project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-10T08:32:05.937Z info: Archived project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-10T08:32:06.006Z info: Archived project with ID: affa70ae-5625-4eb7-90f2-43a8e024b8c5
+2025-01-10T08:32:06.020Z info: Archived project with ID: affa70ae-5625-4eb7-90f2-43a8e024b8c5
+2025-01-10T08:32:06.033Z info: Archived project with ID: c4b32233-785d-471c-b147-1a3bd8d2c40c
+2025-01-10T08:32:06.076Z info: Archived project with ID: c4b32233-785d-471c-b147-1a3bd8d2c40c
+2025-01-10T08:32:06.114Z info: Archived project with ID: 22de7df5-6efa-43ce-a32b-ac514212948b
+2025-01-10T08:32:06.118Z info: Archived project with ID: 22de7df5-6efa-43ce-a32b-ac514212948b
+2025-01-10T08:32:06.165Z info: Archived project with ID: c33cfe51-0801-4f29-a78e-d9baf8011e0f
+2025-01-10T08:32:06.191Z info: Archived project with ID: c33cfe51-0801-4f29-a78e-d9baf8011e0f
+2025-01-10T08:32:06.196Z info: Archived project with ID: c6f04d8a-ca65-4603-acaf-026bebb8f297
+2025-01-10T08:32:06.246Z info: Archived project with ID: c6f04d8a-ca65-4603-acaf-026bebb8f297
+2025-01-10T08:32:06.283Z info: Archived project with ID: 40119ad2-0631-4c2d-add4-f8f8e32cfdb5
+2025-01-10T08:32:06.288Z info: Archived project with ID: 40119ad2-0631-4c2d-add4-f8f8e32cfdb5
+2025-01-10T08:32:06.456Z info: Archived project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-10T08:32:06.467Z info: Archived project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2025-01-10T08:32:06.535Z info: Archived project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-10T08:32:09.661Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T08:32:09.767Z info: Archived project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-10T08:32:09.784Z info: Archived project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2025-01-10T08:32:09.789Z info: Archived project with ID: 6e5946ba-1bbb-41bd-aa66-e714c7745e06
+2025-01-10T08:32:09.790Z info: Archived project with ID: e6bd6aa0-7dd3-4efa-8596-976c0a1a8370
+2025-01-10T08:32:09.791Z info: Archived project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-10T08:32:09.867Z info: Archived project with ID: affa70ae-5625-4eb7-90f2-43a8e024b8c5
+2025-01-10T08:32:09.870Z info: Archived project with ID: c4b32233-785d-471c-b147-1a3bd8d2c40c
+2025-01-10T08:32:09.872Z info: Archived project with ID: affa70ae-5625-4eb7-90f2-43a8e024b8c5
+2025-01-10T08:32:09.895Z info: Archived project with ID: 22de7df5-6efa-43ce-a32b-ac514212948b
+2025-01-10T08:32:09.897Z info: Archived project with ID: c4b32233-785d-471c-b147-1a3bd8d2c40c
+2025-01-10T08:32:09.957Z info: Archived project with ID: 22de7df5-6efa-43ce-a32b-ac514212948b
+2025-01-10T08:32:09.958Z info: Archived project with ID: c33cfe51-0801-4f29-a78e-d9baf8011e0f
+2025-01-10T08:32:09.967Z info: Archived project with ID: c33cfe51-0801-4f29-a78e-d9baf8011e0f
+2025-01-10T08:32:09.977Z info: Archived project with ID: c6f04d8a-ca65-4603-acaf-026bebb8f297
+2025-01-10T08:32:09.983Z info: Archived project with ID: c6f04d8a-ca65-4603-acaf-026bebb8f297
+2025-01-10T08:32:10.123Z info: Archived project with ID: 40119ad2-0631-4c2d-add4-f8f8e32cfdb5
+2025-01-10T08:32:10.133Z info: Archived project with ID: 40119ad2-0631-4c2d-add4-f8f8e32cfdb5
+2025-01-10T08:32:10.287Z info: Archived project with ID: 90b9a845-9581-48dc-aeda-d6a066b441a7
+2025-01-10T08:32:34.821Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T08:32:45.923Z info: Archived project with ID: 22de7df5-6efa-43ce-a32b-ac514212948b
+2025-01-10T08:32:50.833Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T08:32:53.832Z info: Archived project with ID: 40119ad2-0631-4c2d-add4-f8f8e32cfdb5
+2025-01-10T08:32:56.133Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T08:33:02.412Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T08:33:03.824Z info: Archived project with ID: 40119ad2-0631-4c2d-add4-f8f8e32cfdb5
+2025-01-10T08:33:09.867Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T08:33:20.110Z info: Archived project with ID: 22de7df5-6efa-43ce-a32b-ac514212948b
+2025-01-10T08:33:23.058Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T08:35:01.853Z info: Archived project with ID: 22de7df5-6efa-43ce-a32b-ac514212948b
+2025-01-10T08:35:02.723Z info: Archived project with ID: c4b32233-785d-471c-b147-1a3bd8d2c40c
+2025-01-10T08:35:03.650Z info: Archived project with ID: c6f04d8a-ca65-4603-acaf-026bebb8f297
+2025-01-10T08:35:05.450Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T08:38:05.757Z info: Conectado a MongoDB
+2025-01-10T08:38:51.052Z info: Conectado a MongoDB
+2025-01-10T08:41:13.713Z info: Archived project with ID: 40119ad2-0631-4c2d-add4-f8f8e32cfdb5
+2025-01-10T08:41:26.307Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T08:45:10.702Z info: Created new project
+2025-01-10T08:45:10.787Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T08:47:04.128Z info: Conectado a MongoDB
+2025-01-10T08:47:10.549Z info: Created new project
+2025-01-10T08:47:10.643Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T08:48:01.054Z info: Archived project with ID: c818e075-ce80-4ecf-bac4-085cdd075f6d
+2025-01-10T08:48:03.504Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T08:48:59.243Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T08:49:42.369Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T08:51:32.313Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T08:51:37.820Z info: Created new project
+2025-01-10T08:51:37.917Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T08:51:41.819Z info: Created new project
+2025-01-10T08:51:41.911Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T08:51:44.763Z info: Created new project
+2025-01-10T08:51:44.865Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T08:51:48.105Z info: Created new project
+2025-01-10T08:51:48.171Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T08:51:50.455Z info: Archived project with ID: 40806935-b182-4ffa-b277-dcbc661881cf
+2025-01-10T08:51:53.218Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T08:55:11.731Z info: Conectado a MongoDB
+2025-01-10T08:55:15.591Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T08:57:34.385Z info: Conectado a MongoDB
+2025-01-10T08:57:46.857Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T08:58:53.260Z info: Conectado a MongoDB
+2025-01-10T08:58:56.006Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T08:59:03.801Z info: Archived project with ID: ae8d6741-0714-496e-a9d6-182a4ccea18b
+2025-01-10T08:59:05.842Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T09:01:22.989Z info: Conectado a MongoDB
+2025-01-10T09:01:24.633Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T09:03:12.416Z info: Conectado a MongoDB
+2025-01-10T09:03:38.614Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T09:03:44.906Z info: Created new project
+2025-01-10T09:03:45.006Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T09:03:47.808Z info: Created new project
+2025-01-10T09:03:47.903Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T09:03:51.141Z info: Created new project
+2025-01-10T09:03:51.227Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T09:03:55.087Z info: Created new project
+2025-01-10T09:03:55.163Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T09:04:54.229Z info: Conectado a MongoDB
+2025-01-10T09:04:57.742Z info: Conectado a MongoDB
+2025-01-10T09:05:00.471Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T09:05:17.266Z info: Archived project with ID: 36742d95-0c8e-4471-9103-461b6d51d1b7
+2025-01-10T09:05:19.987Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T09:07:42.304Z info: Conectado a MongoDB
+2025-01-10T09:07:45.176Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T09:07:52.663Z info: Conectado a MongoDB
+2025-01-10T09:07:52.748Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T09:08:09.827Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T09:08:09.897Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T09:08:12.543Z info: Archived project with ID: 36742d95-0c8e-4471-9103-461b6d51d1b7
+2025-01-10T09:08:14.708Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T09:08:33.384Z info: Conectado a MongoDB
+2025-01-10T09:08:45.121Z info: Conectado a MongoDB
+2025-01-10T09:08:45.805Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T09:08:47.572Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T09:08:57.463Z info: Conectado a MongoDB
+2025-01-10T09:09:01.295Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T09:09:17.567Z info: Conectado a MongoDB
+2025-01-10T09:09:22.065Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T09:10:29.848Z info: Conectado a MongoDB
+2025-01-10T09:12:52.265Z info: Conectado a MongoDB
+2025-01-10T09:12:55.203Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T09:13:16.809Z info: Conectado a MongoDB
+2025-01-10T09:13:22.134Z info: Conectado a MongoDB
+2025-01-10T09:13:25.021Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T09:14:46.690Z info: Conectado a MongoDB
+2025-01-10T09:14:47.354Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T09:16:24.957Z info: Conectado a MongoDB
+2025-01-10T09:16:31.669Z info: Conectado a MongoDB
+2025-01-10T09:16:33.790Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T09:19:58.963Z info: Conectado a MongoDB
+2025-01-10T09:20:52.203Z info: Conectado a MongoDB
+2025-01-10T09:21:05.479Z info: Conectado a MongoDB
+2025-01-10T09:22:04.963Z info: Conectado a MongoDB
+2025-01-10T09:22:05.774Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T09:22:14.571Z info: Archived project with ID: 1efc585d-6baa-4616-a3b7-4a13700eb582
+2025-01-10T09:22:16.367Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T10:50:13.671Z error: MongooseServerSelectionError: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/
+    at _handleConnectionErrors (C:\Users\marcg\Desktop\DAW2\Proyecto\SmartHub\backend\node_modules\mongoose\lib\connection.js:909:11)
+    at NativeConnection.openUri (C:\Users\marcg\Desktop\DAW2\Proyecto\SmartHub\backend\node_modules\mongoose\lib\connection.js:860:11)
+2025-01-10T10:52:21.661Z info: Conectado a MongoDB
+2025-01-10T10:52:34.416Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T10:52:34.547Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T11:06:47.412Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-10T11:27:13.415Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-13T09:17:42.061Z error: MongooseServerSelectionError: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/
+    at _handleConnectionErrors (C:\Users\marcg\Desktop\DAW2\Proyecto\SmartHub\backend\node_modules\mongoose\lib\connection.js:909:11)
+    at NativeConnection.openUri (C:\Users\marcg\Desktop\DAW2\Proyecto\SmartHub\backend\node_modules\mongoose\lib\connection.js:860:11)
+2025-01-13T09:17:53.617Z error: Error fetching professor projects: Operation `Projects.find()` buffering timed out after 10000ms
+2025-01-13T09:18:03.639Z error: Error fetching professor projects: Operation `Projects.find()` buffering timed out after 10000ms
+2025-01-13T09:18:58.837Z info: Conectado a MongoDB
+2025-01-13T09:19:07.838Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-13T09:20:55.614Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-13T09:20:59.089Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-13T09:28:59.614Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-13T09:29:01.573Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-13T09:29:28.872Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-13T09:29:51.664Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-13T09:33:24.756Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-13T09:35:27.342Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-13T09:35:28.869Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-13T09:38:40.222Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-13T09:38:59.354Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-13T09:40:41.249Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-13T09:43:00.449Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-13T09:46:41.457Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-13T09:47:42.179Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-13T09:55:36.798Z info: Conectado a MongoDB
+2025-01-13T09:56:21.651Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-13T09:56:26.751Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-13T09:57:13.528Z info: Conectado a MongoDB
+2025-01-13T09:57:16.622Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-13T09:59:06.753Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-14T08:14:55.681Z info: Conectado a MongoDB
+2025-01-14T08:15:38.038Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-14T08:15:38.112Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-14T08:17:13.036Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-14T08:20:55.522Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-14T08:21:44.997Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-14T08:21:52.565Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-14T08:22:13.853Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-14T08:27:03.449Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-14T08:28:42.662Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-14T09:22:13.843Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-14T09:23:34.829Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-14T11:59:06.372Z error: Error fetching professor projects: connect ETIMEDOUT 13.38.144.145:27017
+2025-01-14T12:01:28.568Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-14T12:08:52.286Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-14T12:27:22.159Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-14T12:58:12.485Z info: Conectado a MongoDB
+2025-01-14T13:01:49.812Z info: Conectado a MongoDB
+2025-01-14T13:02:42.806Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-14T13:02:42.874Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-14T16:08:46.149Z info: Conectado a MongoDB
+2025-01-14T16:11:01.342Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-14T16:11:01.383Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-14T16:26:35.725Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-14T16:35:08.502Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-14T16:35:48.375Z error: Error creating project: Project validation failed: skills.0.percentage: Path `percentage` is required., skills.1.percentage: Path `percentage` is required., skills.2.percentage: Path `percentage` is required.
+2025-01-14T16:35:48.418Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-14T16:39:03.393Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-14T16:41:32.881Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-14T16:41:57.585Z info: Created new project
+2025-01-14T16:41:57.622Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950

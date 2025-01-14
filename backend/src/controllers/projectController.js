@@ -4,7 +4,7 @@ const logger = require('../utils/logger'); // Importa el logger
 // Get all projects
 exports.getAllProjects = async (req, res) => {
   try {
-    const projects = await Project.find();
+    const projects = await Project.find({ archive_date: null });
     logger.info('Fetched all projects');
     res.status(200).json(projects);
   } catch (error) {
@@ -28,6 +28,24 @@ exports.getProjectById = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// Get projects by professor_id
+exports.getProjectsByProfessorID = async (req, res) => {
+  try {
+    const query = {
+      $and: [
+        { professor_id: req.params.id },
+        { archive_date: null }
+      ]
+    };
+    const projects = await Project.find(query);
+    logger.info('Fetched professor projects with ID: ' + req.params.id);
+    res.status(200).json(projects);
+  } catch (error) {
+    logger.error(`Error fetching professor projects: ${error.message}`);
+    res.status(500).json({ message: error.message });
+  }
+}
 
 // Create a new project
 exports.createProject = async (req, res) => {

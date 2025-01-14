@@ -12,7 +12,7 @@ const projectSchema = new mongoose.Schema({
         percentage: { type: Number, required: true }
     }],
     create_date: { type: Date, default: Date.now },
-    archive_date: { type: Date},
+    archive_date: { type: Date },
     modify_date: { type: Date}
 });
   

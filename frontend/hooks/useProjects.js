@@ -36,5 +36,80 @@ export default function useProjects() {
             setLoading(false);
         }
     };
-    return { fetchProjects, error, loading };
+
+    const postProject = async (project) => {
+        setLoading(true);
+        setError(null);
+
+        try {
+            if (!project) throw new Error('No project provided');
+
+            const res = await fetch("http://localhost:3001/api/v1/projects", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(project)
+            })
+
+            if (!res.ok)  {
+                throw new Error("¡Las credenciales no son validas!")
+            }
+
+            return await res.json()
+
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    const fetchProfessorProjects = async (professorID) => {
+        setLoading(true);
+        setError(null);
+
+        try {
+            if (!professorID) throw new Error('No professor ID provided')
+
+            const res = await fetch(`http://localhost:3001/api/v1/projects/professors/${professorID}`);
+
+            if (!res.ok) {
+                throw new Error(`Failed to fetch professor projects with professor_id: ${professorID}`);
+            }
+
+            return res.json();
+
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    const deleteProject = async (id) => {
+        setLoading(true);
+        setError(null);
+
+        try {
+            if (!id) throw new Error('No ID provided')
+
+            const res = await fetch(`http://localhost:3001/api/v1/projects/${id}`, {
+                method: 'DELETE',
+            });
+
+            if (!res.ok) {
+                throw new Error(`Failed to delete project with id: ${id}`);
+            }
+
+            return res.json();
+
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    return { fetchProjects, postProject, fetchProfessorProjects, deleteProject, error, loading };
 }
