@@ -26,10 +26,8 @@ import {useEffect, useState} from "react";
 import useSkills from "@/hooks/useSkills";
 import {toast} from "@/hooks/use-toast";
 
-export default function DialogCloseButton({ setFormData, formData, clickFunction, title, description }) {
+export default function DialogCloseButtonUsers({ setFormData, formData, clickFunction, title, description }) {
 
-    const { fetchAllSkills, error, loading } = useSkills()
-    const [skills, setSkills] = useState([])
     const [selectedItems, setSelectedItems] = useState([]);
     const [isSendable, setIsSendable] = useState(false)
 
@@ -38,25 +36,12 @@ export default function DialogCloseButton({ setFormData, formData, clickFunction
     }
 
     useEffect(() => {
-        const sumOfPercentages = Array.isArray(formData.skills) && formData.skills.length > 0
-            ? formData.skills?.reduce((sum, skill) => sum + skill.percentage, 0)
-            : null
-        console.log(sumOfPercentages)
-        if (formData.name !== "" && formData.description !== "" && (sumOfPercentages <= 100 || sumOfPercentages === null )) {
+        if (formData.name !== "" && formData.lastName !== "" && formData.email !== "" && formData.password !== "") {
             setIsSendable(true)
         } else {
             setIsSendable(false)
         }
     }, [formData]);
-
-    useEffect(() => {
-        const getSkills = async () => {
-            const fetchedSkills = await fetchAllSkills()
-            setSkills(fetchedSkills)
-        }
-
-        getSkills()
-    }, []);
 
     return (
         <Dialog>
@@ -73,25 +58,15 @@ export default function DialogCloseButton({ setFormData, formData, clickFunction
                         <Label htmlFor="name">Nombre</Label>
                         <Input id="name" name="name" onChange={(e) => handleChangeFormData(e)}/>
 
-                        <Label htmlFor="description">Descripción</Label>
-                        <Textarea id="description" name="description" onChange={(e) => handleChangeFormData(e)} />
+                        <Label htmlFor="lastName">Apellido</Label>
+                        <Input id="lastName" name="lastName" onChange={(e) => handleChangeFormData(e)} />
 
-                        <Label htmlFor="skills">Skills</Label>
-                        <SkillsSelector
-                            id="skills"
-                            setSelectedItems={setSelectedItems}
-                            selectedItems={selectedItems}
-                            skills={skills}
-                        />
-                        { Array.isArray(selectedItems)
-                            && selectedItems.length > 0
-                            && <SelectedSkills
-                                selectedItems={selectedItems}
-                                skills={skills}
-                                setFormData={setFormData}
-                                formData={formData}
-                            />
-                        }
+                        <Label htmlFor="email">Correo Electrónico</Label>
+                        <Input id="email" type="email" name="email" onChange={(e) => handleChangeFormData(e)} />
+
+                        <Label htmlFor="password">Contraseña</Label>
+                        <Input id="password" type="password" name="password" onChange={(e) => handleChangeFormData(e)} />
+
                     </div>
                 </div>
                 <DialogFooter className="sm:justify-start">

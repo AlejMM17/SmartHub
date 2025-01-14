@@ -9,6 +9,14 @@ const userController = {
       res.status(500).json({ message: "Error obteniendo usuarios" });
     }
   },
+  getAllStudents: async (req, res) => {
+    try {
+      const users = await User.find({ role: "student" }).select("-password"); // No enviar passwords
+      res.status(200).json(users);
+    } catch (err) {
+      res.status(500).json({ message: "Error obteniendo alumnos" });
+    }
+  },
   getUser: async (req, res) => {
     try {
         const user = await User.findById(req.params.id).select("-password"); // No enviar passwords

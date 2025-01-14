@@ -664,21 +664,27 @@
 2025-01-14T16:41:32.881Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
 2025-01-14T16:41:57.585Z info: Created new project
 2025-01-14T16:41:57.622Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
-2025-01-15T07:09:58.895Z info: Conectado a MongoDB
-2025-01-15T07:12:25.638Z info: Conectado a MongoDB
-2025-01-15T07:12:27.414Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
-2025-01-15T07:12:31.412Z info: Conectado a MongoDB
-2025-01-15T07:12:33.357Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
-2025-01-15T07:12:41.874Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
-2025-01-15T07:12:49.712Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
-2025-01-15T07:13:01.686Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
-2025-01-15T07:13:01.690Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
-2025-01-15T07:13:02.712Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
-2025-01-15T07:13:02.715Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
-2025-01-15T07:13:05.793Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
-2025-01-15T07:13:08.713Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
-2025-01-15T07:15:05.059Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
-2025-01-15T07:15:05.063Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
-2025-01-15T07:15:47.113Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
-2025-01-15T07:16:33.156Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
-2025-01-15T07:16:33.158Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-15T07:56:22.112Z info: Conectado a MongoDB
+2025-01-15T07:56:31.013Z info: Conectado a MongoDB
+2025-01-15T08:57:39.892Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-15T08:57:40.341Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-15T08:58:12.920Z info: Created new project
+2025-01-15T08:58:13.000Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-15T10:51:16.049Z error: Error fetching professor projects: Operation `Projects.find()` buffering timed out after 10000ms
+2025-01-15T10:51:23.406Z error: MongoNetworkError: read ECONNRESET
+    at connectionFailureError (C:\Users\marcg\Desktop\DAW2\Proyecto\SmartHub\backend\node_modules\mongoose\node_modules\mongodb\lib\cmap\connect.js:356:20)
+    at TLSSocket.<anonymous> (C:\Users\marcg\Desktop\DAW2\Proyecto\SmartHub\backend\node_modules\mongoose\node_modules\mongodb\lib\cmap\connect.js:272:44)
+    at Object.onceWrapper (node:events:639:26)
+    at TLSSocket.emit (node:events:524:28)
+    at emitErrorNT (node:internal/streams/destroy:170:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:129:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+2025-01-15T10:51:39.118Z error: Error fetching professor projects: Operation `Projects.find()` buffering timed out after 10000ms
+2025-01-15T10:51:47.273Z error: Error fetching professor projects: Operation `Projects.find()` buffering timed out after 10000ms
+2025-01-15T10:51:49.252Z error: Error fetching professor projects: Operation `Projects.find()` buffering timed out after 10000ms
+2025-01-15T10:52:01.725Z info: Conectado a MongoDB
+2025-01-15T10:52:18.531Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-15T10:52:18.656Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-15T10:55:02.655Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-15T10:55:14.521Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-15T10:56:01.136Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
