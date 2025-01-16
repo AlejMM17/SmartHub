@@ -7,6 +7,29 @@ import {Button} from "@/components/ui/button";
 import {toast} from "@/hooks/use-toast";
 import DialogCloseButtonUsers from "@/components/DialogCloseButtonUsers";
 import useStudents from "@/hooks/useStudents";
+import {
+    Table,
+    TableBody,
+    TableCaption,
+    TableCell,
+    TableFooter,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "@/components/ui/table"
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
+
+import Image from "next/image";
+import {Input} from "@/components/ui/input";
+import {Label} from "@/components/ui/label";
+import {ArrowDown, ArrowUp} from "lucide-react";
 
 export default function Page() {
     const { user } = useUser();
@@ -18,27 +41,31 @@ export default function Page() {
         lastName: "",
         email: "",
         password: "",
+        confirmPassword: "",
+        role: "student"
     })
 
     const handleFormSubmit = async () => {
-
+        const { confirmPassword, ...userPost } = formData
+        await postStudent(userPost)
+        setStudents(await fetchStudents())
     }
 
-    const handleDeleteStudent = (userId) => {
-        const deletedUser = deleteStudent(userId)
+    const handleDeleteStudent = async (userId) => {
+        const deletedUser = await deleteStudent(userId)
+
         if (!deletedUser) {
             return toast({
-                message: 'No se ha podido eliminar el estudiante',
-                status: 'error'
+                message: 'No se ha podido archivar el estudiante',
+                variant: 'destructive'
             })
         } else {
-            setStudents(prev => prev.filter((student) => student._id !== userId))
+            const foundStudent = students.find((student) => student._id === userId)
+            setStudents(await fetchStudents())
             return toast({
-                message: `Estudiante eliminado ${deletedUser.name}`,
-                status: 'success'
+                title: `Estudiante archivado ${foundStudent.name}`,
             })
         }
-
     }
 
     if (error) return <p className="text-red-600 text-2xl">Ups... Something bad happened!</p>
@@ -59,11 +86,11 @@ export default function Page() {
 
 
     return (
-        <div className="w-full">
-            <h1 className="text-4xl font-normal mb-8 text-center lg:text-start lg:mt-8 lg:ms-16">Alumnos</h1>
+        <div className="container mx-auto">
+            <h1 className="text-4xl font-normal mb-8 text-center lg:text-start lg:mt-8">Alumnos</h1>
             { loading || loadingRequest && <SkeletonLoader count={3} /> }
             { !loading && !loadingRequest &&
-                <div className="flex flex-row justify-between items-center mx-auto w-4/5 mb-8">
+                <div className="flex flex-row justify-between items-center mx-auto mb-8">
                     <h3 className="font-bold">Crear Alumno</h3>
                     <DialogCloseButtonUsers
                         setFormData={setFormData}
@@ -83,23 +110,170 @@ const StudentsList = ({ students, isLoading, handleDeleteStudent }) => {
 
     if ((!Array.isArray(students) || students.length <= 0) && !isLoading) return <p>No students found</p>
 
-    return (
-        <div className="flex flex-col gap-3 lg:flex-row lg:w-4/5 lg:mx-auto lg:flex-wrap">
-            { students.map(student => (
-                <Student key={ student._id } studentID={ student._id } handleDeleteStudent={handleDeleteStudent} { ...student } />
-            )) }
-        </div>
-    )
-}
+    const [modifiedStudents, setModifiedStudents] = useState(students)
+    const [filter, setFilter] = useState({
+        name: "",
+        state: "",
+    })
+    const [order, setOrder] = useState({
+        field: "",
+        option: "",
+    })
 
-const Student = ({name, lastName, email, studentID, handleDeleteStudent}) => {
+    useEffect(() => {
+        setModifiedStudents(students.filter((student) => {
+            if (filter.state === "active") {
+                return student.name.toLowerCase().includes(filter.name.toLowerCase()) && !student.archive_date
+            } else if (filter.state === "archived") {
+                return student.name.toLowerCase().includes(filter.name.toLowerCase()) && student.archive_date
+            }
+
+            return student.name.toLowerCase().includes(filter.name.toLowerCase())
+        }))
+    }, [filter])
+
+    useEffect(() => {
+        const sortedStudents = [...modifiedStudents].sort((a, b) => {
+            if (order.field === "name") {
+                return order.option === "ascending"
+                    ? a.name.localeCompare(b.name)
+                    : b.name.localeCompare(a.name);
+            } else if (order.field === "state") {
+                const isAArchived = !!a.archive_date;
+                const isBArchived = !!b.archive_date;
+
+                if (order.option === "ascending") {
+                    return (isAArchived ? 1 : 0) - (isBArchived ? 1 : 0);
+                } else {
+                    return (isBArchived ? 1 : 0) - (isAArchived ? 1 : 0);
+                }
+            }
+            return 0;
+        });
+
+        setModifiedStudents(sortedStudents);
+    }, [order, students]);
+
 
     return (
-        <div className="w-4/5 border rounded border-slate-900 mx-auto p-3 lg:w-fit lg:mx-0">
-            <p>Name: { name }</p>
-            <p>Apellido: { lastName }</p>
-            <p>Correo: { email }</p>
-            <Button variant="destructive" onClick={() => handleDeleteStudent(studentID)}>Eliminar</Button>
-        </div>
+        <>
+            <div className="mb-8 flex flex-row justify-between">
+                <div>
+                    <Label htmlFor="filterByName">Buscar por nombre:</Label>
+                    <Input
+                        name="filterByName"
+                        type="text"
+                        onChange={(e) => setFilter(prevState => ({ ...prevState, name: e.target.value }))}
+                        value={filter.name}
+                        placeholder="Buscar"
+                    />
+                </div>
+                <div className="flex flex-row gap-x-6">
+                    <div>
+                        <Label htmlFor="filterByState">Filtrar por estado:</Label>
+                        <Select onValueChange={(value) => setFilter(prevState => ({ ...prevState, state: value }))}>
+                            <SelectTrigger className="w-[150px]">
+                                <SelectValue placeholder="Estado" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="none" className="font-bold">Ninguno</SelectItem>
+                                <SelectItem value="active">Activo</SelectItem>
+                                <SelectItem value="archived">Archivado</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </div>
+                    <div>
+                        <Label htmlFor="order">Ordenar:</Label>
+                        <Select onValueChange={(value) => (
+                            setOrder({
+                                field: value.includes("name") ? "name" : "state",
+                                option: value.toLowerCase().includes("desc") ? "descending" : "ascending",
+                            }))
+                        }>
+                            <SelectTrigger className="w-[180px]">
+                                <SelectValue placeholder="Orden" />
+                            </SelectTrigger>
+                            <SelectContent className="w-full">
+                                <SelectItem value="all" className="font-bold">
+                                    No Ordenar
+                                </SelectItem>
+                                <SelectItem value="nameAsc">
+                                    <div className="flex flex-row items-center justify-between space-x-2">
+                                        <ArrowUp className="w-4 h-4" />
+                                        <span>Nombre</span>
+                                    </div>
+                                </SelectItem>
+                                <SelectItem value="nameDesc">
+                                    <div className="flex flex-row items-center justify-between space-x-2">
+                                        <ArrowDown className="w-4 h-4" />
+                                        <span>Nombre</span>
+                                    </div>
+                                </SelectItem>
+
+                                <SelectItem value="stateAsc">
+                                    <div className="flex flex-row items-center justify-between space-x-2">
+                                        <ArrowUp className="w-4 h-4" />
+                                        <span>Estado</span>
+                                    </div>
+                                </SelectItem>
+                                <SelectItem value="stateDesc">
+                                    <div className="flex flex-row items-center justify-between space-x-2">
+                                        <ArrowDown className="w-4 h-4" />
+                                        <span>Estado</span>
+                                    </div>
+                                </SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </div>
+                </div>
+            </div>
+            <Table>
+                {/*<TableCaption>A list of your recent invoices.</TableCaption>*/}
+                <TableHeader>
+                    <TableRow>
+                        <TableHead>Foto</TableHead>
+                        <TableHead>Nombre</TableHead>
+                        <TableHead>Apellido</TableHead>
+                        <TableHead>Correo</TableHead>
+                        <TableHead>Estado</TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    {modifiedStudents.map((student) => (
+                        <TableRow key={student._id}>
+                            <TableCell className="rounded"><Image width={24} height={24} src={`/${student.user_picture}`} alt=""/></TableCell>
+                            <TableCell>{student.name}</TableCell>
+                            <TableCell>{student.lastName}</TableCell>
+                            <TableCell>{student.email}</TableCell>
+                            <TableCell>
+                                <div className="flex items-center gap-x-2">
+                                    <span
+                                        className={`w-3 h-3 rounded-full ${
+                                            student.archive_date ? "bg-red-600" : "bg-green-600"
+                                        }`}
+                                    />
+                                    <p>{student.archive_date ? "Archivado" : "Activo"}</p>
+                                </div>
+                            </TableCell>
+                            <TableCell className="text-right">
+                                <Button
+                                    disabled={student.archive_date}
+                                    variant="destructive"
+                                    onClick={() => handleDeleteStudent(student._id)}
+                                >
+                                    Archivar
+                                </Button>
+                            </TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+                {/*<TableFooter>*/}
+                {/*    <TableRow>*/}
+                {/*        <TableCell colSpan={3}>Total</TableCell>*/}
+                {/*        <TableCell className="text-right">$2,500.00</TableCell>*/}
+                {/*    </TableRow>*/}
+                {/*</TableFooter>*/}
+            </Table>
+        </>
     )
 }

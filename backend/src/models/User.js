@@ -4,10 +4,11 @@ const {v4: uuidv4} = require('uuid');
 const userSchema = new mongoose.Schema({
     _id: {type: String, default: uuidv4 },
     name: { type: String, required: true },
+    lastName: { type: String, required: true },
     role: { type: String, enum: ['student','professor'] , required: true },
     email: { type: String, unique: true, required: true },
     password: { type: String, required: true },
-    user_picture: { type: String, default: "./defaultPFP"},
+    user_picture: { type: String, default: "defaultPFP.webp"},
     assigned_projects: [{type: String, ref:'Project' }],
     create_date: { type: Date, default: Date.now() },
     archive_date: { type: Date},

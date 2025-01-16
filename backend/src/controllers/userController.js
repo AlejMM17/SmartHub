@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const logger = require("../utils/logger");
 
 const userController = {
   getAllUsers: async (req, res) => {
@@ -11,7 +12,7 @@ const userController = {
   },
   getAllStudents: async (req, res) => {
     try {
-      const users = await User.find({ role: "student" }).select("-password"); // No enviar passwords
+      const users = await User.find({ role: "student"}).select("-password"); // No enviar passwords
       res.status(200).json(users);
     } catch (err) {
       res.status(500).json({ message: "Error obteniendo alumnos" });
@@ -27,16 +28,17 @@ const userController = {
   },
   createUser: async (req, res) => {
     try {
-      const { name, role, email, password } = req.body;
+      const { name, lastName, role, email, password } = req.body;
 
-      if (!name || !email || !password || !role) {
+      if (!name || !lastName || !email || !password || !role) {
         return res.status(400).json({
-          error: "Faltan campos obligatorios: name, email, password, role",
+          error: "Faltan campos obligatorios: name, lastName, email, password, role",
         });
       }
 
       const newUser = new User({
         name,
+        lastName,
         role,
         email,
         password,
