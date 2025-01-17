@@ -5,12 +5,20 @@ import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
 import {Button} from "@/components/ui/button";
 import {Calendar as CalendarIcon} from "lucide-react";
 import {Calendar} from "@/components/ui/calendar";
-
-export default function DatePickerWithRange({ className }) {
+export default function DatePickerWithRange({ className, setFormData }) {
     const [date, setDate] = useState({
         from: new Date(2022, 0, 20),
         to: addDays(new Date(2022, 0, 20), 20),
-    })
+    });
+
+    const handleSelect = (selectedDate) => {
+        setDate(selectedDate);
+        setFormData(prev => ({
+            ...prev,
+            startDate: selectedDate.from,
+            endDate: selectedDate.to
+        }));
+    };
 
     return (
         <div className={cn("grid gap-2", className)}>
@@ -45,11 +53,11 @@ export default function DatePickerWithRange({ className }) {
                         mode="range"
                         defaultMonth={date?.from}
                         selected={date}
-                        onSelect={setDate}
+                        onSelect={handleSelect}
                         numberOfMonths={2}
                     />
                 </PopoverContent>
             </Popover>
         </div>
-    )
+    );
 }

@@ -28,30 +28,13 @@ const activityController = {
     }
   },
   createActivity: async (req, res) => {
+    const activity = new Activity(req.body);
     try {
-      const { name, descripcion } = req.body;
-
-      if (!name || !descripcion) {
-        return res.status(400).json({
-          message: "Faltan campos obligatorios: name, email, password, role",
-        });
-      }
-
-      const newActivity = new Activity({
-        name,
-        descripcion,
-      });
-
-      const savedActivity = await newActivity.save();
-
-      res.status(201).json({
-        message: "Actividad creada correctamente",
-        activity: savedActivity,
-      });
-    } catch (e) {
-      res.status(500).json({
-        message: "Actividad no creada",
-      });
+      const newActivity = await activity.save();
+      res.status(201).json(newActivity);
+    } catch (error) {
+      console.error(error);
+      res.status(400).json({ message: error.message });
     }
   },
   updateActivity: async (req, res) => {

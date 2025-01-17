@@ -7,6 +7,8 @@ import SkeletonLoader from "@/components/SkeletonsProject";
 import DialogCloseButton from "@/components/DialogCloseButton";
 import {Button} from "@/components/ui/button";
 import {toast} from "@/hooks/use-toast";
+import { useRouter } from 'next/navigation';
+
 
 export default function Page() {
     const { user } = useUser();
@@ -86,7 +88,6 @@ export default function Page() {
 }
 
 const ProjectList = ({ projects, isLoading, handleDeleteProject }) => {
-
     if ((!Array.isArray(projects) || projects.length <= 0) && !isLoading) return <p>No projects found</p>
 
     return (
@@ -99,13 +100,21 @@ const ProjectList = ({ projects, isLoading, handleDeleteProject }) => {
 }
 
 const Project = ({name, description, activities, projectID, handleDeleteProject}) => {
+    const router = useRouter();
+
+    const handleProjectClick = (projectId) => {
+        router.push(`/professor/projects/${projectId}/`);
+    };
 
     return (
-        <div className="w-4/5 border rounded border-slate-900 mx-auto p-3 lg:w-fit lg:mx-0">
+        <div 
+            className="w-4/5 border rounded border-slate-900 mx-auto p-3 lg:w-fit lg:mx-0 cursor-pointer" 
+            onClick={() => handleProjectClick(projectID)}
+        >
             <p>Name: { name }</p>
             <p>Description: { description }</p>
             <p>Activities: { activities.length }</p>
-            <Button variant="destructive" onClick={() => handleDeleteProject(projectID)}>Eliminar</Button>
+            <Button variant="destructive" onClick={(e) => { e.stopPropagation(); handleDeleteProject(projectID); }}>Eliminar</Button>
         </div>
     )
 }

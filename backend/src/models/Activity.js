@@ -11,7 +11,6 @@ const activitySchema = new mongoose.Schema({
         skill_id: { type: String, ref: 'Skill' },
         percentage: { type: Number, required: true },
     }],
-    state: {type: Boolean, default: false },  
     create_date: { type: Date, default: Date.now },
     archive_date: { type: Date},
     modify_date: { type: Date}

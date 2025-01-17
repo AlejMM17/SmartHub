@@ -34,6 +34,33 @@ export default function useActivities() {
       setLoading(false);
     }
   };
+  const postActivity = async (activityStructure) => {
+    setLoading(true);
+    setError(null);
 
-  return { fetchActivities, error, loading };
+    try {
+      if (!activityStructure) throw new Error('No activity structure provided');
+      
+      const res = await fetch("http://localhost:3001/api/v1/activities", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(activityStructure)
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to create activity");
+      }
+
+      return await res.json();
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { fetchActivities, postActivity, error, loading };
 }
+
