@@ -89,11 +89,11 @@ export default function Page() {
 
 const ProjectList = ({ projects, isLoading, handleDeleteProject }) => {
     if ((!Array.isArray(projects) || projects.length <= 0) && !isLoading) return <p>No projects found</p>
-
     return (
         <div className="flex flex-col gap-3 lg:flex-row lg:w-4/5 lg:mx-auto lg:flex-wrap">
             { projects.map(project => (
-                <Project key={ project._id } projectID={ project._id } handleDeleteProject={handleDeleteProject} { ...project } />
+
+                <Project key={ project._id } projectId={ project._id } projectID={ project._id } handleDeleteProject={handleDeleteProject} { ...project } />
             )) }
         </div>
     )

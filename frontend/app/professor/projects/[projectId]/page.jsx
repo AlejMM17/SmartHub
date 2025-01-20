@@ -4,58 +4,92 @@ import ActivitiesDialogCloseButton from '@/components/ActivitiesDialogCloseButto
 import SkeletonLoader from '@/components/SkeletonsProject';
 import { useUser } from '@/context/UserContext';
 import useActivities from '@/hooks/useActivities';
+import { Button } from '@/components/ui/button';
+import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { toast } from '@/hooks/use-toast';
 
 export default function Page() {
+    const params = useParams();
+    const projectId = params.projectId;
+
     const { user } = useUser();
-    const [activities, setActivities] = useState([])
-    const [loadingRequest, setLoadingRequest] = useState(true)
+    const [activities, setActivities] = useState([]);
+    const [loadingRequest, setLoadingRequest] = useState(true);
     const [formData, setFormData] = useState({
         name: "",
         description: "",
         startDate: null,
         endDate: null,
         skills: []
-    })
-    const { fetchActivities, postActivity, deleteActivity, loading, error } = useActivities()
+    });
+
+    const { fetchActivities, postActivity, deleteActivity, loading, error } = useActivities();
 
     const handleFormSubmit = async () => {
-        const activityStructure = {
-            user_id: user._id,
-            ...formData
+        try {
+            const activityStructure = {
+                user_id: user._id,
+                project_id: projectId,
+                name: formData.name,
+                description: formData.description,
+                start_date: formData.startDate,
+                end_date: formData.endDate,
+                skills: formData.skills
+            };
+            const newActivity = await postActivity(activityStructure);
+            setActivities(prev => [...prev, newActivity]);
+            toast({
+                message: `Actividad creada ${newActivity.name}`,
+                status: 'success'
+            });
+        } catch (err) {
+            toast({
+                message: 'No se ha podido crear la actividad',
+                status: 'error'
+            });
         }
-        await postActivity(activityStructure)
-        setActivities(await fetchActivities(user._id))
-    }
+    };
 
     const handleDeleteActivity = async (activityID) => {
-        const deletedActivity = await deleteActivity(activityID)
-        if (!deletedActivity) {
-            return toast({
-                message: 'No se ha podido eliminar la actividad',
-                status: 'error'
-            })
-        } else {
-            setActivities(prev => prev.filter((activity) => activity._id !== activityID))
-            return toast({
+        try {
+            const deletedActivity = await deleteActivity(activityID);
+            if (!deletedActivity) {
+                throw new Error('No se ha podido eliminar la actividad');
+            }
+            setActivities(prev => prev.filter((activity) => activity._id !== activityID));
+            toast({
                 message: `Actividad eliminada ${deletedActivity.name}`,
                 status: 'success'
-            })
+            });
+        } catch (err) {
+            toast({
+                message: 'No se ha podido eliminar la actividad',
+                status: 'error'
+            });
         }
-    }
+    };
 
     useEffect(() => {
-        setLoadingRequest(true)
-        if (!user?._id) return
-        const fetchUserActivities = async () => {
-            const activities = await fetchActivities(user._id)
-            setActivities(activities)
-        }
-        fetchUserActivities()
-        setLoadingRequest(false)
-    }, [user])
+        const fetchProjectActivities = async () => {
+            try {
+                if (user && projectId) {
+                    const activities = await fetchActivities(projectId);
+                    setActivities(activities);
+                }
+            } catch (err) {
+                toast({
+                    message: 'No se han podido cargar las actividades',
+                    status: 'error'
+                });
+            } finally {
+                setLoadingRequest(false);
+            }
+        };
+        fetchProjectActivities();
+    }, [user, projectId]);
 
-    if (error) return <p className="text-red-600 text-2xl">Ups... Something bad happened!</p>
+    if (error) return <p className="text-red-600 text-2xl">Ups... Something bad happened!</p>;
 
     return (
         <div className="w-full">
@@ -75,11 +109,11 @@ export default function Page() {
             }
             <ActivityList activities={activities} isLoading={loadingRequest} handleDeleteActivity={handleDeleteActivity} />
         </div>
-    )
+    );
 }
 
 const ActivityList = ({ activities, isLoading, handleDeleteActivity }) => {
-    if ((!Array.isArray(activities) || activities.length <= 0) && !isLoading) return <p>No activities found</p>
+    if ((!Array.isArray(activities) || activities.length <= 0) && !isLoading) return <p>No activities found</p>;
 
     return (
         <div className="flex flex-col gap-3 lg:flex-row lg:w-4/5 lg:mx-auto lg:flex-wrap">
@@ -87,8 +121,8 @@ const ActivityList = ({ activities, isLoading, handleDeleteActivity }) => {
                 <Activity key={ activity._id } activityID={ activity._id } handleDeleteActivity={handleDeleteActivity} { ...activity } />
             )) }
         </div>
-    )
-}
+    );
+};
 
 const Activity = ({name, description, activityID, handleDeleteActivity}) => {
     return (
@@ -97,5 +131,5 @@ const Activity = ({name, description, activityID, handleDeleteActivity}) => {
             <p>Description: { description }</p>
             <Button variant="destructive" onClick={() => handleDeleteActivity(activityID)}>Eliminar</Button>
         </div>
-    )
-}
+    );
+};
