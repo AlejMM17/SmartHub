@@ -9,10 +9,6 @@ export const FollowerPointerCard = ({
   children,
   className,
   title,
-  description,
-  startDate,
-  endDate,
-  skills
 
 }) => {
   const x = useMotionValue(0);

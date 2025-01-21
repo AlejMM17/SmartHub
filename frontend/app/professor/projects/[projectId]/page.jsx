@@ -23,8 +23,6 @@ export default function Page() {
         endDate: null,
         skills: []
     });
-    console.log(formData.startDate);
-    console.log(formData.endDate);
 
     const { fetchActivities, postActivity, deleteActivity, loading, error } = useActivities();
 

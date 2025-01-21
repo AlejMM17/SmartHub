@@ -21,10 +21,24 @@ import {
     Select,
     SelectContent,
     SelectItem,
-    SelectLabel,
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
+import {
+    Pagination,
+    PaginationContent,
+    PaginationEllipsis,
+    PaginationItem,
+    PaginationLink,
+    PaginationNext,
+    PaginationPrevious,
+} from "@/components/ui/pagination"
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@/components/ui/tooltip"
 
 import Image from "next/image";
 import {Input} from "@/components/ui/input";
@@ -44,6 +58,8 @@ export default function Page() {
         confirmPassword: "",
         role: "student"
     })
+    const [page, setPage] = useState(1)
+    const pagesNumber = Math.ceil(students.length / 6)
 
     const handleFormSubmit = async () => {
         const { confirmPassword, ...userPost } = formData
@@ -90,23 +106,54 @@ export default function Page() {
             <h1 className="text-4xl font-normal mb-8 text-center lg:text-start lg:mt-8">Alumnos</h1>
             { loading || loadingRequest && <SkeletonLoader count={3} /> }
             { !loading && !loadingRequest &&
-                <div className="flex flex-row justify-between items-center mx-auto mb-8">
-                    <h3 className="font-bold">Crear Alumno</h3>
-                    <DialogCloseButtonUsers
-                        setFormData={setFormData}
+                <>
+                    <StudentsList
+                        students={students}
+                        page={page}
+                        isLoading={loadingRequest}
+                        handleDeleteStudent={handleDeleteStudent}
+                        handleFormSubmit={handleFormSubmit}
                         formData={formData}
-                        clickFunction={handleFormSubmit}
-                        title="Crear Alumno"
-                        description="Inserta todos los datos requeridos para crear un nuevo alumno."
+                        setFormData={setFormData}
                     />
-                </div>
+                    <PaginationComponent page={page} setPage={setPage} pagesNumber={pagesNumber} />
+                </>
             }
-            <StudentsList students={students} isLoading={loadingRequest} handleDeleteStudent={handleDeleteStudent} />
         </div>
     )
 }
 
-const StudentsList = ({ students, isLoading, handleDeleteStudent }) => {
+const PaginationComponent = ({ page, setPage, pagesNumber }) => (
+
+    <Pagination className="my-8">
+        <PaginationContent>
+            <PaginationPrevious
+                onClick={() => setPage((prev) => Math.max(1, prev - 1))}
+                disabled={page === 1}
+                className={`hover:cursor-pointer ${page === 1 ? "opacity-20 hover:pointer-events-none" : ""}`}
+            />
+            {Array.from({ length: pagesNumber }, (_, i) => (
+                <PaginationItem key={i + 1}>
+                    <PaginationLink
+                        onClick={() => setPage(i + 1)}
+                        isActive={page === i + 1}
+                        className="hover:cursor-pointer"
+                    >
+                        {i + 1}
+                    </PaginationLink>
+                </PaginationItem>
+            ))}
+            <PaginationNext
+                onClick={() => setPage((prev) => Math.min(pagesNumber, prev + 1))}
+                disabled={page === pagesNumber}
+                className={`hover:cursor-pointer ${page === pagesNumber ? "opacity-20 hover:pointer-events-none" : ""}`}
+            />
+        </PaginationContent>
+    </Pagination>
+);
+
+
+const StudentsList = ({ students, isLoading, handleDeleteStudent, page, formData, setFormData, handleFormSubmit }) => {
 
     if ((!Array.isArray(students) || students.length <= 0) && !isLoading) return <p>No students found</p>
 
@@ -154,6 +201,21 @@ const StudentsList = ({ students, isLoading, handleDeleteStudent }) => {
         setModifiedStudents(sortedStudents);
     }, [order, students]);
 
+    useEffect(() => {
+        const itemsPerPage = 6;
+        const startIndex = (page - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+
+        setModifiedStudents(
+            students
+                .filter((student) => {
+                    if (filter.state === "active") return !student.archive_date && student.name.toLowerCase().includes(filter.name.toLowerCase());
+                    if (filter.state === "archived") return student.archive_date && student.name.toLowerCase().includes(filter.name.toLowerCase());
+                    return student.name.toLowerCase().includes(filter.name.toLowerCase());
+                })
+                .slice(startIndex, endIndex)
+        );
+    }, [page, students, filter]);
 
     return (
         <>
@@ -168,7 +230,7 @@ const StudentsList = ({ students, isLoading, handleDeleteStudent }) => {
                         placeholder="Buscar"
                     />
                 </div>
-                <div className="flex flex-row gap-x-6">
+                <div className="flex flex-row gap-x-6 items-end">
                     <div>
                         <Label htmlFor="filterByState">Filtrar por estado:</Label>
                         <Select onValueChange={(value) => setFilter(prevState => ({ ...prevState, state: value }))}>
@@ -225,10 +287,25 @@ const StudentsList = ({ students, isLoading, handleDeleteStudent }) => {
                             </SelectContent>
                         </Select>
                     </div>
+                    <TooltipProvider>
+                        <Tooltip>
+                            <TooltipTrigger>
+                                <DialogCloseButtonUsers
+                                    setFormData={setFormData}
+                                    formData={formData}
+                                    clickFunction={handleFormSubmit}
+                                    title="Crear Alumno"
+                                    description="Inserta todos los datos requeridos para crear un nuevo alumno."
+                                />
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                <p>Crear Alumno</p>
+                            </TooltipContent>
+                        </Tooltip>
+                    </TooltipProvider>
                 </div>
             </div>
             <Table>
-                {/*<TableCaption>A list of your recent invoices.</TableCaption>*/}
                 <TableHeader>
                     <TableRow>
                         <TableHead>Foto</TableHead>

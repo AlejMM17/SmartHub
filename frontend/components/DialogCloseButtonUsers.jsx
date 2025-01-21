@@ -46,7 +46,7 @@ export default function DialogCloseButtonUsers({ setFormData, formData, clickFun
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant="outline"><PlusIcon/></Button>
+                <Button variant="outline" className="bg-none"><PlusIcon/></Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-md">
                 <DialogHeader>

@@ -1,6 +1,6 @@
 "use client"
 
-import {PlusIcon} from "lucide-react"
+import {PencilIcon, PlusIcon} from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -26,7 +26,7 @@ import {useEffect, useState} from "react";
 import useSkills from "@/hooks/useSkills";
 import {toast} from "@/hooks/use-toast";
 
-export default function DialogCloseButton({ setFormData, formData, clickFunction, title, description }) {
+export default function DialogCloseButton({ setFormData, formData, clickFunction, title, description, action, projectID }) {
 
     const { fetchAllSkills, error, loading } = useSkills()
     const [skills, setSkills] = useState([])
@@ -41,7 +41,6 @@ export default function DialogCloseButton({ setFormData, formData, clickFunction
         const sumOfPercentages = Array.isArray(formData.skills) && formData.skills.length > 0
             ? formData.skills?.reduce((sum, skill) => sum + skill.percentage, 0)
             : null
-        console.log(sumOfPercentages)
         if (formData.name !== "" && formData.description !== "" && (sumOfPercentages <= 100 || sumOfPercentages === null )) {
             setIsSendable(true)
         } else {
@@ -61,7 +60,7 @@ export default function DialogCloseButton({ setFormData, formData, clickFunction
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant="outline"><PlusIcon/></Button>
+                <Button variant="outline" className={action === "Modify" ? "bg-blue-500 hover:bg-blue-600 text-white hover:text-white" : ""}>{action === "Create" ? <PlusIcon/> : <PencilIcon />}</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-md">
                 <DialogHeader>
@@ -100,7 +99,7 @@ export default function DialogCloseButton({ setFormData, formData, clickFunction
                             Close
                         </Button>
                     </DialogClose>
-                    <Button type="button" variant="primary" disabled={!isSendable} className="bg-blue-500 text-white hover:bg-blue-800" onClick={() => clickFunction()}>
+                    <Button type="button" variant="primary" disabled={!isSendable} className="bg-blue-500 text-white hover:bg-blue-800" onClick={() => action === "Modify" ? clickFunction(projectID) : clickFunction()}>
                         Send
                     </Button>
                 </DialogFooter>

@@ -111,5 +111,33 @@ export default function useProjects() {
         }
     }
 
-    return { fetchProjects, postProject, fetchProfessorProjects, deleteProject, error, loading };
+    const updateProject = async (id, project) => {
+        setLoading(true);
+        setError(null);
+
+        try {
+            if (!id) throw new Error('No ID provided')
+
+            const res = await fetch(`http://localhost:3001/api/v1/projects/${id}`, {
+                method: 'PUT',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(project)
+            });
+
+            if (!res.ok) {
+                throw new Error(`Failed to delete project with id: ${id}`);
+            }
+
+            return res.json();
+
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    return { fetchProjects, postProject, fetchProfessorProjects, deleteProject, updateProject, error, loading };
 }
