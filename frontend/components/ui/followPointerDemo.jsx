@@ -3,7 +3,9 @@ import { FollowerPointerCard } from "../ui/following-pointer";
 import { Button } from '@/components/ui/button';
 
 export function FollowingPointerDemo({ activity, activityID, handleDeleteActivity }) {
-  return (
+    const status = getActivityStatus(activity.start_date, activity.end_date);
+
+    return (
     (<div className="w-80">
       <FollowerPointerCard
         title={
@@ -20,12 +22,27 @@ export function FollowingPointerDemo({ activity, activityID, handleDeleteActivit
               objectFit="cover"
               className={`group-hover:scale-95 group-hover:rounded-2xl transform object-cover transition duration-200 `} />
           </div>
-          <div className=" p-4">
+          
+          <div className="p-4">
+          <h2 className={"text-md"}>
+                <div className="flex items-center gap-x-2">
+                    <span
+                        className={`w-3 h-3 rounded-full ${
+                            {status} == "Pendiente" ? "bg-red-600" : "bg-green-600"
+                        }`}
+                    />
+                    <p>{status}</p>
+                </div>
+            </h2>
             <h2 className="font-bold my-4 text-lg text-zinc-700">
               {activity.name}
             </h2>
+            
             <h2 className="font-normal my-4 text-sm text-zinc-500">
               {activity.description}
+            </h2>
+            <h2 className="font-normal my-4 text-sm text-zinc-500">
+              {activity.skill}
             </h2>
             <div className="flex flex-row justify-between items-center mt-10">
                 <div className="flex flex-col">
@@ -44,6 +61,19 @@ export function FollowingPointerDemo({ activity, activityID, handleDeleteActivit
 const formatDate = (dateString) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     return new Date(dateString).toLocaleDateString('es-ES', options);
+};
+const getActivityStatus = (startDate, endDate) => {
+    const now = new Date();
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    if (now < start) {
+        return "Pendiente";
+    } else if (now > end) {
+        return "Finalizada";
+    } else {
+        return "Activa";
+    }
 };
 
 const TitleComponent = ({
