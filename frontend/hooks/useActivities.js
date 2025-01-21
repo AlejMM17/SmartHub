@@ -61,6 +61,29 @@ export default function useActivities() {
     }
   };
 
-  return { fetchActivities, postActivity, error, loading };
+  const deleteActivity = async (id) => {
+    setLoading(true);
+    setError(null);
+
+    try {
+        if (!id) throw new Error('No ID provided')
+
+        const res = await fetch(`http://localhost:3001/api/v1/activities/${id}`, {
+            method: 'DELETE',
+        });
+
+        if (!res.ok) {
+            throw new Error(`Failed to delete activity with id: ${id}`);
+        }
+
+        return res.json();
+
+    } catch (err) {
+        setError(err.message);
+    } finally {
+        setLoading(false);
+    }
+}
+  return { fetchActivities, postActivity, deleteActivity, error, loading };
 }
 

@@ -4,10 +4,10 @@ import ActivitiesDialogCloseButton from '@/components/ActivitiesDialogCloseButto
 import SkeletonLoader from '@/components/SkeletonsProject';
 import { useUser } from '@/context/UserContext';
 import useActivities from '@/hooks/useActivities';
-import { Button } from '@/components/ui/button';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { toast } from '@/hooks/use-toast';
+import { FollowingPointerDemo } from '@/components/ui/followPointerDemo';
 
 export default function Page() {
     const params = useParams();
@@ -23,6 +23,8 @@ export default function Page() {
         endDate: null,
         skills: []
     });
+    console.log(formData.startDate);
+    console.log(formData.endDate);
 
     const { fetchActivities, postActivity, deleteActivity, loading, error } = useActivities();
 
@@ -116,20 +118,10 @@ const ActivityList = ({ activities, isLoading, handleDeleteActivity }) => {
     if ((!Array.isArray(activities) || activities.length <= 0) && !isLoading) return <p>No activities found</p>;
 
     return (
-        <div className="flex flex-col gap-3 lg:flex-row lg:w-4/5 lg:mx-auto lg:flex-wrap">
+        <div className="flex flex-col items-stretch gap-3 lg:flex-row lg:w-4/5 lg:mx-auto lg:flex-wrap">
             { activities.map(activity => (
-                <Activity key={ activity._id } activityID={ activity._id } handleDeleteActivity={handleDeleteActivity} { ...activity } />
+                <FollowingPointerDemo key={ activity._id } activity={ activity } activityID={ activity._id } handleDeleteActivity={handleDeleteActivity} />
             )) }
-        </div>
-    );
-};
-
-const Activity = ({name, description, activityID, handleDeleteActivity}) => {
-    return (
-        <div className="w-4/5 border rounded border-slate-900 mx-auto p-3 lg:w-fit lg:mx-0">
-            <p>Name: { name }</p>
-            <p>Description: { description }</p>
-            <Button variant="destructive" onClick={() => handleDeleteActivity(activityID)}>Eliminar</Button>
         </div>
     );
 };

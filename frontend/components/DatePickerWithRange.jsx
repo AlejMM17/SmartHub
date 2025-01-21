@@ -7,16 +7,17 @@ import {Calendar as CalendarIcon} from "lucide-react";
 import {Calendar} from "@/components/ui/calendar";
 export default function DatePickerWithRange({ className, setFormData }) {
     const [date, setDate] = useState({
-        from: new Date(2022, 0, 20),
-        to: addDays(new Date(2022, 0, 20), 20),
+        from: null,
+        to: null,
     });
+    
 
     const handleSelect = (selectedDate) => {
         setDate(selectedDate);
         setFormData(prev => ({
             ...prev,
-            startDate: selectedDate.from,
-            endDate: selectedDate.to
+            startDate: selectedDate.from ? format(selectedDate.from, "dd/MM/yyyy") : null,
+            endDate: selectedDate.to ? format(selectedDate.to, "dd/MM/yyyy") : null
         }));
     };
 
