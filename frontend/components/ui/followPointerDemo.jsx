@@ -1,43 +1,44 @@
 "use client"
 
 import Image from "next/image";
-import { FollowerPointerCard } from "../ui/following-pointer";
 import { Button } from '@/components/ui/button';
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import useSkills from "@/hooks/useSkills";
-import {Badge} from "@/components/ui/badge";
+import { Badge } from "@/components/ui/badge";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import Link from "next/link";
+import { ArrowRight, Trash2 } from "lucide-react";
+import ActivitiesDialogCloseButton from "../ActivitiesDialogCloseButton";
 
-export function FollowingPointerDemo({ activity, activityID, handleDeleteActivity }) {
-    const [skillsFetched, setSkillsFetched] = useState([])
-    const { getSkillById, loading, error } = useSkills()
+export function FollowingPointerDemo({ activity, activityID, handleDeleteActivity, handleModifyActivity, formData, setFormData, projectID }) {
+    const [skillsFetched, setSkillsFetched] = useState([]);
+    const { getSkillById, loading, error } = useSkills();
     const status = getActivityStatus(activity.start_date, activity.end_date);
 
     useEffect(() => {
-        const fetchSkills = async () => {
-            try {
-                const skillPromises = activity.skills.map((skill) =>
-                    getSkillById(skill.skill_id)
-                );
+      const fetchSkills = async () => {
+          try {
+              if (activity.skills && Array.isArray(activity.skills)) {
+                  const skillPromises = activity.skills.map((skill) =>
+                      getSkillById(skill.skill_id)
+                  );
 
-                const fetchedSkills = await Promise.all(skillPromises);
+                  const fetchedSkills = await Promise.all(skillPromises);
 
-                setSkillsFetched(fetchedSkills);
-            } catch (err) {
-                console.error("Error fetching skills:", err);
-            }
-        };
+                  setSkillsFetched(fetchedSkills);
+              }
+          } catch (err) {
+              console.error("Error fetching skills:", err);
+          }
+      };
 
-        fetchSkills();
-    }, [activity.skills]);
+      fetchSkills();
+  }, [activity.skills]);
 
     return (
         <div className="w-80">
-            <FollowerPointerCard
-                title={
-                    <TitleComponent title={activity.name} avatar={"/defaultPFP.webp"} />
-                }>
-                <div
-                    className="relative h-full rounded-2xl transition duration-200 group bg-white hover:shadow-xl border border-zinc-100 flex flex-col justify-between min-h-[400px]">
+            <div className="h-full">
+                <div className="relative h-full rounded-2xl transition duration-200 group bg-white hover:shadow-xl border border-zinc-100 flex flex-col justify-between min-h-[400px]">
                     {/* Image Section */}
                     <div className="w-full h-40 bg-gray-100 rounded-tr-lg rounded-tl-lg overflow-hidden relative">
                         <Image
@@ -54,19 +55,12 @@ export function FollowingPointerDemo({ activity, activityID, handleDeleteActivit
                         {/* Status */}
                         <div>
                             <div className="flex items-center gap-x-2 mb-2">
-                                <span
-                                    className={`w-3 h-3 rounded-full ${
-                                        status === "Pendiente" ? "bg-red-600" : "bg-green-600"
-                                    }`}
-                                />
+                                <span className={`w-3 h-3 rounded-full ${status === "Pendiente" ? "bg-red-600" : "bg-green-600"}`} />
                                 <p>{status}</p>
                             </div>
 
                             <div className="flex flex-row flex-wrap gap-2 my-2">
-                                { !loading
-                                    && Array.isArray(skillsFetched)
-                                    && skillsFetched.length > 0
-                                    && skillsFetched.map((skill, i) => (
+                                {!loading && Array.isArray(skillsFetched) && skillsFetched.length > 0 && skillsFetched.map((skill, i) => (
                                     <Badge key={skill._id}>
                                         {skill.name} - {activity.skills[i].percentage + "%"}
                                     </Badge>
@@ -79,11 +73,12 @@ export function FollowingPointerDemo({ activity, activityID, handleDeleteActivit
                             <p className="font-normal text-sm text-zinc-500">
                                 {activity.description}
                             </p>
+                            
                         </div>
 
                         {/* Footer */}
-                        <div className="flex flex-row justify-between items-center">
-                            <div className="flex flex-col">
+                        <div className="flex flex-col justify-between">
+                        <div className="flex flex-col mb-5">
                                 <span className="text-sm text-gray-500">
                                     Desde: <b>{formatDate(activity.start_date)}</b>
                                 </span>
@@ -91,17 +86,52 @@ export function FollowingPointerDemo({ activity, activityID, handleDeleteActivit
                                     Fins: <b>{formatDate(activity.end_date)}</b>
                                 </span>
                             </div>
-                            <Button
-                                variant="destructive"
-
-                                onClick={() => handleDeleteActivity(activityID)}
-                            >
-                                Eliminar
-                            </Button>
+                            <div className="flex flex-row gap-1 justify-between">
+                                <div>
+                                <TooltipProvider>
+                                    <Tooltip>
+                                        <TooltipTrigger>
+                                            <ActivitiesDialogCloseButton
+                                                setFormData={setFormData}
+                                                formData={formData}
+                                                clickFunction={() => handleModifyActivity(activityID)}
+                                                title="Modificar Actividad"
+                                                description="Modifica todos los datos requeridos para modificar una actividad."
+                                                action="Modify"
+                                                activityID={activityID}
+                                            />
+                                        </TooltipTrigger>
+                                        <TooltipContent>
+                                            <p>Modificar Actividad</p>
+                                        </TooltipContent>
+                                    </Tooltip>
+                                </TooltipProvider>
+                                <TooltipProvider>
+                                    <Tooltip>
+                                        <TooltipTrigger>
+                                            <Link href={`/professor/projects/${projectID}/${activityID}`}><Button variant="outline"><ArrowRight /></Button></Link>
+                                        </TooltipTrigger>
+                                        <TooltipContent>
+                                            <p>Ir a Actividad</p>
+                                        </TooltipContent>
+                                    </Tooltip>
+                                </TooltipProvider>
+                                </div>
+                                <TooltipProvider>
+                                    <Tooltip>
+                                        <TooltipTrigger>
+                                            <Button variant="destructive" onClick={() => handleDeleteActivity(activityID)}><Trash2 /></Button>
+                                        </TooltipTrigger>
+                                        <TooltipContent>
+                                            <p>Eliminar Actividad</p>
+                                        </TooltipContent>
+                                    </Tooltip>
+                                </TooltipProvider>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </FollowerPointerCard>
+            </div>
         </div>
     );
 }
@@ -126,15 +156,3 @@ const getActivityStatus = (startDate, endDate) => {
     }
 };
 
-const TitleComponent = ({ title, avatar }) => (
-    <div className="flex space-x-2 items-center">
-        <Image
-            src={avatar}
-            height="20"
-            width="20"
-            alt="thumbnail"
-            className="rounded-full border-2 border-white"
-        />
-        <p>{title}</p>
-    </div>
-);

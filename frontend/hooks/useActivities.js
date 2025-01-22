@@ -34,6 +34,36 @@ export default function useActivities() {
       setLoading(false);
     }
   };
+  const fetchActivity = async (activityId) => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      if (!activityId) {
+        throw new Error("Activity ID is required");
+      }
+
+      const res = await fetch(`http://localhost:3001/api/v1/activities/${activityId}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!res.ok) {
+        throw new Error(
+          `Failed to fetch activity with ID: ${activityId}`
+        );
+      }
+
+      const activity = await res.json();
+      return activity;
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
   const postActivity = async (activityStructure) => {
     setLoading(true);
     setError(null);
@@ -84,6 +114,29 @@ export default function useActivities() {
         setLoading(false);
     }
 }
-  return { fetchActivities, postActivity, deleteActivity, error, loading };
+  const updateActivity = async (id, activity) => {
+    setLoading(true);
+    setError(null);
+    try {
+      if (!id) throw new Error('No ID provided');
+      const res = await fetch(`http://localhost:3001/api/v1/activities/${id}`, {
+        method: 'PUT',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(activity)
+      });
+      if (!res.ok) {
+        throw new Error(`Failed to update activity with id: ${id}`);
+      }
+      return await res.json();
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { fetchActivities, fetchActivity, postActivity, deleteActivity, updateActivity, error, loading };
 }
 
