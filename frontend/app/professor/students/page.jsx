@@ -102,7 +102,7 @@ export default function Page() {
 
         if (!deletedUser) {
             return toast({
-                message: 'No se ha podido archivar el estudiante',
+                title: 'No se ha podido archivar el estudiante',
                 variant: 'destructive'
             })
         } else {

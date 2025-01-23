@@ -35,7 +35,7 @@ export default function DialogCloseButtonUsers({ setFormData, formData, clickFun
                 toast({
                     title: "Contraseñas diferentes",
                     description: "La contraseña y su confirmación son diferentes!",
-                    status: "error",
+                    variant: "error",
                 })
             }
         } else {

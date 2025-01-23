@@ -1,6 +1,6 @@
 "use client"
 
-import {PlusIcon} from "lucide-react"
+import {PencilIcon, PlusIcon} from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
     Dialog,
@@ -26,7 +26,7 @@ import useSkills from "@/hooks/useSkills";
 import {toast} from "@/hooks/use-toast";
 import DatePickerWithRange from "./DatePickerWithRange"
 
-export default function ActivitiesDialogCloseButton({ setFormData, formData, clickFunction, title, description }) {
+export default function ActivitiesDialogCloseButton({ setFormData, formData, clickFunction, title, description, action, activityID }) {
     const { fetchAllSkills } = useSkills();
     const [skills, setSkills] = useState([]);
     const [selectedItems, setSelectedItems] = useState([]);
@@ -58,7 +58,7 @@ export default function ActivitiesDialogCloseButton({ setFormData, formData, cli
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant="outline"><PlusIcon /></Button>
+                <Button variant="outline" className={action === "Modify" ? "bg-blue-500 hover:bg-blue-600 text-white hover:text-white" : ""}>{action === "Create" ? <PlusIcon/> : <PencilIcon />}</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-md">
                 <DialogHeader>
@@ -96,7 +96,7 @@ export default function ActivitiesDialogCloseButton({ setFormData, formData, cli
                             Close
                         </Button>
                     </DialogClose>
-                    <Button type="button" variant="primary" className="bg-blue-500 text-white hover:bg-blue-800" onClick={() => clickFunction()}>
+                    <Button type="button" variant="primary" disabled={!isSendable} className="bg-blue-500 text-white hover:bg-blue-800" onClick={() => action === "Modify" ? clickFunction(activityID) : clickFunction()}>
                         Send
                     </Button>
                 </DialogFooter>

@@ -47,9 +47,9 @@ export function SidebarDemo({ children }) {
   return (
     <div
       className={cn(
-        "rounded-md flex flex-col md:flex-row bg-gray-100 dark:bg-neutral-800 w-full flex-1 mx-auto border border-neutral-200 dark:border-neutral-700 overflow-hidden",
-        // for your use case, use `h-screen` instead of `h-[60vh]`
-        "h-screen"
+        "rounded-md flex flex-col md:flex-row bg-gray-100 dark:bg-neutral-800 w-full flex-1 mx-auto border border-neutral-200 dark:border-neutral-700",
+        "min-h-screen"
+
       )}
     >
       <Sidebar open={open} setOpen={setOpen}>
