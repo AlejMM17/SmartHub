@@ -3,7 +3,15 @@ const Score = require('../models/Scores');
 // Obtener todas las puntuaciones
 exports.getAllScores = async (req, res) => {
   try {
-    const scores = await Score.find();
+    const { student_id, activity_id, skill_id, project_id } = req.query;
+    const query = {};
+
+    if (student_id) query.student_id = student_id;
+    if (activity_id) query.activity_id = activity_id;
+    if (skill_id) query.skill_id = skill_id;
+    if (project_id) query.project_id = project_id;
+
+    const scores = await Score.find(query);
     res.status(200).json(scores);
   } catch (error) {
     res.status(500).json({ message: error.message });

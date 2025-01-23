@@ -40,13 +40,13 @@ export default function Page() {
             const newActivity = await postActivity(activityStructure);
             setActivities(prev => [...prev, newActivity]);
             toast({
-                message: `Actividad creada ${newActivity.name}`,
-                status: 'success'
+                title: `Actividad creada ${newActivity.name}`,
+                variant: 'success'
             });
         } catch (err) {
             toast({
-                message: 'No se ha podido crear la actividad',
-                status: 'error'
+                title: 'No se ha podido crear la actividad',
+                variant: 'error'
             });
         }
     };
@@ -59,13 +59,13 @@ export default function Page() {
             }
             setActivities(prev => prev.filter((activity) => activity._id !== activityID));
             toast({
-                message: `Actividad eliminada ${deletedActivity.name}`,
-                status: 'success'
+                title: `Actividad eliminada ${deletedActivity.name}`,
+                variant: 'success'
             });
         } catch (err) {
             toast({
-                message: 'No se ha podido eliminar la actividad',
-                status: 'error'
+                title: 'No se ha podido eliminar la actividad',
+                variant: 'error'
             });
         }
     };
@@ -75,14 +75,14 @@ export default function Page() {
             const updatedActivity = await updateActivity(activityID, formData);
             setActivities(await fetchActivities(projectId));
             toast({
-                message: `Actividad modificada ${updatedActivity.name}`,
-                status: 'success'
+                titol: `Actividad modificada ${updatedActivity.name}`,
+                variant: 'success'
             });
             closeModal();
         } catch (err) {
             toast({
-                message: 'No se ha podido modificar la actividad',
-                status: 'error'
+                titol: 'No se ha podido modificar la actividad',
+                variant: 'error'
             });
         }
     };
@@ -96,8 +96,8 @@ export default function Page() {
                 }
             } catch (err) {
                 toast({
-                    message: 'No se han podido cargar las actividades',
-                    status: 'error'
+                    title: 'No se han podido cargar las actividades',
+                    variant: 'error'
                 });
             } finally {
                 setLoadingRequest(false);

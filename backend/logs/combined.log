@@ -726,3 +726,38 @@
 2025-01-16T09:58:45.318Z info: Conectado a MongoDB
 2025-01-16T09:58:47.462Z info: Conectado a MongoDB
 2025-01-21T16:51:50.007Z info: Conectado a MongoDB
+2025-01-23T08:05:48.482Z error: MongooseServerSelectionError: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/
+    at _handleConnectionErrors (/home/alej/DAW_Segundo/M12_Projecte/MICRO02/SmartHub/backend/node_modules/mongoose/lib/connection.js:909:11)
+    at NativeConnection.openUri (/home/alej/DAW_Segundo/M12_Projecte/MICRO02/SmartHub/backend/node_modules/mongoose/lib/connection.js:860:11)
+2025-01-23T08:06:02.827Z error: Error fetching professor projects: Operation `Projects.find()` buffering timed out after 10000ms
+2025-01-23T08:06:02.956Z error: Error fetching professor projects: Operation `Projects.find()` buffering timed out after 10000ms
+2025-01-23T08:07:31.287Z info: Conectado a MongoDB
+2025-01-23T08:07:38.785Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-23T08:07:39.200Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-23T08:07:54.353Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-23T08:07:57.309Z info: Fetched activities for project with ID: 466cd60e-84a3-4868-9bcd-2072ba19526c
+2025-01-23T08:07:57.436Z info: Fetched activities for project with ID: 466cd60e-84a3-4868-9bcd-2072ba19526c
+2025-01-23T08:20:34.722Z info: Fetched activities for project with ID: 466cd60e-84a3-4868-9bcd-2072ba19526c
+2025-01-23T08:20:39.247Z info: Fetched activities for project with ID: 466cd60e-84a3-4868-9bcd-2072ba19526c
+2025-01-23T08:20:39.381Z info: Fetched activities for project with ID: 466cd60e-84a3-4868-9bcd-2072ba19526c
+2025-01-23T08:20:47.459Z info: Fetched activities for project with ID: 466cd60e-84a3-4868-9bcd-2072ba19526c
+2025-01-23T08:20:47.587Z info: Fetched activities for project with ID: 466cd60e-84a3-4868-9bcd-2072ba19526c
+2025-01-23T08:23:18.685Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-23T08:23:18.760Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-23T08:23:26.159Z info: Fetched activities for project with ID: 466cd60e-84a3-4868-9bcd-2072ba19526c
+2025-01-23T08:23:26.293Z info: Fetched activities for project with ID: 466cd60e-84a3-4868-9bcd-2072ba19526c
+2025-01-23T08:23:38.092Z info: Fetched activities for project with ID: 466cd60e-84a3-4868-9bcd-2072ba19526c
+2025-01-23T08:27:42.564Z info: Fetched activities for project with ID: 466cd60e-84a3-4868-9bcd-2072ba19526c
+2025-01-23T11:16:27.234Z info: Conectado a MongoDB
+2025-01-23T12:03:49.926Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-23T12:03:49.993Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-23T12:04:12.798Z info: Fetched activities for project with ID: 466cd60e-84a3-4868-9bcd-2072ba19526c
+2025-01-23T12:04:12.944Z info: Fetched activities for project with ID: 466cd60e-84a3-4868-9bcd-2072ba19526c
+2025-01-23T12:05:14.230Z info: Fetched activities for project with ID: 466cd60e-84a3-4868-9bcd-2072ba19526c
+2025-01-23T12:05:14.356Z info: Fetched activities for project with ID: 466cd60e-84a3-4868-9bcd-2072ba19526c
+2025-01-23T12:05:24.681Z info: Fetched activities for project with ID: 466cd60e-84a3-4868-9bcd-2072ba19526c
+2025-01-23T12:05:24.841Z info: Fetched activities for project with ID: 466cd60e-84a3-4868-9bcd-2072ba19526c
+2025-01-23T12:06:58.242Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-23T12:06:58.315Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-23T12:07:16.463Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-23T12:07:16.539Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950

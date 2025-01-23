@@ -48,11 +48,13 @@ import useProjects from "@/hooks/useProjects";
 import { useParams } from "next/navigation";
 import useActivities from "@/hooks/useActivities";
 import useSkills from "@/hooks/useSkills";
+import useScores from '@/hooks/useScores';
 
 export default function Page() {
     const { user } = useUser();
-    const  params  = useParams();
-    const activityId  = params.activityID;
+    const params = useParams();
+    const activityId = params.activityID;
+    const projectId = params.projectId;
     const [students, setStudents] = useState([]);
     const [activity, setActivity] = useState(null);
     const [skills, setSkills] = useState([]);
@@ -62,28 +64,53 @@ export default function Page() {
     const { fetchAllSkills, getSkillById } = useSkills();
     const [page, setPage] = useState(1);
     const itemsPerPage = 6;
-
+    const { postScore, updateScore, fetchScores } = useScores();
     const [formData, setFormData] = useState({
+        students: [],
         skills: []
     });
 
     useEffect(() => {
         const getStudentsAndActivity = async () => {
-            try {//Arreglar la manera en la ques se muestran las skills en la columna
+            try {
                 const fetchedStudents = await fetchStudents();
                 const fetchedActivity = await fetchActivity(activityId);
-
                 const fetchedSkills = await fetchAllSkills();
-                const activitySkills = fetchedSkills.filter(skill => fetchedActivity.skills.includes(skill._id));
+
+                const activitySkillIds = fetchedActivity.skills.map(skill => skill.skill_id);
+
+                const activitySkills = fetchedSkills
+                    .filter(skill => activitySkillIds.includes(skill._id))
+                    .map(skill => ({
+                        ...skill,
+                        percentage: fetchedActivity.skills.find(s => s.skill_id === skill._id).percentage
+                    }));
+
                 setStudents(fetchedStudents);
                 setActivity(fetchedActivity);
                 setSkills(activitySkills);
-                console.log(activitySkills);
+
+                // Cargar las notas registradas
+                const scoresData = await fetchScores(`activity_id=${activityId}&project_id=${projectId}`);
+                
+                const updatedFormData = {
+                    students: fetchedStudents.map(student => ({
+                        student_id: student._id,
+                        skills: scoresData.filter(score => score.student_id === student._id).map(score => ({
+                            skill_id: score.skill_id,
+                            percentage: score.score
+                        }))
+                    })),
+                    skills: activitySkills
+                };
+
+                setFormData(updatedFormData);
+
             } catch (err) {
                 console.error(err);
                 toast({
-                    message: err.message,
-                    status: 'error'
+                    title: err.message,
+                    variant: 'error'
                 });
             } finally {
                 setLoadingRequest(false);
@@ -91,42 +118,93 @@ export default function Page() {
         };
 
         getStudentsAndActivity();
-    }, [activityId,]);
+    }, [activityId, projectId]);
 
     const handleChange = (e, studentId, skillId) => {
         let { value } = e.target;
         value = Number(value);
         setFormData((prev) => {
-            const studentIndex = prev.students.findIndex(s => s.student_id === studentId);
+            const students = prev.students || [];
+            const studentIndex = students.findIndex(s => s.student_id === studentId);
             if (studentIndex !== -1) {
-                const skills = prev.students[studentIndex].skills.some((s) => s.skill_id === skillId)
-                    ? prev.students[studentIndex].skills.map((s) =>
+                const skills = students[studentIndex].skills.some((s) => s.skill_id === skillId)
+                    ? students[studentIndex].skills.map((s) =>
                         s.skill_id === skillId ? { ...s, percentage: value } : s
                     )
-                    : [...prev.students[studentIndex].skills, { skill_id: skillId, percentage: value }];
-                const students = [...prev.students];
-                students[studentIndex] = { ...students[studentIndex], skills };
-                return { ...prev, students };
+                    : [...students[studentIndex].skills, { skill_id: skillId, percentage: value }];
+                const updatedStudents = [...students];
+                updatedStudents[studentIndex] = { ...updatedStudents[studentIndex], skills };
+                return { ...prev, students: updatedStudents };
             } else {
                 return {
                     ...prev,
-                    students: [...prev.students, { student_id: studentId, skills: [{ skill_id: skillId, percentage: value }] }]
+                    students: [...students, { student_id: studentId, skills: [{ skill_id: skillId, percentage: value }] }]
                 };
             }
         });
     };
 
     const calculateTotalGrade = (student) => {
-        // Implementar lógica para calcular la nota total
-        return 0;
+        const studentData = formData.students.find(s => s.student_id === student._id);
+        if (!studentData) return 0;
+    
+        const totalGrade = studentData.skills.reduce((total, skill) => {
+            const skillData = skills.find(s => s._id === skill.skill_id);
+            if (!skillData) return total;
+    
+            const skillPercentage = skillData.percentage / 100;
+            const skillGrade = skill.percentage || 0;
+    
+            return total + (skillGrade * skillPercentage);
+        }, 0);
+    
+        return totalGrade.toFixed(2); // Redondear a dos decimales
     };
 
     const handleSaveChanges = async () => {
-        // Implementar lógica para guardar cambios
-        toast({
-            message: 'Cambios guardados exitosamente',
-            status: 'success'
-        });
+        try {
+            for (const student of formData.students) {
+                for (const skill of student.skills) {
+                    if (skill.percentage < 0 || skill.percentage > 10) {
+                        toast({
+                            title: 'Error en la nota',
+                            description: `Las notas deben estar entre 0 y 10.`,
+                            variant: 'error'
+                        });
+                        return;
+                    }
+    
+                    const score = {
+                        student_id: student.student_id,
+                        score: skill.percentage,
+                        activity_id: activityId,
+                        skill_id: skill.skill_id,
+                        project_id: projectId
+                    };
+    
+                    // Verificar si ya existe un registro con los mismos datos excepto el score
+                    const existingScoreData = await fetchScores(`student_id=${score.student_id}&activity_id=${score.activity_id}&skill_id=${score.skill_id}&project_id=${score.project_id}`);
+    
+                    if (existingScoreData.length > 0) {
+                        // Si el score es diferente, actualizarlo
+                        if (existingScoreData[0].score !== score.score) {
+                            await updateScore(existingScoreData[0]._id, { score: score.score });
+                        }
+                    } else {
+                        await postScore(score);
+                    }
+                }
+            }
+            toast({
+                title: 'Cambios guardados exitosamente',
+                variant: 'success'
+            });
+        } catch (err) {
+            toast({
+                title: 'Error guardando los cambios',
+                variant: 'error'
+            });
+        }
     };
 
     if (error) return <p className="text-red-600 text-2xl">Ups... Something bad happened!</p>;
@@ -146,7 +224,7 @@ export default function Page() {
                         <TableHead>Apellido</TableHead>
                         <TableHead>Correo</TableHead>
                         {skills.map(skill => (
-                            <TableHead key={skill._id}>{skill.name}</TableHead>
+                            <TableHead key={skill._id}>{skill.name} - {skill.percentage}%</TableHead>
                         ))}
                         <TableHead>Nota Total</TableHead>
                     </TableRow>
@@ -159,15 +237,16 @@ export default function Page() {
                             <TableCell>{student.email}</TableCell>
                             {skills.map(skill => (
                                 <TableCell key={skill._id}>
-                                    <Input
-                                        type="number"
-                                        className="w-2/3"
-                                        max={100}
-                                        min={0}
-                                        onChange={(e) => handleChange(e, student._id, skill._id)}
-                                        value={formData.students?.find(s => s.student_id === student._id)?.skills.find(s => s.skill_id === skill._id)?.percentage || ""}
-                                    />
-                                    <p>%</p>
+                                    <div className="flex items-center">
+                                        <Input
+                                            type="number"
+                                            className="w-1/3 min-w-20"
+                                            max={10}
+                                            min={0}
+                                            onChange={(e) => handleChange(e, student._id, skill._id)}
+                                            value={formData.students?.find(s => s.student_id === student._id)?.skills.find(s => s.skill_id === skill._id)?.percentage || ""}
+                                        />
+                                    </div>
                                 </TableCell>
                             ))}
                             <TableCell>

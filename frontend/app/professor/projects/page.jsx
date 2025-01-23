@@ -42,14 +42,14 @@ export default function Page() {
         setFormData(projectInitialStructure)
         if (!updatedProject) {
             return toast({
-                message: 'No se ha podido modificar el proyecto',
-                status: 'error'
+                title: 'No se ha podido modificar el proyecto',
+                variant: 'error'
             })
         } else {
             setProjects(await fetchProfessorProjects(user._id))
             return toast({
-                message: `Proyecto modificado ${updatedProject.name}`,
-                status: 'success'
+                title: `Proyecto modificado ${updatedProject.name}`,
+                variant: 'success'
             })
         }
     }
@@ -58,14 +58,14 @@ export default function Page() {
         const deletedProject = await deleteProject(id)
         if (!deletedProject) {
             return toast({
-                message: 'No se ha podido eliminar el proyecto',
-                status: 'error'
+                title: 'No se ha podido eliminar el proyecto',
+                variant: 'error'
             })
         } else {
             setProjects(prev => prev.filter((project) => project._id !== id))
             return toast({
-                message: `Proyecto eliminado ${deletedProject.name}`,
-                status: 'success'
+                title: `Proyecto eliminado ${deletedProject.name}`,
+                variant: 'success'
             })
         }
 
