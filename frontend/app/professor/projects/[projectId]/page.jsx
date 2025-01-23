@@ -116,7 +116,7 @@ const ActivityList = ({ activities, isLoading, handleDeleteActivity }) => {
     if ((!Array.isArray(activities) || activities.length <= 0) && !isLoading) return <p>No activities found</p>;
 
     return (
-        <div className="flex flex-col items-stretch gap-3 lg:flex-row lg:w-4/5 lg:mx-auto lg:flex-wrap">
+        <div className="flex flex-col items-stretch gap-3 lg:flex-row lg:w-4/5 lg:mx-auto lg:flex-wrap overflow-scroll">
             { activities.map(activity => (
                 <FollowingPointerDemo key={ activity._id } activity={ activity } activityID={ activity._id } handleDeleteActivity={handleDeleteActivity} />
             )) }

@@ -10,9 +10,7 @@ import useStudents from "@/hooks/useStudents";
 import {
     Table,
     TableBody,
-    TableCaption,
     TableCell,
-    TableFooter,
     TableHead,
     TableHeader,
     TableRow,
@@ -27,7 +25,6 @@ import {
 import {
     Pagination,
     PaginationContent,
-    PaginationEllipsis,
     PaginationItem,
     PaginationLink,
     PaginationNext,
@@ -44,12 +41,13 @@ import Image from "next/image";
 import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
 import {ArrowDown, ArrowUp} from "lucide-react";
+import DialogCloseButtonImport from "@/components/DialogCloseButtonImport";
 
 export default function Page() {
     const { user } = useUser();
     const [students, setStudents] = useState([])
     const [loadingRequest, setLoadingRequest] = useState(true)
-    const { fetchStudents, deleteStudent, postStudent, loading, error } = useStudents();
+    const { fetchStudents, deleteStudent, postStudent, importStudents, loading, error } = useStudents();
     const [formData, setFormData] = useState({
         name: "",
         lastName: "",
@@ -58,6 +56,7 @@ export default function Page() {
         confirmPassword: "",
         role: "student"
     })
+    const [importFile, setImportFile] = useState(null)
     const [page, setPage] = useState(1)
     const pagesNumber = Math.ceil(students.length / 6)
 
@@ -66,6 +65,37 @@ export default function Page() {
         await postStudent(userPost)
         setStudents(await fetchStudents())
     }
+
+    const handleImportFileSubmit = async () => {
+
+        if (!importFile) {
+            return toast({
+                title: "Error",
+                description: "No file selected.",
+                variant: "destructive",
+            });
+        }
+
+        try {
+            const res = await importStudents(importFile);
+            if (res) {
+                setStudents(await fetchStudents());
+            } else {
+                toast({
+                    title: "Import Error",
+                    description: "Failed to import students.",
+                    variant: "destructive",
+                });
+            }
+        } catch (err) {
+            toast({
+                title: "Import Error",
+                message: "An unexpected error occurred.",
+                variant: "destructive",
+            });
+        }
+    };
+
 
     const handleDeleteStudent = async (userId) => {
         const deletedUser = await deleteStudent(userId)
@@ -100,7 +130,6 @@ export default function Page() {
 
     }, [user])
 
-
     return (
         <div className="container mx-auto">
             <h1 className="text-4xl font-normal mb-8 text-center lg:text-start lg:mt-8">Alumnos</h1>
@@ -115,6 +144,9 @@ export default function Page() {
                         handleFormSubmit={handleFormSubmit}
                         formData={formData}
                         setFormData={setFormData}
+                        setImportFile={setImportFile}
+                        importFile={importFile}
+                        handleImportFileSubmit={handleImportFileSubmit}
                     />
                     <PaginationComponent page={page} setPage={setPage} pagesNumber={pagesNumber} />
                 </>
@@ -153,7 +185,18 @@ const PaginationComponent = ({ page, setPage, pagesNumber }) => (
 );
 
 
-const StudentsList = ({ students, isLoading, handleDeleteStudent, page, formData, setFormData, handleFormSubmit }) => {
+const StudentsList = ({
+                          students,
+                          isLoading,
+                          handleDeleteStudent,
+                          page,
+                          formData,
+                          setFormData,
+                          handleFormSubmit,
+                          handleImportFileSubmit,
+                          importFile,
+                          setImportFile,
+                      }) => {
 
     if ((!Array.isArray(students) || students.length <= 0) && !isLoading) return <p>No students found</p>
 
@@ -168,16 +211,25 @@ const StudentsList = ({ students, isLoading, handleDeleteStudent, page, formData
     })
 
     useEffect(() => {
-        setModifiedStudents(students.filter((student) => {
-            if (filter.state === "active") {
-                return student.name.toLowerCase().includes(filter.name.toLowerCase()) && !student.archive_date
-            } else if (filter.state === "archived") {
-                return student.name.toLowerCase().includes(filter.name.toLowerCase()) && student.archive_date
-            }
+        const debouncedUpdate = setTimeout(() => {
+            const itemsPerPage = 6;
+            const startIndex = (page - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
 
-            return student.name.toLowerCase().includes(filter.name.toLowerCase())
-        }))
-    }, [filter])
+            setModifiedStudents(
+                students
+                    .filter((student) => {
+                        if (filter.state === "active") return !student.archive_date && student.name.toLowerCase().includes(filter.name.toLowerCase());
+                        if (filter.state === "archived") return student.archive_date && student.name.toLowerCase().includes(filter.name.toLowerCase());
+                        return student.name.toLowerCase().includes(filter.name.toLowerCase());
+                    })
+                    .slice(startIndex, endIndex)
+            );
+        }, 300); // 300ms debounce
+
+        return () => clearTimeout(debouncedUpdate);
+    }, [page, students, filter]);
+
 
     useEffect(() => {
         const sortedStudents = [...modifiedStudents].sort((a, b) => {
@@ -287,22 +339,40 @@ const StudentsList = ({ students, isLoading, handleDeleteStudent, page, formData
                             </SelectContent>
                         </Select>
                     </div>
-                    <TooltipProvider>
-                        <Tooltip>
-                            <TooltipTrigger>
-                                <DialogCloseButtonUsers
-                                    setFormData={setFormData}
-                                    formData={formData}
-                                    clickFunction={handleFormSubmit}
-                                    title="Crear Alumno"
-                                    description="Inserta todos los datos requeridos para crear un nuevo alumno."
-                                />
-                            </TooltipTrigger>
-                            <TooltipContent>
-                                <p>Crear Alumno</p>
-                            </TooltipContent>
-                        </Tooltip>
-                    </TooltipProvider>
+                    <div className="flex flex-row gap-x-2 items-center">
+                        <TooltipProvider>
+                            <Tooltip>
+                                <TooltipTrigger>
+                                    <DialogCloseButtonUsers
+                                        setFormData={setFormData}
+                                        formData={formData}
+                                        clickFunction={handleFormSubmit}
+                                        title="Crear Alumno"
+                                        description="Inserta todos los datos requeridos para crear un nuevo alumno."
+                                    />
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    <p>Crear Alumno</p>
+                                </TooltipContent>
+                            </Tooltip>
+                        </TooltipProvider>
+                        <TooltipProvider>
+                            <Tooltip>
+                                <TooltipTrigger>
+                                    <DialogCloseButtonImport
+                                        setFormData={setImportFile}
+                                        formData={importFile}
+                                        clickFunction={handleImportFileSubmit}
+                                        title="Importar Alumnos"
+                                        description="Elige un archivo .csv para importar alumnos."
+                                    />
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    <p>Importar Alumnos</p>
+                                </TooltipContent>
+                            </Tooltip>
+                        </TooltipProvider>
+                    </div>
                 </div>
             </div>
             <Table>
@@ -344,12 +414,6 @@ const StudentsList = ({ students, isLoading, handleDeleteStudent, page, formData
                         </TableRow>
                     ))}
                 </TableBody>
-                {/*<TableFooter>*/}
-                {/*    <TableRow>*/}
-                {/*        <TableCell colSpan={3}>Total</TableCell>*/}
-                {/*        <TableCell className="text-right">$2,500.00</TableCell>*/}
-                {/*    </TableRow>*/}
-                {/*</TableFooter>*/}
             </Table>
         </>
     )

@@ -82,5 +82,33 @@ export default function useStudents() {
         }
     }
 
-    return { fetchStudents, postStudent, deleteStudent, error, loading };
+    const importStudents = async (file) => {
+        setLoading(true);
+        setError(null);
+
+        try {
+            if (!file) throw new Error('No file provided')
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            const res = await fetch(`http://localhost:3001/api/v1/users/import`, {
+                method: 'POST',
+                body: formData
+            });
+
+            if (!res.ok) {
+                throw new Error(`Failed to import users`);
+            }
+
+            return res.json();
+
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    return { fetchStudents, postStudent, deleteStudent, importStudents, error, loading };
 }

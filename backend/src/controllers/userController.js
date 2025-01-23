@@ -1,5 +1,8 @@
 const User = require("../models/User");
 const logger = require("../utils/logger");
+const {log} = require("winston");
+const csvParser = require('csv-parser');
+const stream = require('stream');
 
 const userController = {
   getAllUsers: async (req, res) => {
@@ -58,36 +61,69 @@ const userController = {
   },
   importUsers: async (req, res) => {
     try {
-      const users = req.body;
-  
-      if (!Array.isArray(users) || users.length == 0) {
-        return res.status(400).json({
-          error: "Debe proporcionar una lista de usuarios",
-        });
+      if (!req.file) {
+        return res.status(400).send({ message: 'No file uploaded' });
       }
-  
-      const requiredFields = ["name", "role", "email", "password"];
-      for (const user of users) {
-        for (const field of requiredFields) {
-          if (!user[field]) {
-            return res.status(400).json({
-              error: `Faltan campos obligatorios en uno o más usuarios: ${requiredFields.join(", ")}`,
-            });
-          }
-        }
-      }
-  
-      const savedUsers = await User.insertMany(users);
-  
-      res.status(201).json({
-        message: "Usuarios importados correctamente",
-        users: savedUsers,
-      });
-    } catch (e) {
-      res.status(400).json({
-        message: "Usuarios no importados",
-        error: e.message,
-      });
+
+      const fileBuffer = req.file.buffer; // The file content as a Buffer
+
+      const results = [];
+      const createdUsers = []; // To keep track of successfully created users
+
+      // Convert the Buffer into a readable stream
+      const readableStream = new stream.Readable();
+      readableStream.push(fileBuffer);
+      readableStream.push(null);
+
+      // Parse the CSV file
+      readableStream
+          .pipe(csvParser())
+          .on('data', (data) => results.push(data))
+          .on('end', async () => {
+            try {
+              for (const studentData of results) {
+                try {
+                  // Create a new User instance
+                  const newUser = new User({
+                    name: studentData.name,
+                    lastName: studentData.lastName,
+                    email: studentData.email,
+                    password: studentData.password,
+                    role: studentData.role || "student",
+                    // Add any other necessary fields
+                  });
+
+                  const existingUser = await User.findOne({ email: studentData.email });
+                  if (existingUser) {
+                    console.warn(`User with email ${studentData.email} already exists`);
+                    continue; // Skip this user
+                  }
+
+                  await newUser.save(); // Save the user to MongoDB
+                  createdUsers.push(newUser);
+                } catch (error) {
+                  console.error(`Error creating user: ${error.message}`);
+                  // Handle individual user creation errors (e.g., duplicate email)
+                }
+              }
+
+              // Respond with the list of created users
+              res.status(200).json({
+                message: 'Students imported successfully',
+                createdUsers: createdUsers,
+              });
+            } catch (error) {
+              console.error('Error processing the users:', error);
+              res.status(500).json({ error: 'Error importing students' });
+            }
+          })
+          .on('error', (error) => {
+            console.error('Error reading the file:', error);
+            res.status(500).json({ error: 'Error reading file' });
+          });
+    } catch (error) {
+      console.error('Unexpected error:', error);
+      res.status(500).json({ error: 'Error importing students' });
     }
   },
   updateUser: async (req, res) => {
