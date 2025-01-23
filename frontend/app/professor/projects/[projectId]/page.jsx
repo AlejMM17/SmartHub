@@ -121,6 +121,7 @@ export default function Page() {
                         clickFunction={handleFormSubmit}
                         title="Crear Actividad"
                         description="Inserta todos los datos requeridos para crear una nueva actividad."
+                        action={"Create"}
                     />
                 </div>
             }
