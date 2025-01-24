@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "./ui/Sidebar";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -22,29 +22,50 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import useStudents from "@/hooks/useStudents";
+import { toast } from "@/hooks/use-toast";
+import { setAuthCookie } from "@/utils/setAuthCookie";
 
 export function SidebarDemo({ children }) {
 
-  const { user } = useUser();
-  const [name, setName] = useState(user?.name || "");
-  const [email, setEmail] = useState(user?.email || "");
-  const [image, setImage] = useState(null);
+  const { user, setUser } = useUser();
+  const [formData, setFormData] = useState({ name: user?.name || "", email: user?.email || "", image: null });
+  const { updateUser } = useStudents();
 
-
-  const handleSave = async () => {
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("email", email);
-    if (image) {
-      formData.append("image", image);
+  useEffect(() => {
+    if (user) {
+      setFormData({ name: user.name, email: user.email, image: null });
     }
+  }, [user]);
 
-    // Aquí puedes agregar la lógica para enviar el FormData al servidor
-    console.log("Saving profile:", { name, email, image });
+  const handleChange = (e) => {
+    const { name, value, files } = e.target;
+    if (name === 'image') {
+      setFormData({ ...formData, image: files[0] });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
-  const handleImageChange = (e) => {
-    setImage(e.target.files[0]);
+  const handleSave = async () => {
+    try {
+      const updatedUser = await updateUser(user._id, formData);
+      if (updatedUser) {
+        setUser(updatedUser);
+        setAuthCookie(updatedUser);
+        toast({
+          title: 'Perfil actualizado',
+          description: 'Tu perfil ha sido actualizado correctamente.',
+          variant: 'success',
+        });
+      }
+    } catch (error) {
+      toast({
+        title: 'Error al actualizar',
+        description: 'Hubo un problema al actualizar tu perfil.',
+        variant: 'destructive',
+      });
+    }
   };
 
   const links = [
@@ -124,25 +145,15 @@ export function SidebarDemo({ children }) {
                   </SheetDescription>
                 </SheetHeader>
                 <div className="grid gap-4 py-4">
-                <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="image" className="text-right">
-                      Imagen
-                    </Label>
-                    <Input
-                      id="image"
-                      type="file"
-                      onChange={handleImageChange}
-                      className="col-span-3"
-                    />
-                  </div>
                   <div className="grid grid-cols-4 items-center gap-4">
                     <Label htmlFor="name" className="text-right">
                       Nombre
                     </Label>
                     <Input
                       id="name"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
                       className="col-span-3"
                     />
                   </div>
@@ -152,18 +163,28 @@ export function SidebarDemo({ children }) {
                     </Label>
                     <Input
                       id="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      className="col-span-3"
+                    />
+                  </div>
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="image" className="text-right">
+                      Imagen
+                    </Label>
+                    <Input
+                      id="image"
+                      type="file"
+                      onChange={handleChange}
                       className="col-span-3"
                     />
                   </div>
                 </div>
                 <SheetFooter>
-                  <SheetClose asChild>
-                    <Button type="submit" onClick={handleSave}>
-                      Guardar Cambios
-                    </Button>
-                  </SheetClose>
+                  <Button type="submit" onClick={handleSave}>
+                    Guardar Cambios
+                  </Button>
                 </SheetFooter>
               </SheetContent>
             </Sheet>

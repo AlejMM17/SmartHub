@@ -109,6 +109,35 @@ export default function useStudents() {
             setLoading(false);
         }
     }
+    
+    const updateUser = async (userId, updatedData) => {
+        setLoading(true);
+        setError(null);
 
-    return { fetchStudents, postStudent, deleteStudent, importStudents, error, loading };
+        try {
+            const res = await fetch(`http://localhost:3001/api/v1/users/${userId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(updatedData),
+            });
+
+            if (!res.ok) {
+
+                throw new Error('Failed to update user');
+            }
+
+            const data = await res.json();
+            console.log(data)
+            return data;
+        } catch (err) {
+            setError(err.message);
+            return null;
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return { fetchStudents, postStudent, deleteStudent, importStudents, updateUser, error, loading };
 }
