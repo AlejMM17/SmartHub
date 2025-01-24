@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "./ui/Sidebar";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -8,10 +8,65 @@ import { cn } from "@/lib/utils";
 import {Zap, List, Rocket, Users} from "lucide-react";
 import {ModeToggle} from "@/components/ToggleThemeMode";
 import {useUser} from "@/context/UserContext";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet"
+
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import useStudents from "@/hooks/useStudents";
+import { toast } from "@/hooks/use-toast";
+import { setAuthCookie } from "@/utils/setAuthCookie";
 
 export function SidebarDemo({ children }) {
 
-  const { user } = useUser();
+  const { user, setUser } = useUser();
+  const [formData, setFormData] = useState({ name: user?.name || "", email: user?.email || "", image: null });
+  const { updateUser } = useStudents();
+
+  useEffect(() => {
+    if (user) {
+      setFormData({ name: user.name, email: user.email, image: null });
+    }
+  }, [user]);
+
+  const handleChange = (e) => {
+    const { name, value, files } = e.target;
+    if (name === 'image') {
+      setFormData({ ...formData, image: files[0] });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
+  };
+
+  const handleSave = async () => {
+    try {
+      const updatedUser = await updateUser(user._id, formData);
+      if (updatedUser) {
+        setUser(updatedUser);
+        setAuthCookie(updatedUser);
+        toast({
+          title: 'Perfil actualizado',
+          description: 'Tu perfil ha sido actualizado correctamente.',
+          variant: 'success',
+        });
+      }
+    } catch (error) {
+      toast({
+        title: 'Error al actualizar',
+        description: 'Hubo un problema al actualizar tu perfil.',
+        variant: 'destructive',
+      });
+    }
+  };
 
   const links = [
     {
@@ -42,7 +97,7 @@ export function SidebarDemo({ children }) {
       className={cn(
         "rounded-md flex flex-col md:flex-row bg-gray-100 dark:bg-neutral-800 w-full flex-1 mx-auto border border-neutral-200 dark:border-neutral-700",
         // for your use case, use `h-screen` instead of `h-[60vh]`
-        "min-h-screen"
+        "h-screen"
       )}
     >
       <Sidebar open={open} setOpen={setOpen}>
@@ -57,21 +112,75 @@ export function SidebarDemo({ children }) {
           </div>
           <div className="flex flex-col gap-y-2">
             <ModeToggle />
-            <SidebarLink
-              link={{
-                label: user?.name ?? "user",
-                href: "#",
-                icon: (
-                  <Image
-                    src={("/" + user?.user_picture) ?? "/defaultPFP.webp"}
-                    className="h-7 w-7 flex-shrink-0 rounded-full"
-                    width={50}
-                    height={50}
-                    alt="Avatar"
-                  />
-                ),
-              }}
-            />
+            <Sheet>
+              <SheetTrigger asChild>
+                <SidebarLink
+                  link={{
+                    label: user?.name ?? "user",
+                    href: "#",
+                    icon: (
+                      <Image
+                        src={("/" + user?.user_picture) ?? "/defaultPFP.webp"}
+                        className="h-7 w-7 flex-shrink-0 rounded-full"
+                        width={50}
+                        height={50}
+                        alt="Avatar"
+                      />
+                    ),
+                  }}
+                />
+              </SheetTrigger>
+              <SheetContent>
+                <SheetHeader>
+                  <SheetTitle>Edit profile</SheetTitle>
+                  <SheetDescription>
+                    Make changes to your profile here. Click save when you're done.
+                  </SheetDescription>
+                </SheetHeader>
+                <div className="grid gap-4 py-4">
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="name" className="text-right">
+                      Nombre
+                    </Label>
+                    <Input
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      className="col-span-3"
+                    />
+                  </div>
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="email" className="text-right">
+                      Email
+                    </Label>
+                    <Input
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      className="col-span-3"
+                    />
+                  </div>
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="image" className="text-right">
+                      Imagen
+                    </Label>
+                    <Input
+                      id="image"
+                      type="file"
+                      onChange={handleChange}
+                      className="col-span-3"
+                    />
+                  </div>
+                </div>
+                <SheetFooter>
+                  <Button type="submit" onClick={handleSave}>
+                    Guardar Cambios
+                  </Button>
+                </SheetFooter>
+              </SheetContent>
+            </Sheet>
           </div>
         </SidebarBody>
       </Sidebar>

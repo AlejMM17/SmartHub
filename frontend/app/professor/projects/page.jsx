@@ -119,7 +119,7 @@ export default function Page() {
 const ProjectList = ({ projects, isLoading, handleDeleteProject, handleModifyProject, formData, setFormData }) => {
     if ((!Array.isArray(projects) || projects.length <= 0) && !isLoading) return <p>No projects found</p>
     return (
-        <div className="flex flex-col flex-1 gap-3 lg:flex-row lg:w-4/5 lg:mx-auto lg:flex-wrap">
+        <div className="flex flex-col flex-1 gap-3 lg:flex-row lg:w-4/5 lg:mx-auto lg:flex-wrap  max-h-[50vh] lg:max-h-[65vh] sm:max-h-[65vh] overflow-scroll">
             { projects.map(project => (
                 <Project
                     key={ project._id }
