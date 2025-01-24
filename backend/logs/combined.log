@@ -780,6 +780,7 @@
 2025-01-23T12:14:12.734Z info: Fetched activities for project with ID: 466cd60e-84a3-4868-9bcd-2072ba19526c
 2025-01-23T12:14:24.997Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
 2025-01-23T12:14:25.062Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+<<<<<<< Updated upstream
 2025-01-24T15:39:45.077Z info: Conectado a MongoDB
 2025-01-24T15:40:23.384Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
 2025-01-24T15:40:23.435Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
@@ -805,3 +806,6 @@
 2025-01-24T15:41:41.116Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
 2025-01-24T15:42:55.060Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
 2025-01-24T15:42:55.102Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+=======
+2025-01-24T18:50:15.992Z info: Conectado a MongoDB
+>>>>>>> Stashed changes
