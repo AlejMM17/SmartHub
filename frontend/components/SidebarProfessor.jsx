@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import {List, Rocket, Users} from "lucide-react";
+import {Zap, List, Rocket, Users} from "lucide-react";
 import {ModeToggle} from "@/components/ToggleThemeMode";
 import {useUser} from "@/context/UserContext";
 
@@ -22,13 +22,6 @@ export function SidebarDemo({ children }) {
       ),
     },
     {
-      label: "Actividades",
-      href: "/professor/activities",
-      icon: (
-        <List className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-      ),
-    },
-    {
       label: "Alumnos",
       href: "/professor/students",
       icon: (
@@ -36,10 +29,10 @@ export function SidebarDemo({ children }) {
       ),
     },
     {
-      label: "Profile",
-      href: "/profile",
+      label: "Skills",
+      href: "/professor/skills",
       icon: (
-        <Users className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+        <Zap className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
   ];
