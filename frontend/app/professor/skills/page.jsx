@@ -2,11 +2,9 @@
 
 import {useUser} from "@/context/UserContext";
 import {useEffect, useState} from "react";
-import SkeletonLoader from "@/components/SkeletonsProject";
 import {Button} from "@/components/ui/button";
 import {toast} from "@/hooks/use-toast";
 import DialogCloseButtonUsers from "@/components/DialogCloseButtonUsers";
-import useStudents from "@/hooks/useStudents";
 import {
     Table,
     TableBody,
@@ -28,81 +26,62 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from "@/components/ui/tooltip"
-
 import Image from "next/image";
 import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
 import {ArrowDown, ArrowUp} from "lucide-react";
-import DialogCloseButtonImport from "@/components/DialogCloseButtonImport";
+import useSkills from "@/hooks/useSkills";
 import PaginationComponent from "@/components/Pagination";
+import DialogCloseButtonSkills from "@/components/DialogCloseButtonSkills";
 
 export default function Page() {
     const { user } = useUser();
-    const [students, setStudents] = useState([])
+    const [skills, setSkills] = useState([])
     const [loadingRequest, setLoadingRequest] = useState(true)
-    const { fetchStudents, deleteStudent, postStudent, importStudents, loading, error } = useStudents();
+    const { fetchAllSkills, postSkill, deleteSkill, updateSkill, error, loading } = useSkills()
     const [formData, setFormData] = useState({
         name: "",
-        lastName: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-        role: "student"
+        description: "",
+        icon: "",
     })
-    const [importFile, setImportFile] = useState(null)
     const [page, setPage] = useState(1)
-    const pagesNumber = Math.ceil(students.length / 6)
+    const pagesNumber = !loading && !error ? Math.ceil(skills?.length / 6) : 1
 
     const handleFormSubmit = async () => {
-        const { confirmPassword, ...userPost } = formData
-        await postStudent(userPost)
-        setStudents(await fetchStudents())
+        await postSkill(formData)
+        setSkills(await fetchAllSkills())
     }
 
-    const handleImportFileSubmit = async () => {
+    const handleUpdateSkill = async (skillId) => {
+        const updatedSkill = await updateSkill(skillId, formData)
 
-        if (!importFile) {
+        if (!updatedSkill) {
             return toast({
-                title: "Error",
-                description: "No file selected.",
-                variant: "destructive",
-            });
-        }
-
-        try {
-            const res = await importStudents(importFile);
-            if (res) {
-                setStudents(await fetchStudents());
-            } else {
-                toast({
-                    title: "Import Error",
-                    description: "Failed to import students.",
-                    variant: "destructive",
-                });
-            }
-        } catch (err) {
-            toast({
-                title: "Import Error",
-                message: "An unexpected error occurred.",
-                variant: "destructive",
-            });
-        }
-    };
-
-
-    const handleDeleteStudent = async (userId) => {
-        const deletedUser = await deleteStudent(userId)
-
-        if (!deletedUser) {
-            return toast({
-                title: 'No se ha podido archivar el estudiante',
+                title: 'No se ha podido modificar la skill',
                 variant: 'destructive'
             })
         } else {
-            const foundStudent = students.find((student) => student._id === userId)
-            setStudents(await fetchStudents())
+            const foundSkill = skills.find((skill) => skill._id === skillId)
+            setSkills(await fetchAllSkills())
             return toast({
-                title: `Estudiante archivado ${foundStudent.name}`,
+                title: `Skill modificada ${foundSkill.name}`,
+            })
+        }
+    }
+
+    const handleDeleteSkill = async (skillId) => {
+        const deletedSkill = await deleteSkill(skillId)
+
+        if (!deletedSkill) {
+            return toast({
+                title: 'No se ha podido archivar la skill',
+                variant: 'destructive'
+            })
+        } else {
+            const foundSkill = skills.find((skill) => skill._id === skillId)
+            setSkills(await fetchAllSkills())
+            return toast({
+                title: `Skill archivada ${foundSkill.name}`,
             })
         }
     }
@@ -113,11 +92,11 @@ export default function Page() {
         setLoadingRequest(true)
         if (user?.role !== "professor") return
 
-        const getStudents = async () => {
-            const fetchedStudents = await fetchStudents()
-            setStudents(fetchedStudents)
+        const getSkills = async () => {
+            const fetchedSkills = await fetchAllSkills()
+            setSkills(fetchedSkills)
         }
-        getStudents()
+        getSkills()
 
         setLoadingRequest(false)
 
@@ -126,22 +105,20 @@ export default function Page() {
     return (
         <div className="container mx-auto">
             <h1 className="text-4xl sm:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-8">
-                Alumnos
+                Skills
             </h1>
-            { loading || loadingRequest && <SkeletonLoader count={3} /> }
+            {/*{ loading || loadingRequest && <SkeletonLoader count={3} /> }*/}
             { !loading && !loadingRequest &&
                 <>
-                    <StudentsList
-                        students={students}
+                    <SkillsList
+                        skills={skills}
                         page={page}
                         isLoading={loadingRequest}
-                        handleDeleteStudent={handleDeleteStudent}
+                        handleDeleteSkill={handleDeleteSkill}
                         handleFormSubmit={handleFormSubmit}
                         formData={formData}
                         setFormData={setFormData}
-                        setImportFile={setImportFile}
-                        importFile={importFile}
-                        handleImportFileSubmit={handleImportFileSubmit}
+                        handleUpdateSkill={handleUpdateSkill}
                     />
                     <PaginationComponent page={page} setPage={setPage} pagesNumber={pagesNumber} />
                 </>
@@ -150,22 +127,20 @@ export default function Page() {
     )
 }
 
-const StudentsList = ({
-                          students,
+const SkillsList = ({
+                          skills,
                           isLoading,
-                          handleDeleteStudent,
+                          handleDeleteSkill,
                           page,
                           formData,
                           setFormData,
                           handleFormSubmit,
-                          handleImportFileSubmit,
-                          importFile,
-                          setImportFile,
+                          handleUpdateSkill,
                       }) => {
 
-    if ((!Array.isArray(students) || students.length <= 0) && !isLoading) return <p>No students found</p>
+    if ((!Array.isArray(skills) || skills.length <= 0) && !isLoading) return <p>No skills found</p>
 
-    const [modifiedStudents, setModifiedStudents] = useState(students)
+    const [modifiedSkills, setModifiedSkills] = useState(skills)
     const [filter, setFilter] = useState({
         name: "",
         state: "",
@@ -181,23 +156,23 @@ const StudentsList = ({
             const startIndex = (page - 1) * itemsPerPage;
             const endIndex = startIndex + itemsPerPage;
 
-            setModifiedStudents(
-                students
-                    .filter((student) => {
-                        if (filter.state === "active") return !student.archive_date && student.name.toLowerCase().includes(filter.name.toLowerCase());
-                        if (filter.state === "archived") return student.archive_date && student.name.toLowerCase().includes(filter.name.toLowerCase());
-                        return student.name.toLowerCase().includes(filter.name.toLowerCase());
+            setModifiedSkills(
+                skills
+                    .filter((skill) => {
+                        if (filter.state === "active") return !skill.archive_date && skill.name.toLowerCase().includes(filter.name.toLowerCase());
+                        if (filter.state === "archived") return skill.archive_date && skill.name.toLowerCase().includes(filter.name.toLowerCase());
+                        return skill.name.toLowerCase().includes(filter.name.toLowerCase());
                     })
                     .slice(startIndex, endIndex)
             );
         }, 300); // 300ms debounce
 
         return () => clearTimeout(debouncedUpdate);
-    }, [page, students, filter]);
+    }, [page, skills, filter]);
 
 
     useEffect(() => {
-        const sortedStudents = [...modifiedStudents].sort((a, b) => {
+        const sortedStudents = [...modifiedSkills].sort((a, b) => {
             if (order.field === "name") {
                 return order.option === "ascending"
                     ? a.name.localeCompare(b.name)
@@ -215,24 +190,24 @@ const StudentsList = ({
             return 0;
         });
 
-        setModifiedStudents(sortedStudents);
-    }, [order, students]);
+        setModifiedSkills(sortedStudents);
+    }, [order, skills]);
 
     useEffect(() => {
         const itemsPerPage = 6;
         const startIndex = (page - 1) * itemsPerPage;
         const endIndex = startIndex + itemsPerPage;
 
-        setModifiedStudents(
-            students
-                .filter((student) => {
-                    if (filter.state === "active") return !student.archive_date && student.name.toLowerCase().includes(filter.name.toLowerCase());
-                    if (filter.state === "archived") return student.archive_date && student.name.toLowerCase().includes(filter.name.toLowerCase());
-                    return student.name.toLowerCase().includes(filter.name.toLowerCase());
+        setModifiedSkills(
+            skills
+                .filter((skill) => {
+                    if (filter.state === "active") return !skill.archive_date && skill.name.toLowerCase().includes(filter.name.toLowerCase());
+                    if (filter.state === "archived") return skill.archive_date && skill.name.toLowerCase().includes(filter.name.toLowerCase());
+                    return skill.name.toLowerCase().includes(filter.name.toLowerCase());
                 })
                 .slice(startIndex, endIndex)
         );
-    }, [page, students, filter]);
+    }, [page, skills, filter]);
 
     return (
         <>
@@ -308,32 +283,17 @@ const StudentsList = ({
                         <TooltipProvider>
                             <Tooltip>
                                 <TooltipTrigger>
-                                    <DialogCloseButtonUsers
+                                    <DialogCloseButtonSkills
                                         setFormData={setFormData}
                                         formData={formData}
                                         clickFunction={handleFormSubmit}
-                                        title="Crear Alumno"
-                                        description="Inserta todos los datos requeridos para crear un nuevo alumno."
+                                        title="Crear Skill"
+                                        description="Inserta todos los datos requeridos para crear una nueva skill para evaluar las notas de tus alumnos."
+                                        action={"Create"}
                                     />
                                 </TooltipTrigger>
                                 <TooltipContent>
-                                    <p>Crear Alumno</p>
-                                </TooltipContent>
-                            </Tooltip>
-                        </TooltipProvider>
-                        <TooltipProvider>
-                            <Tooltip>
-                                <TooltipTrigger>
-                                    <DialogCloseButtonImport
-                                        setFormData={setImportFile}
-                                        formData={importFile}
-                                        clickFunction={handleImportFileSubmit}
-                                        title="Importar Alumnos"
-                                        description="Elige un archivo .csv para importar alumnos. Asegurate de poner los siguientes campos: name, lastName, email, password, role (opcional)"
-                                    />
-                                </TooltipTrigger>
-                                <TooltipContent>
-                                    <p>Importar Alumnos</p>
+                                    <p>Crear Skill</p>
                                 </TooltipContent>
                             </Tooltip>
                         </TooltipProvider>
@@ -345,33 +305,49 @@ const StudentsList = ({
                     <TableRow>
                         <TableHead>Foto</TableHead>
                         <TableHead>Nombre</TableHead>
-                        <TableHead>Apellido</TableHead>
-                        <TableHead>Correo</TableHead>
+                        <TableHead>Descripción</TableHead>
                         <TableHead>Estado</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {modifiedStudents.map((student) => (
-                        <TableRow key={student._id}>
-                            <TableCell className="rounded"><Image width={24} height={24} src={`/${student.user_picture}`} alt={student.name}/></TableCell>
-                            <TableCell>{student.name}</TableCell>
-                            <TableCell>{student.lastName}</TableCell>
-                            <TableCell>{student.email}</TableCell>
+                    {modifiedSkills.map((skill) => (
+                        <TableRow key={skill._id}>
+                            <TableCell className="rounded">
+                                {skill.icon
+                                    ? <Image width={24} height={24} src={`${skill.icon}`} alt={`${skill.name} icon`}/>
+                                    : <Image width={24} height={24} src="/defaultPFP.webp" alt={`${skill.name} icon`}/>
+                                }
+
+                            </TableCell>
+                            <TableCell>{skill.name}</TableCell>
+                            <TableCell>{skill.description}</TableCell>
                             <TableCell>
                                 <div className="flex items-center gap-x-2">
                                     <span
                                         className={`w-3 h-3 rounded-full ${
-                                            student.archive_date ? "bg-red-600" : "bg-green-600"
+                                            skill.archive_date ? "bg-red-600" : "bg-green-600"
                                         }`}
                                     />
-                                    <p>{student.archive_date ? "Archivado" : "Activo"}</p>
+                                    <p>{skill.archive_date ? "Archivado" : "Activo"}</p>
                                 </div>
                             </TableCell>
                             <TableCell className="text-right">
+                                <DialogCloseButtonSkills
+                                    setFormData={setFormData}
+                                    formData={formData}
+                                    clickFunction={handleUpdateSkill}
+                                    title="Modificar Skill"
+                                    description="Inserta todos los datos requeridos para modificar la skill para evaluar las notas de tus alumnos."
+                                    action={"Modify"}
+                                    skillId={skill._id}
+                                    disabled={skill.archive_date}
+                                />
+                            </TableCell>
+                            <TableCell className="text-right">
                                 <Button
-                                    disabled={student.archive_date}
+                                    disabled={skill.archive_date}
                                     variant="destructive"
-                                    onClick={() => handleDeleteStudent(student._id)}
+                                    onClick={() => handleDeleteSkill(skill._id)}
                                 >
                                     Archivar
                                 </Button>
