@@ -8,10 +8,44 @@ import { cn } from "@/lib/utils";
 import {List, Rocket, Users} from "lucide-react";
 import {ModeToggle} from "@/components/ToggleThemeMode";
 import {useUser} from "@/context/UserContext";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet"
+
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 
 export function SidebarDemo({ children }) {
 
   const { user } = useUser();
+  const [name, setName] = useState(user?.name || "");
+  const [email, setEmail] = useState(user?.email || "");
+  const [image, setImage] = useState(null);
+
+
+  const handleSave = async () => {
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("email", email);
+    if (image) {
+      formData.append("image", image);
+    }
+
+    // Aquí puedes agregar la lógica para enviar el FormData al servidor
+    console.log("Saving profile:", { name, email, image });
+  };
+
+  const handleImageChange = (e) => {
+    setImage(e.target.files[0]);
+  };
 
   const links = [
     {
@@ -49,7 +83,7 @@ export function SidebarDemo({ children }) {
       className={cn(
         "rounded-md flex flex-col md:flex-row bg-gray-100 dark:bg-neutral-800 w-full flex-1 mx-auto border border-neutral-200 dark:border-neutral-700",
         // for your use case, use `h-screen` instead of `h-[60vh]`
-        "min-h-screen"
+        "h-screen"
       )}
     >
       <Sidebar open={open} setOpen={setOpen}>
@@ -64,21 +98,75 @@ export function SidebarDemo({ children }) {
           </div>
           <div className="flex flex-col gap-y-2">
             <ModeToggle />
-            <SidebarLink
-              link={{
-                label: user?.name ?? "user",
-                href: "#",
-                icon: (
-                  <Image
-                    src={("/" + user?.user_picture) ?? "/defaultPFP.webp"}
-                    className="h-7 w-7 flex-shrink-0 rounded-full"
-                    width={50}
-                    height={50}
-                    alt="Avatar"
-                  />
-                ),
-              }}
-            />
+            <Sheet>
+              <SheetTrigger asChild>
+                <SidebarLink
+                  link={{
+                    label: user?.name ?? "user",
+                    href: "#",
+                    icon: (
+                      <Image
+                        src={("/" + user?.user_picture) ?? "/defaultPFP.webp"}
+                        className="h-7 w-7 flex-shrink-0 rounded-full"
+                        width={50}
+                        height={50}
+                        alt="Avatar"
+                      />
+                    ),
+                  }}
+                />
+              </SheetTrigger>
+              <SheetContent>
+                <SheetHeader>
+                  <SheetTitle>Edit profile</SheetTitle>
+                  <SheetDescription>
+                    Make changes to your profile here. Click save when you're done.
+                  </SheetDescription>
+                </SheetHeader>
+                <div className="grid gap-4 py-4">
+                <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="image" className="text-right">
+                      Imagen
+                    </Label>
+                    <Input
+                      id="image"
+                      type="file"
+                      onChange={handleImageChange}
+                      className="col-span-3"
+                    />
+                  </div>
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="name" className="text-right">
+                      Nombre
+                    </Label>
+                    <Input
+                      id="name"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      className="col-span-3"
+                    />
+                  </div>
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="email" className="text-right">
+                      Email
+                    </Label>
+                    <Input
+                      id="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="col-span-3"
+                    />
+                  </div>
+                </div>
+                <SheetFooter>
+                  <SheetClose asChild>
+                    <Button type="submit" onClick={handleSave}>
+                      Guardar Cambios
+                    </Button>
+                  </SheetClose>
+                </SheetFooter>
+              </SheetContent>
+            </Sheet>
           </div>
         </SidebarBody>
       </Sidebar>
