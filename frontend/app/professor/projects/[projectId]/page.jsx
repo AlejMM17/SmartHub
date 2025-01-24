@@ -147,7 +147,7 @@ export default function Page() {
 const ActivityList = ({ activities, isLoading, handleDeleteActivity, handleModifyActivity, formData, setFormData, projectId }) => {
     if ((!Array.isArray(activities) || activities.length <= 0) && !isLoading) return <p>No activities found</p>;
     return (
-        <div className="flex flex-col items-stretch gap-3 lg:flex-row lg:w-4/5 lg:mx-auto lg:flex-wrap">
+        <div className="flex flex-col items-stretch gap-3 lg:flex-row lg:w-4/5 lg:mx-auto lg:flex-wrap max-h-[50vh] lg:max-h-[65vh] sm:max-h-[65vh] overflow-scroll">
             {activities.map(activity => (
                 <FollowingPointerDemo
                     key={activity._id}
