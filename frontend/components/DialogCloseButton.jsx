@@ -93,15 +93,15 @@ export default function DialogCloseButton({ setFormData, formData, clickFunction
                         }
                     </div>
                 </div>
-                <DialogFooter className="sm:justify-start">
+                <DialogFooter className="">
+                    <Button type="button" variant="primary" disabled={!isSendable} className="bg-blue-500 text-white hover:bg-blue-800" onClick={() => action === "Modify" ? clickFunction(projectID) : clickFunction()}>
+                        Enviar
+                    </Button>
                     <DialogClose asChild>
                         <Button type="button" variant="primary" className="bg-red-500 text-white hover:bg-red-800">
-                            Close
+                            Cerrar
                         </Button>
                     </DialogClose>
-                    <Button type="button" variant="primary" disabled={!isSendable} className="bg-blue-500 text-white hover:bg-blue-800" onClick={() => action === "Modify" ? clickFunction(projectID) : clickFunction()}>
-                        Send
-                    </Button>
                 </DialogFooter>
             </DialogContent>
         </Dialog>

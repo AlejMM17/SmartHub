@@ -1,45 +1,45 @@
 "use client";
 import React, { useState } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "./ui/Sidebar";
-import {
-  IconArrowLeft,
-  IconBrandTabler,
-  IconSettings,
-  IconUserBolt,
-} from "@tabler/icons-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import {List, Rocket, Users} from "lucide-react";
+import {ModeToggle} from "@/components/ToggleThemeMode";
+import {useUser} from "@/context/UserContext";
 
 export function SidebarDemo({ children }) {
+
+  const { user } = useUser();
+
   const links = [
     {
-      label: "Projects",
+      label: "Proyectos",
       href: "/professor/projects",
       icon: (
-        <IconBrandTabler className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+        <Rocket className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
     {
-      label: "Activities",
+      label: "Actividades",
       href: "/professor/activities",
       icon: (
-        <IconUserBolt className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+        <List className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
     {
-      label: "Students",
+      label: "Alumnos",
       href: "/professor/students",
       icon: (
-        <IconSettings className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+        <Users className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
     {
       label: "Profile",
       href: "/profile",
       icon: (
-        <IconArrowLeft className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+        <Users className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
   ];
@@ -62,14 +62,15 @@ export function SidebarDemo({ children }) {
               ))}
             </div>
           </div>
-          <div>
+          <div className="flex flex-col gap-y-2">
+            <ModeToggle />
             <SidebarLink
               link={{
-                label: "Manu Arora",
+                label: user?.name ?? "user",
                 href: "#",
                 icon: (
                   <Image
-                    src="https://assets.aceternity.com/manu.png"
+                    src={("/" + user?.user_picture) ?? "/defaultPFP.webp"}
                     className="h-7 w-7 flex-shrink-0 rounded-full"
                     width={50}
                     height={50}

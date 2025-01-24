@@ -64,21 +64,15 @@ export default function DialogCloseButtonImport({ setFormData, formData, clickFu
                 <Input type="file" id="file" onChange={handleChange} accept=".csv" />
                 {errorMessage && <p className="text-red-500 text-sm mt-1">{errorMessage}</p>}
                 {selectedFileName && <p className="text-green-500 text-sm mt-1">Selected File: {selectedFileName}</p>}
-                <DialogFooter className="sm:justify-start">
+                <DialogFooter className="">
+                    <Button type="button" variant="primary" disabled={!isSendable} className="bg-blue-500 text-white hover:bg-blue-800" onClick={() => action === "Modify" ? clickFunction(projectID) : clickFunction()}>
+                        Enviar
+                    </Button>
                     <DialogClose asChild>
                         <Button type="button" variant="primary" className="bg-red-500 text-white hover:bg-red-800">
-                            Close
+                            Cerrar
                         </Button>
                     </DialogClose>
-                    <Button
-                        type="button"
-                        variant="primary"
-                        disabled={!isSendable}
-                        className={`bg-blue-500 text-white hover:bg-blue-800 ${!isSendable ? "opacity-50 cursor-not-allowed" : ""}`}
-                        onClick={() => clickFunction()}
-                    >
-                        Send
-                    </Button>
                 </DialogFooter>
             </DialogContent>
         </Dialog>

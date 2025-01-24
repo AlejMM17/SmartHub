@@ -8,6 +8,7 @@ import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { toast } from '@/hooks/use-toast';
 import { FollowingPointerDemo } from '@/components/ui/followPointerDemo';
+import useProjects from "@/hooks/useProjects";
 
 export default function Page() {
     const params = useParams();
@@ -15,6 +16,8 @@ export default function Page() {
 
     const { user } = useUser();
     const [activities, setActivities] = useState([]);
+    const { getProjectById } = useProjects()
+    const [project, setProject] = useState({})
     const [loadingRequest, setLoadingRequest] = useState(true);
     const [formData, setFormData] = useState({
         name: "",
@@ -75,13 +78,13 @@ export default function Page() {
             const updatedActivity = await updateActivity(activityID, formData);
             setActivities(await fetchActivities(projectId));
             toast({
-                titol: `Actividad modificada ${updatedActivity.name}`,
+                title: `Actividad modificada ${updatedActivity.name}`,
                 variant: 'success'
             });
             closeModal();
         } catch (err) {
             toast({
-                titol: 'No se ha podido modificar la actividad',
+                title: 'No se ha podido modificar la actividad',
                 variant: 'error'
             });
         }
@@ -106,11 +109,22 @@ export default function Page() {
         fetchProjectActivities();
     }, [user, projectId]);
 
+    useEffect(() => {
+        const getProjectByIdFunc = async () => {
+            setProject(await getProjectById(projectId))
+        }
+
+        getProjectByIdFunc()
+    }, [projectId])
+
     if (error) return <p className="text-red-600 text-2xl">Ups... Something bad happened!</p>;
 
     return (
         <div className="w-full">
-            <h1 className="text-4xl font-normal mb-8 text-center lg:text-start lg:mt-8 lg:ms-16">Activities</h1>
+
+            <h1 className="w-4/5 mx-auto text-4xl sm:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-8">
+                Actividades de {project?.name}
+            </h1>
             {loading || loadingRequest && <SkeletonLoader count={3} />}
             {!loading && !loadingRequest &&
                 <div className="flex flex-row justify-between items-center mx-auto w-4/5 mb-8">

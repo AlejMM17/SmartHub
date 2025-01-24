@@ -213,7 +213,9 @@ export default function Page() {
 
     return (
         <div className="container mx-auto">
-            <h1 className="text-4xl font-normal mb-8 text-center lg:text-start lg:mt-8">Notas de la Actividad</h1>
+            <h1 className="text-4xl sm:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-8">
+                Actividades de {activity?.name}
+            </h1>
             <div className="flex flex-row gap-x-6 items-end justify-end">
                 <Button onClick={handleSaveChanges} className="mt-4">Guardar Cambios</Button>
             </div>

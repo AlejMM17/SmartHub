@@ -132,7 +132,9 @@ export default function Page() {
 
     return (
         <div className="container mx-auto">
-            <h1 className="text-4xl font-normal mb-8 text-center lg:text-start lg:mt-8">Alumnos</h1>
+            <h1 className="text-4xl sm:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-8">
+                Alumnos
+            </h1>
             { loading || loadingRequest && <SkeletonLoader count={3} /> }
             { !loading && !loadingRequest &&
                 <>
@@ -364,7 +366,7 @@ const StudentsList = ({
                                         formData={importFile}
                                         clickFunction={handleImportFileSubmit}
                                         title="Importar Alumnos"
-                                        description="Elige un archivo .csv para importar alumnos."
+                                        description="Elige un archivo .csv para importar alumnos. Asegurate de poner los siguientes campos: name, lastName, email, password, role (opcional)"
                                     />
                                 </TooltipTrigger>
                                 <TooltipContent>
@@ -388,7 +390,7 @@ const StudentsList = ({
                 <TableBody>
                     {modifiedStudents.map((student) => (
                         <TableRow key={student._id}>
-                            <TableCell className="rounded"><Image width={24} height={24} src={`/${student.user_picture}`} alt=""/></TableCell>
+                            <TableCell className="rounded"><Image width={24} height={24} src={`/${student.user_picture}`} alt={student.name}/></TableCell>
                             <TableCell>{student.name}</TableCell>
                             <TableCell>{student.lastName}</TableCell>
                             <TableCell>{student.email}</TableCell>

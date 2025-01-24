@@ -42,7 +42,7 @@ export function FollowingPointerDemo({ activity, activityID, handleDeleteActivit
                     {/* Image Section */}
                     <div className="w-full h-40 bg-gray-100 rounded-tr-lg rounded-tl-lg overflow-hidden relative">
                         <Image
-                            src={"/defaultPFP.webp"}
+                            src={activity.picture ?? "/defaultPFP.webp"}
                             alt="thumbnail"
                             layout="fill"
                             objectFit="cover"
@@ -86,36 +86,36 @@ export function FollowingPointerDemo({ activity, activityID, handleDeleteActivit
                                     Fins: <b>{formatDate(activity.end_date)}</b>
                                 </span>
                             </div>
-                            <div className="flex flex-row gap-1 justify-between">
-                                <div>
-                                <TooltipProvider>
-                                    <Tooltip>
-                                        <TooltipTrigger>
-                                            <ActivitiesDialogCloseButton
-                                                setFormData={setFormData}
-                                                formData={formData}
-                                                clickFunction={() => handleModifyActivity(activityID)}
-                                                title="Modificar Actividad"
-                                                description="Modifica todos los datos requeridos para modificar una actividad."
-                                                action="Modify"
-                                                activityID={activityID}
-                                            />
-                                        </TooltipTrigger>
-                                        <TooltipContent>
-                                            <p>Modificar Actividad</p>
-                                        </TooltipContent>
-                                    </Tooltip>
-                                </TooltipProvider>
-                                <TooltipProvider>
-                                    <Tooltip>
-                                        <TooltipTrigger>
-                                            <Link href={`/professor/projects/${projectID}/${activityID}`}><Button variant="outline"><ArrowRight /></Button></Link>
-                                        </TooltipTrigger>
-                                        <TooltipContent>
-                                            <p>Ir a Actividad</p>
-                                        </TooltipContent>
-                                    </Tooltip>
-                                </TooltipProvider>
+                            <div className="flex flex-row justify-between">
+                                <div className="flex space-x-1">
+                                    <TooltipProvider>
+                                        <Tooltip>
+                                            <TooltipTrigger>
+                                                <ActivitiesDialogCloseButton
+                                                    setFormData={setFormData}
+                                                    formData={formData}
+                                                    clickFunction={() => handleModifyActivity(activityID)}
+                                                    title="Modificar Actividad"
+                                                    description="Modifica todos los datos requeridos para modificar una actividad."
+                                                    action="Modify"
+                                                    activityID={activityID}
+                                                />
+                                            </TooltipTrigger>
+                                            <TooltipContent>
+                                                <p>Modificar Actividad</p>
+                                            </TooltipContent>
+                                        </Tooltip>
+                                    </TooltipProvider>
+                                    <TooltipProvider>
+                                        <Tooltip>
+                                            <TooltipTrigger>
+                                                <Link href={`/professor/projects/${projectID}/${activityID}`}><Button variant="outline"><ArrowRight /></Button></Link>
+                                            </TooltipTrigger>
+                                            <TooltipContent>
+                                                <p>Ir a Actividad</p>
+                                            </TooltipContent>
+                                        </Tooltip>
+                                    </TooltipProvider>
                                 </div>
                                 <TooltipProvider>
                                     <Tooltip>

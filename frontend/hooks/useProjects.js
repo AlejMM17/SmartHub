@@ -37,6 +37,32 @@ export default function useProjects() {
         }
     };
 
+    const getProjectById = async (id) => {
+        setLoading(true);
+        setError(null);
+
+        try {
+            if (!id) {
+                throw new Error('No id provided');
+            }
+
+            const res = await fetch(`http://localhost:3001/api/v1/projects/${id}`, {
+                method: 'GET',
+            });
+
+            if (!res.ok) {
+                throw new Error(`Failed to fetch project with ID: ${id}`);
+            }
+
+            return res.json();
+
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     const postProject = async (project) => {
         setLoading(true);
         setError(null);
@@ -139,5 +165,5 @@ export default function useProjects() {
         }
     }
 
-    return { fetchProjects, postProject, fetchProfessorProjects, deleteProject, updateProject, error, loading };
+    return { fetchProjects, postProject, fetchProfessorProjects, deleteProject, updateProject, getProjectById, error, loading };
 }

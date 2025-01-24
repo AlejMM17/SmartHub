@@ -87,7 +87,9 @@ export default function Page() {
 
     return (
         <div className="w-full">
-            <h1 className="text-4xl font-normal mb-8 text-center lg:text-start lg:mt-8 lg:ms-16">Projects</h1>
+            <h1 className="w-4/5 mx-auto text-4xl sm:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-8">
+                Proyectos
+            </h1>
             { loading && <SkeletonLoader count={3} /> }
             { !loading &&
                 <div className="flex flex-row justify-between items-center mx-auto w-4/5 mb-8">

@@ -1,8 +1,10 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css"; // IMPORTANTE aqui es donde se define todo lo necessario para que tailwind funcione, sin esto no funciona
-// import { SidebarDemo } from "./components/SidebarDemo";
-import { UserProvider } from "../context/UserContext";
+
+import { UserProvider } from "@/context/UserContext";
 import { Toaster } from "@/components/ui/toaster";
+import { ThemeProvider } from "@/components/theme-provider"
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,7 +28,6 @@ export default function RootLayout({ children }) {
         <body
             className={`${geistSans.variable} ${geistMono.variable} antialiased flex`}
         >
-            {/* <SidebarDemo>{ children }</SidebarDemo> */}
             {/*
                 El UserProvider es un context que contiene la informacion del user, se puede utilizar en sus hijos para acceder y modificar su informacion mediante al useUser() que te devuelve user y setUser.
 
@@ -37,8 +38,15 @@ export default function RootLayout({ children }) {
 
                 Con estas dos variables ya puedes ver la información del usuario ( user ) y modificarla ( setUser )
             */}
-            { children }
-            <Toaster />
+            <ThemeProvider
+                attribute="class"
+                defaultTheme="system"
+                enableSystem
+                disableTransitionOnChange
+            >
+                { children }
+                <Toaster />
+            </ThemeProvider>
         </body>
         </html>
     </UserProvider>
