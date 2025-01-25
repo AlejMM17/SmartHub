@@ -165,23 +165,24 @@ const Project = ({projectID, handleDeleteProject, project, handleModifyProject, 
 
     return (
         <div 
-            className="rounded-2xl transition duration-200 group  bg-white hover:shadow-xl border border-zinc-100 mx-auto w-4/5 p-3 lg:w-2/5 lg:mx-0 "
+            className="rounded-2xl transition duration-200 group bg-white hover:shadow-xl border border-zinc-100 mx-auto w-4/5 p-3 lg:w-2/5 lg:mx-0 flex flex-col " // Fijamos la altura mínima
         >
             <div className="flex flex-row flex-wrap gap-2 my-2">
-                { !loading
-                    && Array.isArray(skillsFetched)
-                    && skillsFetched.length > 0
-                    && skillsFetched.map((skill, i) => (
-                        <Badge key={skill._id}>
-                            {skill.name} - {skills[i].percentage + "%"}
-                        </Badge>
-                    ))}
+                { !loading &&
+                Array.isArray(skillsFetched) &&
+                skillsFetched.length > 0 &&
+                skillsFetched.map((skill, i) => (
+                    <Badge key={skill._id}>
+                        {skill.name} - {skills[i].percentage + "%"}
+                    </Badge>
+                ))
+                }
             </div>
-            <p className="font-bold mb-2 text-lg text-zinc-700">{ name }</p>
-            <p className="font-normal text-sm text-zinc-500 overflow-auto">{ description }</p>
-            <p className="font-normal text-sm text-zinc-500 my-2">Numero de Actividades: { activities.length }</p>
-            <div className="flex flex-row justify-between">
-                <div className="flex flex-row gap-1">
+            <p className="font-bold mb-2 text-lg text-zinc-700">{name}</p>
+            <p className="font-normal text-sm text-zinc-500 flex-grow w-full">{description}</p>
+            <p className="font-normal text-sm text-zinc-500 my-2">Numero de Actividades: {activities.length}</p>
+            <div className="flex flex-row justify-between mt-auto">
+                <div className="flex flex-row gap-1 self-end">
                     <TooltipProvider>
                         <Tooltip>
                             <TooltipTrigger>
@@ -203,7 +204,9 @@ const Project = ({projectID, handleDeleteProject, project, handleModifyProject, 
                     <TooltipProvider>
                         <Tooltip>
                             <TooltipTrigger>
-                                <Link href={`/professor/projects/${projectID}`}><Button variant="outline"><ArrowRight /></Button></Link>
+                                <Link href={`/professor/projects/${projectID}`}>
+                                    <Button variant="outline"><ArrowRight /></Button>
+                                </Link>
                             </TooltipTrigger>
                             <TooltipContent>
                                 <p>Ir a Proyecto</p>
@@ -214,14 +217,15 @@ const Project = ({projectID, handleDeleteProject, project, handleModifyProject, 
                 <TooltipProvider>
                     <Tooltip>
                         <TooltipTrigger>
-                            <Button variant="destructive" onClick={() => handleDeleteProject(projectID)}><Trash2 /></Button>
+                            <Button variant="destructive" onClick={() => handleDeleteProject(projectID)}>
+                                <Trash2 />
+                            </Button>
                         </TooltipTrigger>
                         <TooltipContent>
                             <p>Eliminar Proyecto</p>
                         </TooltipContent>
                     </Tooltip>
                 </TooltipProvider>
-
             </div>
         </div>
     )
