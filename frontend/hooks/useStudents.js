@@ -149,6 +149,22 @@ export default function useStudents() {
             setLoading(false);
         }
     };
+    const fetchUserImage = async (userId) => {
+        setLoading(true);
+        setError(null);
+        try {
+            const res = await fetch(`http://localhost:3001/api/v1/users/${userId}`);
+            if (!res.ok) {
+                throw new Error(`Failed to fetch user image`);
+            }
+            const user = await res.json();
+            return user.user_picture;
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    };
 
-    return { fetchStudents, postStudent, deleteStudent, importStudents, updateUser, error, loading };
+    return { fetchStudents, postStudent, deleteStudent, importStudents, updateUser, fetchUserImage, error, loading };
 }

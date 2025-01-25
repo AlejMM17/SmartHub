@@ -177,40 +177,36 @@ const userController = {
     try {
       const { name, lastName, role, email, password } = req.body;
 
-      if (!name || !lastName || !email || !password || !role) {
-        return res.status(400).json({
-          error: "Faltan campos obligatorios: name, lastName, email, password, role",
-        });
-      }
-
-      const userObject = {
-        name,
-        lastName,
-        role,
-        email,
-        password,
-      }
+      // Crear un objeto con los campos a actualizar
+      const updateFields = {};
+      if (name) updateFields.name = name;
+      if (lastName) updateFields.lastName = lastName;
+      if (role) updateFields.role = role;
+      if (email) updateFields.email = email;
+      if (password) updateFields.password = password;
 
       if (req.file) {
-        userObject.user_picture = {
+        updateFields.user_picture = {
           data: req.file.buffer,
           contentType: req.file.mimetype,
-        }
+        };
       }
 
-      const user = await User.findByIdAndUpdate(
-          req.params.id,
-          { $set: userObject },
-          { new: true }
+      const updatedUser = await User.findByIdAndUpdate(
+        req.params.id,
+        { $set: updateFields },
+        { new: true }
       );
 
-      return !user
-          ? res.status(404).json({ message: 'User not found' })
-          : res.status(200).json(user);
-    } catch (e) {
+      if (!updatedUser) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+
+      res.status(200).json(updatedUser);
+    } catch (error) {
       res.status(500).json({
         message: "Usuario no actualizado",
-        errors: e.errors,
+        errors: error.errors,
       });
     }
   },

@@ -22,18 +22,22 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import useUpdateUser from "@/hooks/useUpdateUser";
 import useStudents from "@/hooks/useStudents";
 import { toast } from "@/hooks/use-toast";
 import { setAuthCookie } from "@/utils/setAuthCookie";
 
 export function SidebarDemo({ children }) {
   const { user, setUser } = useUser();
-  const [formData, setFormData] = useState({ name: user?.name || "", lastName: user?.lastName || "", email: user?.email || "", image: "" });
-  const { updateUser } = useStudents();
+  const [formData, setFormData] = useState({ name: user?.name || "", lastName: user?.lastName || "", email: user?.email || "", image: "", });
+  const [userImage, setUserImage] = useState("");
+  const { updateUser } = useUpdateUser();
+  const { fetchUserImage } = useStudents();
+
   useEffect(() => {
     if (user) {
-      console.log(user)
-      setFormData({ name: user.name, lastName: user.lastName, email: user.email, image: "" });
+      setFormData({ name: user.name, lastName: user.lastName, email: user.email, image: "", });
+      fetchUserImage(user._id).then(setUserImage);
     }
   }, [user]);
 
@@ -46,11 +50,11 @@ export function SidebarDemo({ children }) {
   };
   const handleSave = async () => {
     try {
-      console.log(formData)
       const updatedUser = await updateUser(user._id, formData);
       if (updatedUser) {
-        setUser(updatedUser);
-        setAuthCookie(updatedUser);
+        const { user_picture, ...updatedUserData } = updatedUser;
+        setUser(updatedUserData);
+        setAuthCookie(updatedUserData);
         toast({
           title: 'Perfil actualizado',
           description: 'Tu perfil ha sido actualizado correctamente.',
@@ -116,9 +120,15 @@ export function SidebarDemo({ children }) {
                   link={{
                     label: user?.name ?? "user",
                     href: "#",
-                    icon: user?.user_picture
-                          ? <Image width={24} height={24} src={user?.user_picture} alt={`${user?.name} icon`}/>
-                          : <Image width={24} height={24} src="defaultPFP.webp" alt={`${user?.name} icon`}/>,
+                    icon: (
+                      <Image
+                        src={userImage || "/defaultPFP.webp"}
+                        className="h-7 w-7 flex-shrink-0 rounded-full"
+                        width={50}
+                        height={50}
+                        alt="Avatar"
+                      />
+                    ),
                   }}
                 />
               </SheetTrigger>
@@ -180,9 +190,11 @@ export function SidebarDemo({ children }) {
                   </div>
                 </div>
                 <SheetFooter>
-                  <Button type="submit" onClick={handleSave}>
-                    Guardar Cambios
-                  </Button>
+                  <SheetClose>
+                    <Button type="submit" onClick={handleSave}>
+                      Guardar Cambios
+                    </Button>
+                  </SheetClose>
                 </SheetFooter>
               </SheetContent>
             </Sheet>

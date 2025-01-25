@@ -25,8 +25,9 @@ export default function useLogin() {
             }
 
             const data = await res.json()
+            const { user_picture, ...userData } = data.user;
             // Guardar el user en las cookies
-            setAuthCookie(data.user)
+            setAuthCookie(userData)
             return data
 
         } catch (err) {
