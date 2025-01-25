@@ -8,7 +8,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 router.get('/', userController.getAllUsers);
 router.get('/students', userController.getAllStudents);
 router.get('/:id', userController.getUser);
-router.post('/', userController.createUser);
+router.post('/', upload.single('user_picture'), userController.createUser);
 router.post('/import', upload.single('file'), userController.importUsers);
 router.put('/:id', upload.single('user_picture'), userController.updateUser);
 router.delete('/:id', userController.deleteUser);

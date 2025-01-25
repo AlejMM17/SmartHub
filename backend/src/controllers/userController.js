@@ -8,7 +8,19 @@ const userController = {
   getAllUsers: async (req, res) => {
     try {
       const users = await User.find().select("-password"); // No enviar passwords
-      res.status(200).json(users);
+
+      const usersWithImages = users.map((user) => {
+        const { user_picture, ...otherFields } = user.toObject(); // toObject ensures it’s a plain JS object
+
+        return {
+          ...otherFields,
+          user_picture: user_picture && user_picture.data
+              ? `data:${user_picture.contentType};base64,${user_picture.data.toString("base64")}`
+              : null,
+        };
+      });
+
+      res.status(200).json(usersWithImages);
     } catch (err) {
       res.status(500).json({ message: "Error obteniendo usuarios" });
     }
@@ -16,18 +28,41 @@ const userController = {
   getAllStudents: async (req, res) => {
     try {
       const users = await User.find({ role: "student"}).select("-password"); // No enviar passwords
-      res.status(200).json(users);
+
+      const usersWithImages = users.map((user) => {
+        const { user_picture, ...otherFields } = user.toObject();
+
+        return {
+          ...otherFields,
+          user_picture: user_picture && user_picture.data
+              ? `data:${user_picture.contentType};base64,${user_picture.data.toString("base64")}`
+              : null,
+        };
+      });
+
+      res.status(200).json(usersWithImages);
     } catch (err) {
       res.status(500).json({ message: "Error obteniendo alumnos" });
     }
   },
   getUser: async (req, res) => {
     try {
-        const user = await User.findById(req.params.id).select("-password"); // No enviar passwords
-        res.status(200).json(user);
-      } catch (err) {
-        res.status(500).json({ message: "Error obteniendo usuario" });
-      }
+      const user = await User.findById(req.params.id).select("-password"); // No enviar passwords
+
+      const { user_picture, ...otherFields } = user.toObject();
+      const userWithImage = {
+        ...otherFields,
+        user_picture: user_picture && user_picture.data
+            ? `data:${user_picture.contentType};base64,${user_picture.data.toString("base64")}`
+            : null,
+      };
+
+      return !user
+          ? res.status(404).json({ message: 'User not found' })
+          : res.status(200).json(userWithImage)
+    } catch (err) {
+      res.status(500).json({ message: "Error obteniendo usuario" });
+    }
   },
   createUser: async (req, res) => {
     try {
@@ -39,20 +74,32 @@ const userController = {
         });
       }
 
-      const newUser = new User({
+      const userObject = {
         name,
         lastName,
         role,
         email,
         password,
-      });
+      }
+
+      if (req.file) {
+        userObject.user_picture = {
+          data: req.file.buffer,
+          contentType: req.file.mimetype,
+        }
+      }
+
+      const newUser = new User(userObject);
 
       const savedUser = await newUser.save();
 
-      res.status(201).json({
-        message: "Usuario creado correctamente",
-        user: savedUser,
-      });
+      return !savedUser
+          ? res.status(404).json({ message: 'User not found' })
+          : res.status(201).json({
+            message: "Usuario creado correctamente",
+            user: savedUser,
+          });
+
     } catch (e) {
       res.status(400).json({
         message: "Usuario no creado",
@@ -128,28 +175,38 @@ const userController = {
   },
   updateUser: async (req, res) => {
     try {
-      const { name, lastName, email } = req.body;
+      const { name, lastName, role, email, password } = req.body;
 
-      const updateFields = {
+      if (!name || !lastName || !email || !password || !role) {
+        return res.status(400).json({
+          error: "Faltan campos obligatorios: name, lastName, email, password, role",
+        });
+      }
+
+      const userObject = {
         name,
         lastName,
+        role,
         email,
-        modify_date: Date.now(),
-      };
+        password,
+      }
 
       if (req.file) {
-        updateFields.user_picture = {
+        userObject.user_picture = {
           data: req.file.buffer,
           contentType: req.file.mimetype,
-        };
+        }
       }
 
-      const user = await User.findByIdAndUpdate(req.params.id, { $set: updateFields }, { new: true });
-      if (!user) {
-        return res.status(404).json({ message: 'User not found' });
-      }
+      const user = await User.findByIdAndUpdate(
+          req.params.id,
+          { $set: userObject },
+          { new: true }
+      );
 
-      res.status(200).json(user);
+      return !user
+          ? res.status(404).json({ message: 'User not found' })
+          : res.status(200).json(user);
     } catch (e) {
       res.status(500).json({
         message: "Usuario no actualizado",

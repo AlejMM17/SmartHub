@@ -10,12 +10,7 @@ export default function useStudents() {
 
         try {
 
-            const res = await fetch(`http://localhost:3001/api/v1/users/students`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            })
+            const res = await fetch(`http://localhost:3001/api/v1/users/students`)
 
             if (!res.ok) {
                 throw new Error(`Failed to fetch students`);
@@ -37,12 +32,20 @@ export default function useStudents() {
         try {
             if (!user) throw new Error('No user provided');
 
+            const formData = new FormData();
+            formData.append("name", user.name);
+            formData.append("lastName", user.lastName);
+            formData.append("email", user.email);
+            formData.append("password", user.password);
+            formData.append("role", user.role);
+
+            if (user.user_picture) {
+                formData.append("user_picture", user.user_picture);
+            }
+
             const res = await fetch("http://localhost:3001/api/v1/users", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(user)
+                body: formData,
             })
 
             if (!res.ok)  {
@@ -110,27 +113,32 @@ export default function useStudents() {
         }
     }
     
-    const updateUser = async (userId, updatedData) => {
+    const updateUser = async (id, user) => {
         setLoading(true);
         setError(null);
 
         try {
-            const formData = new FormData();
-            formData.append("name", updatedData.name);
-            formData.append("lastName", updatedData.lastName);
-            formData.append("email", updatedData.email);
+            if (!id) throw new Error('No ID provided')
+            else if (!user) throw new Error('No user provided')
 
-            if (updatedData.image) {
-                formData.append("user_picture", updatedData.image);
+            const formData = new FormData();
+            formData.append("name", user.name);
+            formData.append("lastName", user.lastName);
+            formData.append("email", user.email);
+            formData.append("password", user.password);
+            formData.append("role", user.role);
+
+            if (user.user_picture) {
+                formData.append("user_picture", user.user_picture);
             }
 
-            const res = await fetch(`http://localhost:3001/api/v1/users/${userId}`, {
+            const res = await fetch(`http://localhost:3001/api/v1/users/${id}`, {
                 method: 'PUT',
                 body: formData,
             });
 
             if (!res.ok) {
-                throw new Error('Failed to update user');
+                throw new Error(`Failed to update user with id: ${id}`);
             }
 
             return await res.json();

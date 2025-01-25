@@ -27,8 +27,18 @@ exports.getAllSkills = async (req, res) => {
 exports.getSkillById = async (req, res) => {
   try {
     const skill = await Skill.findById(req.params.id);
-    if (!skill) return res.status(404).json({ message: 'Skill not found' });
-    res.status(200).json(skill);
+
+    const { icon, ...otherFields } = skill.toObject();
+    const skillWithImage = {
+      ...otherFields,
+      icon: icon && icon.data
+          ? `data:${icon.contentType};base64,${icon.data.toString("base64")}`
+          : null,
+    };
+
+    return !skill
+        ? res.status(404).json({ message: 'Skill not found' })
+        : res.status(200).json(skillWithImage);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

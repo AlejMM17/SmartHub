@@ -116,15 +116,9 @@ export function SidebarDemo({ children }) {
                   link={{
                     label: user?.name ?? "user",
                     href: "#",
-                    icon: (
-                      <Image
-                        src={("/" + user?.user_picture) ?? "/defaultPFP.webp"}
-                        className="h-7 w-7 flex-shrink-0 rounded-full"
-                        width={50}
-                        height={50}
-                        alt="Avatar"
-                      />
-                    ),
+                    icon: user?.user_picture
+                          ? <Image width={24} height={24} src={user?.user_picture} alt={`${user?.name} icon`}/>
+                          : <Image width={24} height={24} src="defaultPFP.webp" alt={`${user?.name} icon`}/>,
                   }}
                 />
               </SheetTrigger>

@@ -37,18 +37,22 @@ import DialogCloseButtonImport from "@/components/DialogCloseButtonImport";
 import PaginationComponent from "@/components/Pagination";
 
 export default function Page() {
-    const { user } = useUser();
-    const [students, setStudents] = useState([])
-    const [loadingRequest, setLoadingRequest] = useState(true)
-    const { fetchStudents, deleteStudent, postStudent, importStudents, loading, error } = useStudents();
-    const [formData, setFormData] = useState({
+
+    const initialState = {
         name: "",
         lastName: "",
         email: "",
         password: "",
         confirmPassword: "",
-        role: "student"
-    })
+        role: "student",
+        user_picture: undefined,
+    }
+
+    const { user } = useUser();
+    const [students, setStudents] = useState([])
+    const [loadingRequest, setLoadingRequest] = useState(true)
+    const { fetchStudents, deleteStudent, postStudent, importStudents, updateUser, loading, error } = useStudents();
+    const [formData, setFormData] = useState(initialState);
     const [importFile, setImportFile] = useState(null)
     const [page, setPage] = useState(1)
     const pagesNumber = Math.ceil(students.length / 6)
@@ -57,7 +61,25 @@ export default function Page() {
         const { confirmPassword, ...userPost } = formData
         await postStudent(userPost)
         setStudents(await fetchStudents())
+        setFormData(initialState);
     }
+
+    const handleUpdateUser = async (userId) => {
+        const updatedUser = await updateUser(userId, formData);
+        setFormData(initialState);
+        if (!updatedUser) {
+            return toast({
+                title: 'No se ha podido modificar el usuario',
+                variant: 'destructive',
+            });
+        }
+
+        setStudents(await fetchStudents());
+        return toast({
+            title: `Usuario modificado ${updatedUser.name}`,
+        });
+    };
+
 
     const handleImportFileSubmit = async () => {
 
@@ -87,6 +109,7 @@ export default function Page() {
                 variant: "destructive",
             });
         }
+        setImportFile(null)
     };
 
 
@@ -128,7 +151,7 @@ export default function Page() {
             <h1 className="text-4xl sm:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-8">
                 Alumnos
             </h1>
-            { loading || loadingRequest && <SkeletonLoader count={3} /> }
+            {/*{ loading || loadingRequest && <SkeletonLoader count={3} /> }*/}
             { !loading && !loadingRequest &&
                 <>
                     <StudentsList
@@ -142,6 +165,7 @@ export default function Page() {
                         setImportFile={setImportFile}
                         importFile={importFile}
                         handleImportFileSubmit={handleImportFileSubmit}
+                        handleUpdateUser={handleUpdateUser}
                     />
                     <PaginationComponent page={page} setPage={setPage} pagesNumber={pagesNumber} />
                 </>
@@ -161,6 +185,7 @@ const StudentsList = ({
                           handleImportFileSubmit,
                           importFile,
                           setImportFile,
+                          handleUpdateUser
                       }) => {
 
     if ((!Array.isArray(students) || students.length <= 0) && !isLoading) return <p>No students found</p>
@@ -314,6 +339,7 @@ const StudentsList = ({
                                         clickFunction={handleFormSubmit}
                                         title="Crear Alumno"
                                         description="Inserta todos los datos requeridos para crear un nuevo alumno."
+                                        action={"Create"}
                                     />
                                 </TooltipTrigger>
                                 <TooltipContent>
@@ -353,7 +379,12 @@ const StudentsList = ({
                 <TableBody>
                     {modifiedStudents.map((student) => (
                         <TableRow key={student._id}>
-                            <TableCell className="rounded"><Image width={24} height={24} src={`/${student.user_picture}`} alt={student.name}/></TableCell>
+                            <TableCell className="rounded">
+                                {student.user_picture
+                                    ? <Image width={24} height={24} src={student.user_picture} alt={`${student.name} icon`}/>
+                                    : <Image width={24} height={24} src="/defaultPFP.webp" alt={`${student.name} icon`}/>
+                                }
+                            </TableCell>
                             <TableCell>{student.name}</TableCell>
                             <TableCell>{student.lastName}</TableCell>
                             <TableCell>{student.email}</TableCell>
@@ -366,6 +397,18 @@ const StudentsList = ({
                                     />
                                     <p>{student.archive_date ? "Archivado" : "Activo"}</p>
                                 </div>
+                            </TableCell>
+                            <TableCell className="text-right">
+                                <DialogCloseButtonUsers
+                                    setFormData={setFormData}
+                                    formData={formData}
+                                    clickFunction={handleUpdateUser}
+                                    title="Modificar Alumno"
+                                    description="Modifica todos los datos requeridos para crear un nuevo alumno."
+                                    action={"Modify"}
+                                    userId={student._id}
+                                    disabled={student.archive_date}
+                                />
                             </TableCell>
                             <TableCell className="text-right">
                                 <Button
