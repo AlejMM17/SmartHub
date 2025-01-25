@@ -67,22 +67,34 @@ export default function useActivities() {
   const postActivity = async (activityStructure) => {
     setLoading(true);
     setError(null);
-
+  
     try {
       if (!activityStructure) throw new Error('No activity structure provided');
-      
+  
+      const formData = new FormData();
+      formData.append("name", activityStructure.name);
+      formData.append("description", activityStructure.description);
+      formData.append("start_date", activityStructure.start_date);
+      formData.append("end_date", activityStructure.end_date);
+  
+      if (activityStructure.activity_picture) {
+        formData.append("activity_picture", activityStructure.activity_picture);
+      }
+  
+      activityStructure.skills.forEach((skill, index) => {
+        formData.append(`skills[${index}][skill_id]`, skill.skill_id);
+        formData.append(`skills[${index}][percentage]`, skill.percentage);
+      });
+  
       const res = await fetch("http://localhost:3001/api/v1/activities", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(activityStructure)
+        body: formData
       });
-
+  
       if (!res.ok) {
         throw new Error("Failed to create activity");
       }
-
+  
       return await res.json();
     } catch (err) {
       setError(err.message);
@@ -119,16 +131,33 @@ export default function useActivities() {
     setError(null);
     try {
       if (!id) throw new Error('No ID provided');
+
+      const formData = new FormData();
+      if (activity.name) formData.append("name", activity.name);
+      if (activity.description) formData.append("description", activity.description);
+      if (activity.start_date) formData.append("start_date", activity.start_date);
+      if (activity.end_date) formData.append("end_date", activity.end_date);
+
+      if (activity.activity_picture) {
+        formData.append("activity_picture", activity.activity_picture);
+      }
+
+      if (activity.skills) {
+        activity.skills.forEach((skill, index) => {
+          formData.append(`skills[${index}][skill_id]`, skill.skill_id);
+          formData.append(`skills[${index}][percentage]`, skill.percentage);
+        });
+      }
+
       const res = await fetch(`http://localhost:3001/api/v1/activities/${id}`, {
         method: 'PUT',
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(activity)
+        body: formData
       });
+
       if (!res.ok) {
         throw new Error(`Failed to update activity with id: ${id}`);
       }
+
       return await res.json();
     } catch (err) {
       setError(err.message);

@@ -14,6 +14,8 @@ export function FollowingPointerDemo({ activity, activityID, handleDeleteActivit
     const [skillsFetched, setSkillsFetched] = useState([]);
     const { getSkillById, loading, error } = useSkills();
     const status = getActivityStatus(activity.start_date, activity.end_date);
+    const [imageUrl, setImageUrl] = useState("/defaultPFP.webp");
+
 
     useEffect(() => {
       const fetchSkills = async () => {
@@ -33,7 +35,15 @@ export function FollowingPointerDemo({ activity, activityID, handleDeleteActivit
       };
 
       fetchSkills();
-  }, [activity.skills]);
+  }, [activity.skills]); 
+
+    useEffect(() => {
+        if (activity.activity_picture && activity.activity_picture.data) {
+            const blob = new Blob([new Uint8Array(activity.activity_picture.data.data)], { type: activity.activity_picture.contentType });
+            const url = URL.createObjectURL(blob);
+            setImageUrl(url);
+        }
+    }, [activity.activity_picture]);
 
     return (
         <div className="w-80">
@@ -42,7 +52,7 @@ export function FollowingPointerDemo({ activity, activityID, handleDeleteActivit
                     {/* Image Section */}
                     <div className="w-full h-40 bg-gray-100 rounded-tr-lg rounded-tl-lg overflow-hidden relative">
                         <Image
-                            src={activity.picture ?? "/defaultPFP.webp"}
+                            src={imageUrl}
                             alt="thumbnail"
                             layout="fill"
                             objectFit="cover"

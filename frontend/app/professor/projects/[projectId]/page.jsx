@@ -38,7 +38,8 @@ export default function Page() {
                 description: formData.description,
                 start_date: formData.startDate,
                 end_date: formData.endDate,
-                skills: formData.skills
+                skills: formData.skills,
+                activity_picture: formData.activity_picture
             };
             const newActivity = await postActivity(activityStructure);
             setActivities(prev => [...prev, newActivity]);
@@ -76,13 +77,14 @@ export default function Page() {
     const handleModifyActivity = async (activityID) => {
         try {
             const updatedActivity = await updateActivity(activityID, formData);
+            console.log(updatedActivity)
             setActivities(await fetchActivities(projectId));
             toast({
-                title: `Actividad modificada ${updatedActivity.name}`,
+                title: `Actividad modificada`,
                 variant: 'success'
             });
-            closeModal();
         } catch (err) {
+            console.log(err)
             toast({
                 title: 'No se ha podido modificar la actividad',
                 variant: 'error'

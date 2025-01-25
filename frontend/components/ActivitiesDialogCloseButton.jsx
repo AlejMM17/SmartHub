@@ -35,6 +35,9 @@ export default function ActivitiesDialogCloseButton({ setFormData, formData, cli
     const handleChangeFormData = (e) => {
         setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
     };
+    const handleFileChange = (e) => {
+        setFormData(prev => ({...prev, activity_picture: e.target.files[0]}));
+    };
 
     useEffect(() => {
         const sumOfPercentages = Array.isArray(formData.skills) && formData.skills.length > 0
@@ -73,6 +76,8 @@ export default function ActivitiesDialogCloseButton({ setFormData, formData, cli
                         <Textarea id="description" name="description" onChange={handleChangeFormData} />
                         <Label htmlFor="dateRange">Fecha de inicio y fin</Label>
                         <DatePickerWithRange setFormData={setFormData} />
+                        <Label htmlFor="activity_picture">Imagen</Label>
+                        <Input type={"file"} accept="image/*" id="activity_picture" name="activity_picture" onChange={handleFileChange}/>
                         <Label htmlFor="skills">Skills</Label>
                         <SkillsSelector
                             id="skills"

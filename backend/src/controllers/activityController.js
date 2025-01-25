@@ -43,35 +43,74 @@ const activityController = {
     }
   },
   createActivity: async (req, res) => {
-    const activity = new Activity(req.body);
-    try {
-      const newActivity = await activity.save();
+    if (!req.file) {
+        return res.status(400).json({ message: "Activity picture is required" });
+    }
 
-      await Project.findByIdAndUpdate(
-        req.body.project_id,
-        { $push: { activities: newActivity._id } },
+    const activityData = {
+        ...req.body,
+        activity_picture: {
+            data: req.file.buffer,
+            contentType: req.file.mimetype,
+        },
+    };
+
+    const activity = new Activity(activityData);
+    try {
+        const newActivity = await activity.save();
+
+        await Project.findByIdAndUpdate(
+            req.body.project_id,
+            { $push: { activities: newActivity._id } },
+            { new: true }
+        );
+
+        res.status(201).json(newActivity);
+    } catch (error) {
+        console.error(error);
+        res.status(400).json({ message: error.message });
+    }
+  },
+
+  updateActivity: async (req, res) => {
+    try {
+      const updateData = {};
+      if (req.body.name) updateData.name = req.body.name;
+      if (req.body.description) updateData.description = req.body.description;
+      if (req.body.start_date) updateData.start_date = req.body.start_date;
+      if (req.body.end_date) updateData.end_date = req.body.end_date;
+
+      if (req.file) {
+        updateData.activity_picture = {
+          data: req.file.buffer,
+          contentType: req.file.mimetype,
+        };
+      }
+
+      if (req.body.skills) {
+        updateData.skills = req.body.skills.map(skill => ({
+          skill_id: skill.skill_id,
+          percentage: skill.percentage,
+        }));
+      }
+
+      const activity = await Activity.findByIdAndUpdate(
+        req.params.id,
+        updateData,
         { new: true }
       );
 
-      res.status(201).json(newActivity);
-    } catch (error) {
-      console.error(error);
-      res.status(400).json({ message: error.message });
-    }
-  },
-  updateActivity: async (req, res) => {
-    try {
-      const activity = await Activity.findByIdAndUpdate(
-        req.params.id,
-        req.body
-      );
+      if (!activity) {
+        throw new Error("Activity not found");
+      }
+
       res.status(200).json({
-        message: "Actividad actualizada correctamente",
+        message: "Activity updated successfully",
         activity,
       });
     } catch (e) {
       res.status(500).json({
-        message: "Actividad no actualizada",
+        message: "Failed to update activity",
       });
     }
   },
