@@ -115,22 +115,25 @@ export default function useStudents() {
         setError(null);
 
         try {
+            const formData = new FormData();
+            formData.append("name", updatedData.name);
+            formData.append("lastName", updatedData.lastName);
+            formData.append("email", updatedData.email);
+
+            if (updatedData.image) {
+                formData.append("user_picture", updatedData.image);
+            }
+
             const res = await fetch(`http://localhost:3001/api/v1/users/${userId}`, {
                 method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(updatedData),
+                body: formData,
             });
 
             if (!res.ok) {
-
                 throw new Error('Failed to update user');
             }
 
-            const data = await res.json();
-            console.log(data)
-            return data;
+            return await res.json();
         } catch (err) {
             setError(err.message);
             return null;

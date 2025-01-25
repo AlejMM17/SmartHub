@@ -128,7 +128,27 @@ const userController = {
   },
   updateUser: async (req, res) => {
     try {
-      const user = await User.findByIdAndUpdate(req.params.id, req.body, {new: true});
+      const { name, lastName, email } = req.body;
+
+      const updateFields = {
+        name,
+        lastName,
+        email,
+        modify_date: Date.now(),
+      };
+
+      if (req.file) {
+        updateFields.user_picture = {
+          data: req.file.buffer,
+          contentType: req.file.mimetype,
+        };
+      }
+
+      const user = await User.findByIdAndUpdate(req.params.id, { $set: updateFields }, { new: true });
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+
       res.status(200).json(user);
     } catch (e) {
       res.status(500).json({

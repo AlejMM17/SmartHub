@@ -27,28 +27,26 @@ import { toast } from "@/hooks/use-toast";
 import { setAuthCookie } from "@/utils/setAuthCookie";
 
 export function SidebarDemo({ children }) {
-
   const { user, setUser } = useUser();
-  const [formData, setFormData] = useState({ name: user?.name || "", email: user?.email || "", image: null });
+  const [formData, setFormData] = useState({ name: user?.name || "", lastName: user?.lastName || "", email: user?.email || "", image: "" });
   const { updateUser } = useStudents();
-
   useEffect(() => {
     if (user) {
-      setFormData({ name: user.name, email: user.email, image: null });
+      console.log(user)
+      setFormData({ name: user.name, lastName: user.lastName, email: user.email, image: "" });
     }
   }, [user]);
 
-  const handleChange = (e) => {
-    const { name, value, files } = e.target;
-    if (name === 'image') {
-      setFormData({ ...formData, image: files[0] });
-    } else {
-      setFormData({ ...formData, [name]: value });
-    }
+  const handleChangeFormData = (e) => {
+    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  const handleFileChange = (e) => {
+    setFormData(prev => ({ ...prev, image: e.target.files[0] }));
+  };
   const handleSave = async () => {
     try {
+      console.log(formData)
       const updatedUser = await updateUser(user._id, formData);
       if (updatedUser) {
         setUser(updatedUser);
@@ -146,7 +144,19 @@ export function SidebarDemo({ children }) {
                       id="name"
                       name="name"
                       value={formData.name}
-                      onChange={handleChange}
+                      onChange={handleChangeFormData}
+                      className="col-span-3"
+                    />
+                  </div>
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="lastname" className="text-right">
+                      Apellido
+                    </Label>
+                    <Input
+                      id="lastName"
+                      name="lastName"
+                      value={formData.lastName}
+                      onChange={handleChangeFormData}
                       className="col-span-3"
                     />
                   </div>
@@ -158,7 +168,7 @@ export function SidebarDemo({ children }) {
                       id="email"
                       name="email"
                       value={formData.email}
-                      onChange={handleChange}
+                      onChange={handleChangeFormData}
                       className="col-span-3"
                     />
                   </div>
@@ -169,7 +179,8 @@ export function SidebarDemo({ children }) {
                     <Input
                       id="image"
                       type="file"
-                      onChange={handleChange}
+                      accept="image/*"
+                      onChange={handleFileChange}
                       className="col-span-3"
                     />
                   </div>
