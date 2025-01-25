@@ -122,7 +122,7 @@ export default function Page() {
     if (error) return <p className="text-red-600 text-2xl">Ups... Something bad happened!</p>;
 
     return (
-        <div className="w-full">
+        <div className="w-full ">
 
             <h1 className="w-4/5 mx-auto text-4xl sm:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-8">
                 Actividades de {project?.name}
@@ -149,7 +149,7 @@ export default function Page() {
 const ActivityList = ({ activities, isLoading, handleDeleteActivity, handleModifyActivity, formData, setFormData, projectId }) => {
     if ((!Array.isArray(activities) || activities.length <= 0) && !isLoading) return <p>No activities found</p>;
     return (
-        <div className="flex flex-col items-stretch gap-3 lg:flex-row lg:w-4/5 lg:mx-auto lg:flex-wrap max-h-[50vh] lg:max-h-[65vh] sm:max-h-[65vh] overflow-scroll">
+        <div className="flex flex-col flex-1 gap-3 lg:flex-row lg:w-4/5 lg:mx-auto lg:flex-wrap  md:max-h-[70vh] lg:max-h-[65vh] max-h-[65vh] overflow-scroll">
             {activities.map(activity => (
                 <FollowingPointerDemo
                     key={activity._id}

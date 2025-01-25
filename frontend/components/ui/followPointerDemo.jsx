@@ -46,7 +46,7 @@ export function FollowingPointerDemo({ activity, activityID, handleDeleteActivit
     }, [activity.activity_picture]);
 
     return (
-        <div className="w-80">
+        <div className="md:w-80 mx-auto w-80 lg:mx-0">
             <div className="h-full">
                 <div className="relative h-full rounded-2xl transition duration-200 group bg-white hover:shadow-xl border border-zinc-100 flex flex-col justify-between min-h-[400px]">
                     {/* Image Section */}

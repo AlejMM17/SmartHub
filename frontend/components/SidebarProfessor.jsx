@@ -130,6 +130,10 @@ export function SidebarDemo({ children }) {
                       />
                     ),
                   }}
+                  onClick={(e) => {
+                    setOpen(!open);
+                    e.stopPropagation();
+                  }}
                 />
               </SheetTrigger>
               <SheetContent>
