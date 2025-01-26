@@ -89,17 +89,16 @@ export default function Page() {
             <h1 className="w-4/5 mx-auto text-4xl sm:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-8">
                 Proyectos
             </h1>
-                <div className="flex flex-row justify-between items-center mx-auto w-4/5 mb-8">
-                    <h3 className="font-bold">Crear Proyecto</h3>
-                    <DialogCloseButton
-                        setFormData={setFormData}
-                        formData={formData}
-                        clickFunction={handleFormSubmit}
-                        title="Crear Proyecto"
-                        description="Inserta todos los datos requeridos para crear un nuevo proyecto."
-                        action="Create"
-                    />
-                </div>
+            <div className="flex flex-row justify-end items-center mx-auto w-4/5 mb-8">
+                <DialogCloseButton
+                    setFormData={setFormData}
+                    formData={formData}
+                    clickFunction={handleFormSubmit}
+                    title="Crear Proyecto"
+                    description="Inserta todos los datos requeridos para crear un nuevo proyecto."
+                    action="Create"
+                />
+            </div>
             <ProjectList
                 projects={projects}
                 isLoading={loading}
