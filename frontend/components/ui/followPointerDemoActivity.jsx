@@ -94,10 +94,10 @@ export function FollowingPointerDemoActivity({ activity, activityID, projectID, 
                             <div className="flex items-center gap-x-2 mb-2">
                             <span
                                 className={`w-3 h-3 rounded-full ${
-                                activity.status === 'Pendiente' ? 'bg-red-600' : 'bg-green-600'
+                                status === 'Pendiente' ? 'bg-red-600' : 'bg-green-600'
                                 }`}
                             />
-                            <p>{activity.status}</p>
+                            <p className={"text-zinc-700"}>{status}</p>
                             </div>
 
                             <div className="flex flex-row flex-wrap gap-2 my-2">
