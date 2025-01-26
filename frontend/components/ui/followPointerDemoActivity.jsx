@@ -94,7 +94,7 @@ export function FollowingPointerDemoActivity({ activity, activityID, projectID, 
                             <div className="flex items-center gap-x-2 mb-2">
                             <span
                                 className={`w-3 h-3 rounded-full ${
-                                status === 'Pendiente' ? 'bg-red-600' : 'bg-green-600'
+                                status !== 'Activa' ? 'bg-red-600' : 'bg-green-600'
                                 }`}
                             />
                             <p className={"text-zinc-700"}>{status}</p>

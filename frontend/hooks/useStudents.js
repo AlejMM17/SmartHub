@@ -25,6 +25,27 @@ export default function useStudents() {
         }
     };
 
+    const getUserById = async (id) => {
+        setLoading(true);
+        setError(null);
+
+        try {
+            if (!id) throw new Error('No id provided');
+            const res = await fetch(`http://localhost:3001/api/v1/users/${id}`)
+
+            if (!res.ok) {
+                throw new Error(`Failed to fetch the user with ID: ${id}`);
+            }
+
+            return res.json();
+
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     const postStudent = async (user) => {
         setLoading(true);
         setError(null);
@@ -193,5 +214,5 @@ export default function useStudents() {
         }
     };
 
-    return { fetchStudents, postStudent, deleteStudent, importStudents, updateUser, assignStudentsToProject, fetchUserImage, error, loading };
+    return { fetchStudents, postStudent, deleteStudent, importStudents, updateUser, assignStudentsToProject, fetchUserImage, getUserById, error, loading };
 }

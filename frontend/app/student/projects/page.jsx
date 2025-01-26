@@ -14,6 +14,7 @@ import {Badge} from "@/components/ui/badge";
 import useActivities from '@/hooks/useActivities';
 import { Slider } from "@/components/ui/slider"
 import useScores from '@/hooks/useScores';
+import useStudents from "@/hooks/useStudents";
 
 
 
@@ -62,13 +63,15 @@ const ProjectList = ({ projects }) => {
 };
 
 const Project = ({ projectID, project }) => {
-    const { name, description, activities, skills } = project;
+    const { name, description, activities, skills, professor_id } = project;
     const [skillsFetched, setSkillsFetched] = useState([]);
+    const [professor, setProfessor] = useState("")
     const { getSkillById, loading } = useSkills();
     const { fetchActivities } = useActivities();
     const [isHovered, setIsHovered] = useState(false);
     const [averageScores, setAverageScores] = useState([]);
     const { fetchScores } = useScores();
+    const { getUserById } = useStudents();
 
     useEffect(() => {
         const fetchSkills = async () => {
@@ -127,7 +130,13 @@ const Project = ({ projectID, project }) => {
         }
     }, [isHovered, skillsFetched,fetchActivities, skills]);
 
-    console.log(averageScores)
+    useEffect(() => {
+        const getProfessor = async () => {
+            setProfessor(await getUserById(professor_id))
+        }
+        getProfessor();
+    }, [])
+
     const handleMouseEnter = () => setIsHovered(true);
     const handleMouseLeave = () => setIsHovered(false);
     const handleTouchStart = () => setIsHovered(true);
@@ -159,6 +168,7 @@ const Project = ({ projectID, project }) => {
                             ))}
                     </div>
                     <p className="font-bold mb-2 text-lg text-zinc-700">{name}</p>
+                    <p className="font-bold mb-2 text-sm text-zinc-500">Profesor: <b className="text-zinc-600">{professor?.name}</b></p>
                     <p className="font-normal text-sm text-zinc-500 flex-grow w-full">{description}</p>
                     <p className="font-normal text-sm text-zinc-500 my-2">
                         Numero de Actividades: {activities.length}
