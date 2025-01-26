@@ -45,6 +45,32 @@ const userController = {
       res.status(500).json({ message: "Error obteniendo alumnos" });
     }
   },
+  getStudentsByProjectId: async (req, res) => {
+    try {
+      const users = await User.find({
+        $and: [
+          { role: "student" },
+          { archive_date: null },
+          { assigned_projects: req.params.id }
+        ]
+      }).select("-password"); // No enviar passwords
+
+      const usersWithImages = users.map((user) => {
+        const { user_picture, ...otherFields } = user.toObject();
+
+        return {
+          ...otherFields,
+          user_picture: user_picture && user_picture.data
+              ? `data:${user_picture.contentType};base64,${user_picture.data.toString("base64")}`
+              : null,
+        };
+      });
+
+      res.status(200).json(usersWithImages);
+    } catch (err) {
+      res.status(500).json({ message: "Error obteniendo alumnos de project: " + req.params.id });
+    }
+  },
   getUser: async (req, res) => {
     try {
       const user = await User.findById(req.params.id).select("-password"); // No enviar passwords
@@ -207,6 +233,52 @@ const userController = {
       res.status(500).json({
         message: "Usuario no actualizado",
         errors: error.errors,
+      });
+    }
+  },
+  assignUserToAProject: async (req, res) => {
+    try {
+      const users = req.body;
+      const projectId = req.params.id;
+
+      if (!users || !Array.isArray(users) || !projectId) {
+        return res.status(400).json({ error: "Invalid input data" });
+      }
+
+      const lastAssignedStudents = await User.find({
+        role: "student",
+        assigned_projects: projectId,
+      });
+
+
+      const studentsToRemove = lastAssignedStudents.filter(
+          (student) => !users.includes(student._id.toString())
+      );
+
+      await User.updateMany(
+          { _id: { $in: studentsToRemove.map((student) => student._id) } },
+          { $pull: { assigned_projects: projectId } }
+      );
+
+      const result = await User.updateMany(
+          {
+            _id: { $in: users },
+            assigned_projects: { $ne: projectId },
+          },
+          {
+            $push: { assigned_projects: projectId },
+          }
+      );
+
+      return res.status(200).json({
+        message: "Users updated successfully",
+        modifiedCount: result.modifiedCount,
+      });
+    } catch (e) {
+      console.error('Error durante la actualización:', e);
+      res.status(500).json({
+        message: "Usuarios no actualizados",
+        errors: e.errors,
       });
     }
   },

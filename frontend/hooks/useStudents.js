@@ -112,7 +112,34 @@ export default function useStudents() {
             setLoading(false);
         }
     }
-    
+
+    const assignStudentsToProject = async (students, projectId) => {
+        try {
+            setLoading(true);
+            setError(null);
+
+            const res = await fetch(`http://localhost:3001/api/v1/users/students/${projectId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(students),
+            });
+
+            if (!res.ok) {
+                throw new Error(`Failed to assign users to the project with id: ${projectId}`);
+            }
+
+            return await res.json();
+
+        } catch (err) {
+            setError(err.message);
+            return null;
+        } finally {
+            setLoading(false);
+        }
+    }
+
     const updateUser = async (id, user) => {
         setLoading(true);
         setError(null);
@@ -166,5 +193,5 @@ export default function useStudents() {
         }
     };
 
-    return { fetchStudents, postStudent, deleteStudent, importStudents, updateUser, fetchUserImage, error, loading };
+    return { fetchStudents, postStudent, deleteStudent, importStudents, updateUser, assignStudentsToProject, fetchUserImage, error, loading };
 }

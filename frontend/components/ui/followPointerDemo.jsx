@@ -48,7 +48,7 @@ export function FollowingPointerDemo({ activity, activityID, handleDeleteActivit
     return (
         <div className="md:w-80 mx-auto w-80 lg:mx-0">
             <div className="h-full">
-                <div className="relative h-full rounded-2xl transition duration-200 group bg-white hover:shadow-xl border border-zinc-100 flex flex-col justify-between min-h-[400px]">
+                <div className="relative h-full rounded-2xl transition duration-200 group bg-white dark:bg-transparent hover:shadow-xl border border-zinc-100 flex flex-col justify-between min-h-[400px]">
                     {/* Image Section */}
                     <div className="w-full h-40 bg-gray-100 rounded-tr-lg rounded-tl-lg overflow-hidden relative">
                         <Image
@@ -77,10 +77,10 @@ export function FollowingPointerDemo({ activity, activityID, handleDeleteActivit
                                 ))}
                             </div>
 
-                            <h2 className="font-bold mb-2 text-lg text-zinc-700">
+                            <h2 className="font-bold mb-2 text-lg text-zinc-700 dark:text-white">
                                 {activity.name}
                             </h2>
-                            <p className="font-normal text-sm text-zinc-500">
+                            <p className="font-normal text-sm text-zinc-500 dark:text-white">
                                 {activity.description}
                             </p>
                             
@@ -88,11 +88,11 @@ export function FollowingPointerDemo({ activity, activityID, handleDeleteActivit
 
                         {/* Footer */}
                         <div className="flex flex-col justify-between">
-                        <div className="flex flex-col mb-5">
-                                <span className="text-sm text-gray-500">
+                            <div className="flex flex-col mb-5">
+                                <span className="text-sm text-gray-500 dark:text-white">
                                     Desde: <b>{formatDate(activity.start_date)}</b>
                                 </span>
-                                <span className="text-sm text-gray-500">
+                                <span className="text-sm text-gray-500 dark:text-white">
                                     Fins: <b>{formatDate(activity.end_date)}</b>
                                 </span>
                             </div>

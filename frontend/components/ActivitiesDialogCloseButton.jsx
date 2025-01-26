@@ -21,10 +21,10 @@ import {
     DropdownMenuContent,
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import useSkills from "@/hooks/useSkills";
 import {toast} from "@/hooks/use-toast";
-import DatePickerWithRange from "./DatePickerWithRange"
+
 
 export default function ActivitiesDialogCloseButton({ setFormData, formData, clickFunction, title, description, action, activityID }) {
     const { fetchAllSkills } = useSkills();
@@ -74,10 +74,21 @@ export default function ActivitiesDialogCloseButton({ setFormData, formData, cli
                         <Input id="name" name="name" onChange={handleChangeFormData} />
                         <Label htmlFor="description">Descripción</Label>
                         <Textarea id="description" name="description" onChange={handleChangeFormData} />
-                        <Label htmlFor="dateRange">Fecha de inicio y fin</Label>
-                        <DatePickerWithRange setFormData={setFormData} />
+
+                        <div className="flex items-center space-x-2">
+                            <div className="w-full">
+                                <Label htmlFor="startDate">Fecha de inicio </Label>
+                                <Input type={"date"} id="startDate" name="startDate" onChange={handleChangeFormData} />
+                            </div>
+                            <div className="w-full">
+                                <Label htmlFor="endDate">Fecha de fin</Label>
+                                <Input type={"date"} id="endDate" name="endDate" onChange={handleChangeFormData} />
+                            </div>
+                        </div>
+
                         <Label htmlFor="activity_picture">Imagen</Label>
                         <Input type={"file"} accept="image/*" id="activity_picture" name="activity_picture" onChange={handleFileChange}/>
+
                         <Label htmlFor="skills">Skills</Label>
                         <SkillsSelector
                             id="skills"
@@ -95,15 +106,15 @@ export default function ActivitiesDialogCloseButton({ setFormData, formData, cli
                         )}
                     </div>
                 </div>
-                <DialogFooter className="sm:justify-start">
+                <DialogFooter>
+                    <Button type="button" variant="primary" disabled={!isSendable} className="bg-blue-500 text-white hover:bg-blue-800" onClick={() => action === "Modify" ? clickFunction(activityID) : clickFunction()}>
+                        Enviar
+                    </Button>
                     <DialogClose asChild>
                         <Button type="button" variant="primary" className="bg-red-500 text-white hover:bg-red-800">
-                            Close
+                            Cerrar
                         </Button>
                     </DialogClose>
-                    <Button type="button" variant="primary" disabled={!isSendable} className="bg-blue-500 text-white hover:bg-blue-800" onClick={() => action === "Modify" ? clickFunction(activityID) : clickFunction()}>
-                        Send
-                    </Button>
                 </DialogFooter>
             </DialogContent>
         </Dialog>
