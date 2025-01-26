@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import {Zap, List, Rocket, Users} from "lucide-react";
+import {Zap, List, Rocket, Users, Brain} from "lucide-react";
 import {ModeToggle} from "@/components/ToggleThemeMode";
 import {useUser} from "@/context/UserContext";
 import {
@@ -223,7 +223,7 @@ export const Logo = () => {
       href="/"
       className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
     >
-      <div className="h-5 w-6 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
+      <Brain className="dark:text-white" />
       <motion.span
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

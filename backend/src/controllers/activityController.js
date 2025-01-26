@@ -43,29 +43,31 @@ const activityController = {
     }
   },
   createActivity: async (req, res) => {
-    if (!req.file) {
+    try {
+      console.log("back")
+      if (!req.file) {
         return res.status(400).json({ message: "Activity picture is required" });
-    }
+      }
 
-    const activityData = {
+      const activityData = {
         ...req.body,
         activity_picture: {
-            data: req.file.buffer,
-            contentType: req.file.mimetype,
+          data: req.file.buffer,
+          contentType: req.file.mimetype,
         },
-    };
+      };
 
-    const activity = new Activity(activityData);
-    try {
-        const newActivity = await activity.save();
+      const activity = new Activity(activityData);
 
-        await Project.findByIdAndUpdate(
-            req.body.project_id,
-            { $push: { activities: newActivity._id } },
-            { new: true }
-        );
+      const newActivity = await activity.save();
 
-        res.status(201).json(newActivity);
+      await Project.findByIdAndUpdate(
+          req.body.project_id,
+          { $push: { activities: newActivity._id } },
+          { new: true }
+      );
+
+      res.status(201).json(newActivity);
     } catch (error) {
         console.error(error);
         res.status(400).json({ message: error.message });

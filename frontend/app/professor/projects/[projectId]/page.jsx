@@ -28,7 +28,7 @@ export default function Page() {
         startDate: null,
         endDate: null,
         skills: []
-    };
+    }
     const [formData, setFormData] = useState(initialFormData);
 
     const { fetchActivities, postActivity, deleteActivity, updateActivity,loading, error } = useActivities();

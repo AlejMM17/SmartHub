@@ -809,3 +809,23 @@
 =======
 2025-01-24T18:50:15.992Z info: Conectado a MongoDB
 >>>>>>> Stashed changes
+2025-01-26T18:37:53.790Z info: Conectado a MongoDB
+2025-01-26T18:38:19.895Z info: Conectado a MongoDB
+2025-01-26T18:40:41.025Z info: Fetched project with ID: 6388a2db-943b-4bc4-9d52-5e206e979880
+2025-01-26T18:40:41.161Z info: Fetched activities for project with ID: 6388a2db-943b-4bc4-9d52-5e206e979880
+2025-01-26T18:40:43.338Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-26T18:40:43.404Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-26T18:40:53.070Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-26T18:40:53.150Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-26T18:41:00.040Z info: Fetched project with ID: 466cd60e-84a3-4868-9bcd-2072ba19526c
+2025-01-26T18:41:00.073Z info: Fetched project with ID: 466cd60e-84a3-4868-9bcd-2072ba19526c
+2025-01-26T18:41:00.258Z info: Fetched activities for project with ID: 466cd60e-84a3-4868-9bcd-2072ba19526c
+2025-01-26T18:41:00.358Z info: Fetched activities for project with ID: 466cd60e-84a3-4868-9bcd-2072ba19526c
+2025-01-26T18:41:03.957Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-26T18:41:03.993Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-26T18:41:16.016Z info: Updated project with ID: 02382a52-935a-440e-ae23-211e60de9606
+2025-01-26T18:41:16.102Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-26T18:42:33.769Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-26T18:42:33.830Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-26T18:42:46.456Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
+2025-01-26T18:42:51.568Z info: Fetched professor projects with ID: ce340a7f-fead-4472-9c9f-d2b1f9bf8950
