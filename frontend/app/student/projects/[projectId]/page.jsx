@@ -9,6 +9,8 @@ import SkeletonLoader from '@/components/SkeletonsProject';
 import { toast } from '@/hooks/use-toast';
 import { FollowingPointerDemoActivity} from '@/components/ui/followPointerDemoActivity';
 import useProjects from "@/hooks/useProjects";
+import useScores from '@/hooks/useScores';
+
 
 export default function Activities() {
     const params = useParams();
@@ -19,8 +21,11 @@ export default function Activities() {
     const { user } = useUser();
     const [loadingRequest, setLoadingRequest] = useState(true);
     const router = useRouter();
+    const [scores, setScores] = useState([]);
+
 
     const { fetchActivities,loading, error } = useActivities();
+    const { fetchScores } = useScores();
 
 
     useEffect(() => {
@@ -39,7 +44,23 @@ export default function Activities() {
                 setLoadingRequest(false);
             }
         };
+        const fetchUserScores = async () => {
+            try {
+                if (user && projectId) {
+                    const scores = await fetchScores(`student_id=${user._id}&project_id=${projectId}`);
+                    setScores(scores);
+                }
+            } catch (err) {
+                toast({
+                    title: 'No se han podido cargar las notas',
+                    variant: 'error'
+                });
+            }
+        };
+
         fetchProjectActivities();
+        fetchUserScores();
+
     }, [user, projectId]);
 
     useEffect(() => {
@@ -57,12 +78,12 @@ export default function Activities() {
             <h1 className="w-4/5 mx-auto text-4xl mb-16 sm:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-8">
                 Actividades de {project?.name}
             </h1>
-            <ActivityList activities={activities} isLoading={loadingRequest} projectId={projectId}/>
+            <ActivityList activities={activities} isLoading={loadingRequest} projectId={projectId} scores={scores}/>
         </div>
     );
 }
 
-const ActivityList = ({ activities, isLoading, projectId }) => {
+const ActivityList = ({ activities, isLoading, projectId, scores }) => {
     if ((!Array.isArray(activities) || activities.length <= 0) && !isLoading) return <div className="flex flex-col flex-1 gap-3 lg:flex-row lg:w-4/5 lg:mx-auto lg:flex-wrap  md:max-h-[70vh] lg:max-h-[65vh] max-h-[65vh] overflow-scroll"><p>No hi han activitats per aquest projecte</p></div>;
     return (
         <div className="flex flex-col flex-1 gap-3 lg:flex-row lg:w-4/5 lg:mx-auto lg:flex-wrap  md:max-h-[70vh] lg:max-h-[65vh] max-h-[65vh] overflow-scroll">
@@ -72,6 +93,7 @@ const ActivityList = ({ activities, isLoading, projectId }) => {
                     activity={activity}
                     activityID={activity._id}
                     projectID={ projectId }
+                    scores={scores.filter(score => score.activity_id === activity._id)}
                 />
             ))}
         </div>
