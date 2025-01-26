@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "./ui/Sidebar";
 import {
   IconArrowLeft,
@@ -11,39 +11,93 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { Rocket, Router } from "lucide-react";
+import { useUser } from "@/context/UserContext";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import useUpdateUser from "@/hooks/useUpdateUser";
+import useStudents from "@/hooks/useStudents";
+import { toast } from "@/hooks/use-toast";
+import { setAuthCookie } from "@/utils/setAuthCookie";
+import { useRouter } from 'next/navigation';
+import Cookies from 'js-cookie';
+import {ModeToggle} from "@/components/ToggleThemeMode";
 
 export function SidebarDemo({ children }) {
+  const { user, setUser } = useUser();
+  const [formData, setFormData] = useState({ name: user?.name || "", lastName: user?.lastName || "", email: user?.email || "", user_picture: "" });
+  const [userImage, setUserImage] = useState("");
+  const { updateUser } = useUpdateUser();
+  const { fetchUserImage } = useStudents();
+
+  useEffect(() => {
+    if (user) {
+      setFormData({ name: user.name, lastName: user.lastName, email: user.email, user_picture: "" });
+      fetchUserImage(user._id).then(setUserImage);
+    }
+  }, [user]);
+
+  const handleChangeFormData = (e) => {
+    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleFileChange = (e) => {
+    setFormData(prev => ({ ...prev, user_picture: e.target.files[0] }));
+  };
+
+  const handleSave = async () => {
+    try {
+      const updatedUser = await updateUser(user._id, formData);
+      if (updatedUser) {
+        const { user_picture, ...updatedUserData } = updatedUser;
+        setUser(updatedUserData);
+        setAuthCookie(updatedUserData);
+        toast({
+          title: 'Perfil actualizado',
+          description: 'Tu perfil ha sido actualizado correctamente.',
+          variant: 'success',
+        });
+      }
+    } catch (error) {
+      toast({
+        title: 'Error al actualizar',
+        description: 'Hubo un problema al actualizar tu perfil.',
+        variant: 'destructive',
+      });
+    }
+  };
+
+
   const links = [
     {
-      label: "Projectes",
-      href: "/student",
+      label: "Proyectos",
+      href: "/student/projects",
       icon: (
-        <IconBrandTabler className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+        <Rocket className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
     {
-      label: "Perfil",
-      href: "/profile",
-      icon: (
-        <IconUserBolt className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-      ),
-    },
-    {
-      label: "Configuració",
-      href: "#",
-      icon: (
-        <IconSettings className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-      ),
-    },
-    {
-      label: "Tancar sessió",
-      href: "#",
+      label: "Cerrar Sesión",
+      href: "/login",
       icon: (
         <IconArrowLeft className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
   ];
+
   const [open, setOpen] = useState(false);
+
   return (
     <div
       className={cn(
@@ -61,29 +115,104 @@ export function SidebarDemo({ children }) {
               ))}
             </div>
           </div>
-          <div>
-            <SidebarLink
-              link={{
-                label: "Manu Arora",
-                href: "#",
-                icon: (
-                  <Image
-                    src="https://assets.aceternity.com/manu.png"
-                    className="h-7 w-7 flex-shrink-0 rounded-full"
-                    width={50}
-                    height={50}
-                    alt="Avatar"
-                  />
-                ),
-              }}
-            />
+          <div className="flex flex-col gap-y-2">
+          <ModeToggle />
+            <Sheet>
+              <SheetTrigger asChild>
+                <SidebarLink
+                  link={{
+                    label: user?.name ?? "user",
+                    href: "#",
+                    icon: (
+                      <Image
+                        src={userImage || "/defaultPFP.webp"}
+                        className="h-7 w-7 flex-shrink-0 rounded-full"
+                        width={50}
+                        height={50}
+                        alt="Avatar"
+                      />
+                    ),
+                  }}
+                  onClick={(e) => {
+                    setOpen(!open);
+                    e.stopPropagation();
+                  }}
+                />
+              </SheetTrigger>
+              <SheetContent>
+                <SheetHeader>
+                  <SheetTitle>Edit profile</SheetTitle>
+                  <SheetDescription>
+                    Make changes to your profile here. Click save when you're done.
+                  </SheetDescription>
+                </SheetHeader>
+                <div className="grid gap-4 py-4">
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="name" className="text-right">
+                      Nombre
+                    </Label>
+                    <Input
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChangeFormData}
+                      className="col-span-3"
+                    />
+                  </div>
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="lastname" className="text-right">
+                      Apellido
+                    </Label>
+                    <Input
+                      id="lastName"
+                      name="lastName"
+                      value={formData.lastName}
+                      onChange={handleChangeFormData}
+                      className="col-span-3"
+                    />
+                  </div>
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="email" className="text-right">
+                      Email
+                    </Label>
+                    <Input
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChangeFormData}
+                      className="col-span-3"
+                    />
+                  </div>
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="user_picture" className="text-right">
+                      Imagen
+                    </Label>
+                    <Input
+                      id="user_picture"
+                      type="file"
+                      accept="image/*"
+                      onChange={handleFileChange}
+                      className="col-span-3"
+                    />
+                  </div>
+                </div>
+                <SheetFooter>
+                  <SheetClose>
+                    <Button type="submit" onClick={handleSave}>
+                      Guardar Cambios
+                    </Button>
+                  </SheetClose>
+                </SheetFooter>
+              </SheetContent>
+            </Sheet>
           </div>
         </SidebarBody>
       </Sidebar>
-      <Dashboard>{ children }</Dashboard>
+      <Dashboard>{children}</Dashboard>
     </div>
   );
 }
+
 export const Logo = () => {
   return (
     <Link
@@ -96,11 +225,12 @@ export const Logo = () => {
         animate={{ opacity: 1 }}
         className="font-medium text-black dark:text-white whitespace-pre"
       >
-        Acet Labs
+        Smart Hub
       </motion.span>
     </Link>
   );
 };
+
 export const LogoIcon = () => {
   return (
     <Link
@@ -113,5 +243,5 @@ export const LogoIcon = () => {
 };
 
 const Dashboard = ({ children }) => {
-  return <div>{children}</div>;
+  return <div className="w-full">{children}</div>;
 };

@@ -26,17 +26,18 @@ import useUpdateUser from "@/hooks/useUpdateUser";
 import useStudents from "@/hooks/useStudents";
 import { toast } from "@/hooks/use-toast";
 import { setAuthCookie } from "@/utils/setAuthCookie";
+import { IconArrowLeft } from "@tabler/icons-react";
 
 export function SidebarDemo({ children }) {
   const { user, setUser } = useUser();
-  const [formData, setFormData] = useState({ name: user?.name || "", lastName: user?.lastName || "", email: user?.email || "", image: "", });
+  const [formData, setFormData] = useState({ name: user?.name || "", lastName: user?.lastName || "", email: user?.email || "", user_picture: "" });
   const [userImage, setUserImage] = useState("");
   const { updateUser } = useUpdateUser();
   const { fetchUserImage } = useStudents();
 
   useEffect(() => {
     if (user) {
-      setFormData({ name: user.name, lastName: user.lastName, email: user.email, image: "", });
+      setFormData({ name: user.name, lastName: user.lastName, email: user.email, user_picture: "" });
       fetchUserImage(user._id).then(setUserImage);
     }
   }, [user]);
@@ -46,7 +47,7 @@ export function SidebarDemo({ children }) {
   };
 
   const handleFileChange = (e) => {
-    setFormData(prev => ({ ...prev, image: e.target.files[0] }));
+    setFormData(prev => ({ ...prev, user_picture: e.target.files[0] }));
   };
   const handleSave = async () => {
     try {
@@ -90,6 +91,13 @@ export function SidebarDemo({ children }) {
       href: "/professor/skills",
       icon: (
         <Zap className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      ),
+    },
+    {
+      label: "Cerrar Sesión",
+      href: "/login",
+      icon: (
+        <IconArrowLeft className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
   ];
@@ -181,11 +189,11 @@ export function SidebarDemo({ children }) {
                     />
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="image" className="text-right">
+                    <Label htmlFor="user_picture" className="text-right">
                       Imagen
                     </Label>
                     <Input
-                      id="image"
+                      id="user_picture"
                       type="file"
                       accept="image/*"
                       onChange={handleFileChange}

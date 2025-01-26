@@ -3,11 +3,12 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useLogin from "@/hooks/useLogin";
 import { useUser } from "@/context/UserContext";
 import { toast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 
 const validateField = (name, value) => {
     let newErrors = {}
@@ -19,12 +20,17 @@ const validateField = (name, value) => {
     return newErrors
 }
 
+
 export default function Login() {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
   const { login, loading, error } = useLogin()
   const { setUser } = useUser()
   const router = useRouter()
+
+  useEffect(() => {
+    Cookies.remove("user");
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -75,7 +81,7 @@ export default function Login() {
             description: `¡Bienvenido ${user.name} a SmartHub!`,
         })
         setUser(user)
-        router.push(user.role === "professor" ? "/professor/projects" : "/student")
+        router.push(user.role === "professor" ? "/professor/projects" : "/student/projects")
     } else {
         setFormData({ email: "", password: "" })
         toast({
