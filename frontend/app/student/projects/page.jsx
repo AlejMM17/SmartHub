@@ -14,7 +14,7 @@ import {ArrowRight, Trash2} from "lucide-react";
 import {Badge} from "@/components/ui/badge";
 import useActivities from '@/hooks/useActivities';
 import { Slider } from "@/components/ui/slider"
-
+import useScores from '@/hooks/useScores';
 
 
 
@@ -70,6 +70,7 @@ const Project = ({ projectID, project }) => {
     const { fetchActivities } = useActivities();
     const [isHovered, setIsHovered] = useState(false);
     const [averageScores, setAverageScores] = useState([]);
+    const { fetchScores } = useScores();
 
     useEffect(() => {
         const fetchSkills = async () => {
@@ -86,43 +87,54 @@ const Project = ({ projectID, project }) => {
 
     useEffect(() => {
         const calculateAverageScores = async () => {
-            const activitiesData = await fetchActivities(projectID);
-            const skillScores = {};
+            try {
+                const scores = await fetchScores(`project_id=${projectID}`);
+                const skillScores = {};
         
-            activitiesData.forEach((activity) => {
-                activity.skills.forEach((skill) => {
-                    if (skills.some((s) => s.skill_id === skill.skill_id)) {
-                        if (!skillScores[skill.skill_id]) {
-                            skillScores[skill.skill_id] = [];
+                // Filtrar y agrupar scores por skill_id
+                scores.forEach(score => {
+                    if (skills.some(skill => skill.skill_id === score.skill_id)) {
+                        if (!skillScores[score.skill_id]) {
+                            skillScores[score.skill_id] = [];
                         }
-                        skillScores[skill.skill_id].push(skill.percentage);
+                        skillScores[score.skill_id].push(score.score);
                     }
                 });
-            });
         
-            const averages = Object.keys(skillScores).map((skill_id) => {
-                const scores = skillScores[skill_id];
-                const average = scores.reduce((total, score) => total + score, 0) / scores.length;
-                const skillData = skillsFetched.find((s) => s._id === skill_id);
-                // Escalar el promedio para que el máximo sea 10
-                const scaledAverage = (average / 10).toFixed(1);
-                return { skillName: skillData?.name, averageScore: scaledAverage };
-            });
+                // Calcular el promedio de cada skill
+                const averages = Object.keys(skillScores).map(skill_id => {
+                    const total = skillScores[skill_id].reduce((acc, score) => acc + score, 0);
+                    const average = total / skillScores[skill_id].length;
+                    
+                    // Buscar el nombre de la habilidad en skillsFetched
+                    const fetchedSkill = skillsFetched.find(skill => skill._id === skill_id);
+                    const skillName = fetchedSkill ? fetchedSkill.name : "Unknown Skill";
+                    
+                    return {
+                        skill_id,
+                        skillName,
+                        averageScore: average.toFixed(2) // Redondear a dos decimales
+                    };
+                });
         
-            setAverageScores(averages);
+                setAverageScores(averages);
+            } catch (err) {
+                console.error("Error calculating average scores:", err);
+            }
         };
         
 
         if (isHovered) {
             calculateAverageScores();
         }
-    }, [isHovered, skillsFetched]);
+    }, [isHovered, skillsFetched,fetchActivities, skills]);
 
+    console.log(averageScores)
     const handleMouseEnter = () => setIsHovered(true);
     const handleMouseLeave = () => setIsHovered(false);
     const handleTouchStart = () => setIsHovered(true);
     const handleTouchEnd = () => setIsHovered(false);
-
+    
     return (
         <div className="rounded-2xl transition duration-200 group bg-white hover:shadow-xl border border-zinc-100 mx-auto w-4/5 p-3 lg:w-2/5 lg:mx-0 flex flex-col">
             {/* Contenedor para hover */}
