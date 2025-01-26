@@ -67,41 +67,46 @@ export default function useActivities() {
   const postActivity = async (activityStructure) => {
     setLoading(true);
     setError(null);
-  
+    console.log("hola")
     try {
-      if (!activityStructure) throw new Error('No activity structure provided');
-  
-      const formData = new FormData();
-      formData.append("name", activityStructure.name);
-      formData.append("description", activityStructure.description);
-      formData.append("start_date", activityStructure.start_date);
-      formData.append("end_date", activityStructure.end_date);
-  
-      if (activityStructure.activity_picture) {
-        formData.append("activity_picture", activityStructure.activity_picture);
-      }
-  
-      activityStructure.skills.forEach((skill, index) => {
-        formData.append(`skills[${index}][skill_id]`, skill.skill_id);
-        formData.append(`skills[${index}][percentage]`, skill.percentage);
-      });
-  
-      const res = await fetch("http://localhost:3001/api/v1/activities", {
-        method: "POST",
-        body: formData
-      });
-  
-      if (!res.ok) {
-        throw new Error("Failed to create activity");
-      }
-  
-      return await res.json();
+        if (!activityStructure) throw new Error('No activity structure provided');
+
+        const formData = new FormData();
+        if (activityStructure.name) formData.append("name", activityStructure.name);
+        if (activityStructure.description) formData.append("description", activityStructure.description);
+        if (activityStructure.start_date) formData.append("start_date", activityStructure.start_date);
+        if (activityStructure.end_date) formData.append("end_date", activityStructure.end_date);
+        if (activityStructure.project_id) formData.append("project_id", activityStructure.project_id);
+
+        if (activityStructure.activity_picture) {
+            formData.append("activity_picture", activityStructure.activity_picture);
+        }
+
+        if (activityStructure.skills) {
+            activityStructure.skills.forEach((skill, index) => {
+                formData.append(`skills[${index}][skill_id]`, skill.skill_id);
+                formData.append(`skills[${index}][percentage]`, skill.percentage);
+            });
+        }
+
+        const res = await fetch("http://localhost:3001/api/v1/activities", {
+            method: "POST",
+            body: formData
+        });
+        console.log(formData)
+
+        if (!res.ok) {
+            throw new Error("Failed to create activity");
+        }
+
+        return await res.json();
     } catch (err) {
-      setError(err.message);
+      console.log(err)
+        setError(err.message);
     } finally {
-      setLoading(false);
+        setLoading(false);
     }
-  };
+};
 
   const deleteActivity = async (id) => {
     setLoading(true);

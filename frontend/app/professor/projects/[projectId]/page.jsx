@@ -22,13 +22,14 @@ export default function Page() {
     const [project, setProject] = useState({})
     const [loadingRequest, setLoadingRequest] = useState(true);
     const [selectedItems, setSelectedItems] = useState()
-    const [formData, setFormData] = useState({
+    const initialFormData = {
         name: "",
         description: "",
         startDate: null,
         endDate: null,
         skills: []
-    });
+    };
+    const [formData, setFormData] = useState(initialFormData);
 
     const { fetchActivities, postActivity, deleteActivity, updateActivity,loading, error } = useActivities();
 
@@ -45,6 +46,7 @@ export default function Page() {
                 activity_picture: formData.activity_picture
             };
             const newActivity = await postActivity(activityStructure);
+            console.log(newActivity);
             setActivities(prev => [...prev, newActivity]);
             toast({
                 title: `Actividad creada ${newActivity.name}`,
