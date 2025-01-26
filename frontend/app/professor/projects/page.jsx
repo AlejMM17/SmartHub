@@ -119,7 +119,7 @@ export default function Page() {
 const ProjectList = ({ projects, isLoading, handleDeleteProject, handleModifyProject, formData, setFormData }) => {
     if ((!Array.isArray(projects) || projects.length <= 0) && !isLoading) return <p>No projects found</p>
     return (
-        <div className="flex flex-col flex-1 gap-3 lg:flex-row lg:w-4/5 lg:mx-auto lg:flex-wrap  md:max-h-[70vh] lg:max-h-[65vh] max-h-[65vh] overflow-y-scroll">
+        <div className="flex justify-center flex-col flex-1 gap-3 lg:flex-row lg:w-4/5 lg:mx-auto lg:flex-wrap  md:max-h-[70vh] lg:max-h-[65vh] max-h-[65vh] overflow-y-scroll">
             { projects.map(project => (
                 <Project
                     key={ project._id }
@@ -165,7 +165,7 @@ const Project = ({projectID, handleDeleteProject, project, handleModifyProject, 
 
     return (
         <div 
-            className="rounded-2xl transition duration-200 group bg-white hover:shadow-xl border border-zinc-100 mx-auto p-3 lg:w-fit lg:mx-0"
+            className="rounded-2xl transition duration-200 group bg-white hover:shadow-xl border border-zinc-100 mx-auto w-4/5 p-3 lg:w-2/5 lg:mx-0 flex flex-col "
         >
             <div className="flex flex-row flex-wrap gap-2 my-2">
                 { !loading
@@ -178,10 +178,10 @@ const Project = ({projectID, handleDeleteProject, project, handleModifyProject, 
                     ))}
             </div>
             <p className="font-bold mb-2 text-lg text-zinc-700">{ name }</p>
-            <p className="font-normal text-sm text-zinc-500">{ description }</p>
+            <p className="font-normal text-sm text-zinc-500 flex-grow w-full">{ description }</p>
             <p className="font-normal text-sm text-zinc-500 my-2">Numero de Actividades: { activities.length }</p>
-            <div className="flex flex-row justify-between">
-                <div className="flex flex-row gap-1">
+            <div className="flex flex-row justify-between mt-auto">
+                <div className="flex flex-row gap-1 self-end">
                     <TooltipProvider>
                         <Tooltip>
                             <TooltipTrigger>

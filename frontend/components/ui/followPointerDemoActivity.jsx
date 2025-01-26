@@ -71,7 +71,7 @@ export function FollowingPointerDemoActivity({ activity, activityID, projectID, 
             >
             <div className="h-full">
                 <div
-                className={`relative h-full rounded-2xl transition-all duration-300 group bg-white hover:shadow-xl border border-zinc-100 flex flex-col justify-between min-h-[400px] ${isHovered ? 'max-h-[800px]' : 'max-h-[600px]'}`}
+                className={`relative overflow-hidden h-full rounded-2xl transition-all duration-300 group bg-white hover:shadow-xl border border-zinc-100 flex flex-col justify-between min-h-[400px] ${isHovered ? 'max-h-[800px]' : 'max-h-[600px]'}`}
                 >
                 {/* Image Section */}
                 <div className="w-full h-40 bg-gray-100 rounded-tr-lg rounded-tl-lg overflow-hidden relative">
@@ -85,7 +85,7 @@ export function FollowingPointerDemoActivity({ activity, activityID, projectID, 
                 </div>
 
                      {/* Content Section */}
-                    <div className="flex flex-1 flex-col justify-between p-4 gap-y-4 relative">
+                    <div className="flex flex-1 flex-col justify-between p-4 gap-y-4 relative overflow-hidden">
                         <div
                         className={`transition-all duration-300 ${isHovered ? 'opacity-0 translate-y-[-100%] absolute' : 'opacity-100 translate-y-0 relative'}`}
                         >
@@ -117,7 +117,7 @@ export function FollowingPointerDemoActivity({ activity, activityID, projectID, 
                         </div>
                         <div
                         className={`transition-all duration-300 w-full ${
-                            isHovered ? 'translate-y-0 opacity-100 relative' : 'translate-y-[100%] opacity-0 absolute'
+                            isHovered ? 'translate-y-0 opacity-100 relative ' : 'translate-y-[100%] opacity-0 absolute '
                         }`}
                         >
                         <h2 className="font-bold mb-2 text-lg text-zinc-700 ms-5">Scores</h2>

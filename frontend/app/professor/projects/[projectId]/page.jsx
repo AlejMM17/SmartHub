@@ -172,7 +172,7 @@ const ActivityList = ({ activities, isLoading, handleDeleteActivity, handleModif
     if ((!Array.isArray(activities) || activities.length <= 0) && !isLoading) return <p>No activities found</p>;
 
     return (
-        <div className="flex flex-col flex-1 gap-3 lg:flex-row lg:w-4/5 lg:mx-auto lg:flex-wrap  md:max-h-[70vh] lg:max-h-[65vh] max-h-[65vh] overflow-scroll">
+        <div className="flex justify-center flex-col flex-1 gap-3 lg:flex-row lg:w-4/5 lg:mx-auto lg:flex-wrap  md:max-h-[70vh] lg:max-h-[65vh] max-h-[65vh] overflow-scroll">
             {activities.map(activity => (
                 <FollowingPointerDemo
                     key={activity._id}
