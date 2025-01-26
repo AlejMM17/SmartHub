@@ -1,11 +1,12 @@
 "use client";
+import {League_Spartan} from "next/font/google";
 import React, { useState, useEffect } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "./ui/Sidebar";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import {Zap, List, Rocket, Users, Brain} from "lucide-react";
+import {Zap, Rocket, Users, Brain} from "lucide-react";
 import {ModeToggle} from "@/components/ToggleThemeMode";
 import {useUser} from "@/context/UserContext";
 import {
@@ -217,6 +218,14 @@ export function SidebarDemo({ children }) {
     </div>
   );
 }
+
+const leagueSpartan = League_Spartan({
+  weight: ['400', '700', '900'], // Add desired weights
+  subsets: ['latin'], // Add subsets if needed
+  variable: '--font-league-spartan', // Optional CSS variable
+  display: 'swap', // Ensures a smooth font swap
+});
+
 export const Logo = () => {
   return (
     <Link
@@ -227,9 +236,9 @@ export const Logo = () => {
       <motion.span
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="font-medium text-black dark:text-white whitespace-pre"
+        className={`font-medium text-black dark:text-white whitespace-pre `}
       >
-        Smart Hub
+        <p className={`${leagueSpartan.className} font-bold text-lg mt-1`}>SmartHub</p>
       </motion.span>
     </Link>
   );
@@ -240,8 +249,7 @@ export const LogoIcon = () => {
       href="/professor/projects"
       className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
     >
-    <Brain className="dark:text-white" />
-    
+      <Brain className="dark:text-white" />
     </Link>
   );
 };

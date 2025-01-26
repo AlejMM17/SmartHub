@@ -3,15 +3,12 @@ import React, { useState, useEffect } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "./ui/Sidebar";
 import {
   IconArrowLeft,
-  IconBrandTabler,
-  IconSettings,
-  IconUserBolt,
 } from "@tabler/icons-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import { Rocket, Router } from "lucide-react";
+import {Brain, Rocket, Router} from "lucide-react";
 import { useUser } from "@/context/UserContext";
 import {
   Sheet,
@@ -30,9 +27,8 @@ import useUpdateUser from "@/hooks/useUpdateUser";
 import useStudents from "@/hooks/useStudents";
 import { toast } from "@/hooks/use-toast";
 import { setAuthCookie } from "@/utils/setAuthCookie";
-import { useRouter } from 'next/navigation';
-import Cookies from 'js-cookie';
 import {ModeToggle} from "@/components/ToggleThemeMode";
+import {League_Spartan} from "next/font/google";
 
 export function SidebarDemo({ children }) {
   const { user, setUser } = useUser();
@@ -213,32 +209,39 @@ export function SidebarDemo({ children }) {
   );
 }
 
+const leagueSpartan = League_Spartan({
+  weight: ['400', '700'], // Add desired weights
+  subsets: ['latin'], // Add subsets if needed
+  variable: '--font-league-spartan', // Optional CSS variable
+  display: 'swap', // Ensures a smooth font swap
+});
+
 export const Logo = () => {
   return (
-    <Link
-      href="#"
-      className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
-    >
-      <div className="h-5 w-6 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
-      <motion.span
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className="font-medium text-black dark:text-white whitespace-pre"
+      <Link
+          href="/"
+          className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
       >
-        Smart Hub
-      </motion.span>
-    </Link>
+        <Brain className="dark:text-white" />
+        <motion.span
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className={`font-medium text-black dark:text-white whitespace-pre `}
+        >
+          <p className={`${leagueSpartan.className} font-bold text-lg mt-1`}>SmartHub</p>
+        </motion.span>
+      </Link>
   );
 };
 
 export const LogoIcon = () => {
   return (
-    <Link
-      href="#"
-      className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
-    >
-      <div className="h-5 w-6 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
-    </Link>
+      <Link
+          href="#"
+          className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
+      >
+        <Brain className="dark:text-white" />
+      </Link>
   );
 };
 

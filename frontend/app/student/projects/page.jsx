@@ -49,7 +49,7 @@ const ProjectList = ({ projects }) => {
     if (!Array.isArray(projects) || projects.length <= 0) return <p>No projects found</p>;
 
     return (
-        <div className="flex justify-center flex-col flex-1 gap-3 lg:flex-row lg:w-4/5 lg:mx-auto lg:flex-wrap md:max-h-[70vh] lg:max-h-[65vh] max-h-[65vh] overflow-scroll">
+        <div className="flex justify-center flex-col flex-1 gap-3 lg:flex-row lg:w-4/5 lg:mx-auto lg:flex-wrap md:max-h-[70vh] lg:max-h-[65vh] max-h-[65vh] overflow-y-scroll">
             {projects.map(project => (
                 <Project
                     key={project._id}
