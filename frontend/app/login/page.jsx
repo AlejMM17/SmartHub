@@ -93,11 +93,11 @@ export default function Login() {
   };
 
   return (
-    <div className="h-screen w-full flex items-center justify-center bg-gray-100">
+    <div className="h-screen w-full flex items-center justify-center bg-gray-100 dark:bg-neutral-800">
       <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email" className="dark:text-black">Email</Label>
             <Input
               type="email"
               id="email"
@@ -105,13 +105,13 @@ export default function Login() {
               placeholder="Email"
               value={formData.email}
               onChange={handleChange}
-              className="mt-1"
+              className="mt-1 dark:text-black dark:border-black"
             />
             { errors.email && <p className="text-red-600 ">{errors.email}</p> }
           </div>
 
           <div>
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password" className="dark:text-black">Password</Label>
             <Input
               type="password"
               id="password"
@@ -119,12 +119,12 @@ export default function Login() {
               placeholder="Password"
               value={formData.password}
               onChange={handleChange}
-              className="mt-1"
+              className="mt-1 dark:text-black dark:border-black"
             />
             { errors.password && <p className="text-red-600 ">{errors.password}</p> }
           </div>
 
-          <Button type="submit" className="w-full" disabled={loading || Object.keys(errors).length !== 0 }>
+          <Button type="submit" className="w-full dark:bg-neutral-800 dark:text-white" disabled={loading || Object.keys(errors).length !== 0 }>
             Send
           </Button>
         </form>

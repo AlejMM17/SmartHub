@@ -107,22 +107,17 @@ export default function Page() {
             <h1 className="text-4xl sm:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-8">
                 Skills
             </h1>
-            {/*{ loading || loadingRequest && <SkeletonLoader count={3} /> }*/}
-            { !loading && !loadingRequest &&
-                <>
-                    <SkillsList
-                        skills={skills}
-                        page={page}
-                        isLoading={loadingRequest}
-                        handleDeleteSkill={handleDeleteSkill}
-                        handleFormSubmit={handleFormSubmit}
-                        formData={formData}
-                        setFormData={setFormData}
-                        handleUpdateSkill={handleUpdateSkill}
-                    />
-                    <PaginationComponent page={page} setPage={setPage} pagesNumber={pagesNumber} />
-                </>
-            }
+                <SkillsList
+                    skills={skills}
+                    page={page}
+                    isLoading={loadingRequest}
+                    handleDeleteSkill={handleDeleteSkill}
+                    handleFormSubmit={handleFormSubmit}
+                    formData={formData}
+                    setFormData={setFormData}
+                    handleUpdateSkill={handleUpdateSkill}
+                />
+                <PaginationComponent page={page} setPage={setPage} pagesNumber={pagesNumber} />
         </div>
     )
 }

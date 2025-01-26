@@ -2,7 +2,6 @@
 
 import {useUser} from "@/context/UserContext";
 import {useEffect, useState} from "react";
-import SkeletonLoader from "@/components/SkeletonsProject";
 import {Button} from "@/components/ui/button";
 import {toast} from "@/hooks/use-toast";
 import DialogCloseButtonUsers from "@/components/DialogCloseButtonUsers";

@@ -4,7 +4,6 @@ import { useUser } from '@/context/UserContext';
 import useProjects from '@/hooks/useProjects';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import SkeletonLoader from '@/components/SkeletonsProject';
 import { toast } from '@/hooks/use-toast';
 import useSkills from "@/hooks/useSkills";
 import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip";
@@ -34,7 +33,6 @@ export default function Page() {
         fetchUserProjects();
     }, [user]);
 
-    if (loading) return <SkeletonLoader count={3} />;
     if (error) return <p>Error: {error}</p>;
 
     return (

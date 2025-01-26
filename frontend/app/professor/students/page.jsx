@@ -2,7 +2,6 @@
 
 import {useUser} from "@/context/UserContext";
 import {useEffect, useState} from "react";
-import SkeletonLoader from "@/components/SkeletonsProject";
 import {Button} from "@/components/ui/button";
 import {toast} from "@/hooks/use-toast";
 import DialogCloseButtonUsers from "@/components/DialogCloseButtonUsers";
@@ -151,25 +150,20 @@ export default function Page() {
             <h1 className="text-4xl sm:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-8">
                 Alumnos
             </h1>
-            {/*{ loading || loadingRequest && <SkeletonLoader count={3} /> }*/}
-            { !loading && !loadingRequest &&
-                <>
-                    <StudentsList
-                        students={students}
-                        page={page}
-                        isLoading={loadingRequest}
-                        handleDeleteStudent={handleDeleteStudent}
-                        handleFormSubmit={handleFormSubmit}
-                        formData={formData}
-                        setFormData={setFormData}
-                        setImportFile={setImportFile}
-                        importFile={importFile}
-                        handleImportFileSubmit={handleImportFileSubmit}
-                        handleUpdateUser={handleUpdateUser}
-                    />
-                    <PaginationComponent page={page} setPage={setPage} pagesNumber={pagesNumber} />
-                </>
-            }
+            <StudentsList
+                students={students}
+                page={page}
+                isLoading={loadingRequest}
+                handleDeleteStudent={handleDeleteStudent}
+                handleFormSubmit={handleFormSubmit}
+                formData={formData}
+                setFormData={setFormData}
+                setImportFile={setImportFile}
+                importFile={importFile}
+                handleImportFileSubmit={handleImportFileSubmit}
+                handleUpdateUser={handleUpdateUser}
+            />
+            <PaginationComponent page={page} setPage={setPage} pagesNumber={pagesNumber} />
         </div>
     )
 }

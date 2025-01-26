@@ -5,7 +5,6 @@ import useActivities from '@/hooks/useActivities';
 import { useRouter } from 'next/navigation';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import SkeletonLoader from '@/components/SkeletonsProject';
 import { toast } from '@/hooks/use-toast';
 import { FollowingPointerDemoActivity} from '@/components/ui/followPointerDemoActivity';
 import useProjects from "@/hooks/useProjects";
