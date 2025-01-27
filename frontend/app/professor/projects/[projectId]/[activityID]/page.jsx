@@ -73,6 +73,7 @@ export default function Page() {
         const getStudentsAndActivity = async () => {
             try {
                 const fetchedStudents = await fetchStudents();
+                const assignedStudents = fetchedStudents.filter(student => student.assigned_projects.includes(projectId));
                 const fetchedActivity = await fetchActivity(activityId);
                 const fetchedSkills = await fetchAllSkills();
 
@@ -85,7 +86,7 @@ export default function Page() {
                         percentage: fetchedActivity.skills.find(s => s.skill_id === skill._id).percentage
                     }));
 
-                setStudents(fetchedStudents);
+                setStudents(assignedStudents);
                 setActivity(fetchedActivity);
                 setSkills(activitySkills);
 
@@ -93,7 +94,7 @@ export default function Page() {
                 const scoresData = await fetchScores(`activity_id=${activityId}&project_id=${projectId}`);
                 
                 const updatedFormData = {
-                    students: fetchedStudents.map(student => ({
+                    students: assignedStudents.map(student => ({
                         student_id: student._id,
                         skills: scoresData.filter(score => score.student_id === student._id).map(score => ({
                             skill_id: score.skill_id,
@@ -104,7 +105,6 @@ export default function Page() {
                 };
 
                 setFormData(updatedFormData);
-
             } catch (err) {
                 console.error(err);
                 toast({
