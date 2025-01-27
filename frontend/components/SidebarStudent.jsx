@@ -142,36 +142,12 @@ export function SidebarDemo({ children }) {
     </div>
     <SheetContent>
       <SheetHeader>
-        <SheetTitle>Edit profile</SheetTitle>
+        <SheetTitle>Editar perfil</SheetTitle>
         <SheetDescription>
-          Make changes to your profile here. Click save when you're done.
+        Fes aqui els canvis per al teu perfil
         </SheetDescription>
       </SheetHeader>
       <div className="grid gap-4 py-4">
-        <div className="grid grid-cols-4 items-center gap-4">
-          <Label htmlFor="name" className="text-right">
-            Nombre
-          </Label>
-          <Input
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChangeFormData}
-            className="col-span-3"
-          />
-        </div>
-        <div className="grid grid-cols-4 items-center gap-4">
-          <Label htmlFor="lastname" className="text-right">
-            Apellido
-          </Label>
-          <Input
-            id="lastName"
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleChangeFormData}
-            className="col-span-3"
-          />
-        </div>
         <div className="grid grid-cols-4 items-center gap-4">
           <Label htmlFor="email" className="text-right">
             Email
