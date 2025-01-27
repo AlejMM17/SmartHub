@@ -246,5 +246,5 @@ export const LogoIcon = () => {
 };
 
 const Dashboard = ({ children }) => {
-  return <div className="w-full">{children}</div>;
+  return <div className="w-full overflow-y-scroll">{children}</div>;
 };

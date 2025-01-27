@@ -114,7 +114,7 @@ export default function Page() {
 const ProjectList = ({ projects, isLoading, handleDeleteProject, handleModifyProject, formData, setFormData }) => {
     if ((!Array.isArray(projects) || projects.length <= 0) && !isLoading) return <p>No projects found</p>
     return (
-        <div className="flex justify-center flex-col flex-1 gap-3 lg:flex-row lg:w-4/5 lg:mx-auto lg:flex-wrap  md:max-h-[70vh] lg:max-h-[65vh] max-h-[65vh] overflow-y-scroll">
+        <div className="flex justify-center flex-col flex-1 gap-3 lg:flex-row lg:w-4/5 lg:mx-auto lg:flex-wrap lg:max-h-[65vh] overflow-y-scroll">
             { projects.map(project => (
                 <Project
                     key={ project._id }
@@ -160,7 +160,7 @@ const Project = ({projectID, handleDeleteProject, project, handleModifyProject, 
 
     return (
         <div 
-            className="rounded-2xl transition duration-200 group bg-white hover:shadow-xl border border-zinc-100 mx-auto w-4/5 p-3 lg:w-2/5 lg:mx-0 flex flex-col "
+            className="rounded-2xl transition duration-200 group bg-white hover:shadow-xl border border-zinc-100 mx-auto w-4/5 p-3 lg:w-2/5 lg:mx-0 flex flex-col"
         >
             <div className="flex flex-row flex-wrap gap-2 my-2">
                 { !loading
