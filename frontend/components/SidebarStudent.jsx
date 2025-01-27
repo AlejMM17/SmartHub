@@ -219,7 +219,7 @@ const leagueSpartan = League_Spartan({
 export const Logo = () => {
   return (
       <Link
-          href="/"
+          href="/student/projects"
           className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
       >
         <Brain className="dark:text-white" />
@@ -237,7 +237,7 @@ export const Logo = () => {
 export const LogoIcon = () => {
   return (
       <Link
-          href="#"
+          href="/student/projects"
           className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
       >
         <Brain className="dark:text-white" />
