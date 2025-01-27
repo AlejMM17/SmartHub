@@ -3,6 +3,7 @@ const logger = require("../utils/logger");
 const {log} = require("winston");
 const csvParser = require('csv-parser');
 const stream = require('stream');
+const bcrypt = require('bcrypt');
 
 const userController = {
   getAllUsers: async (req, res) => {
@@ -100,12 +101,23 @@ const userController = {
         });
       }
 
+      const userExists = await User.findOne({ email })
+      if (userExists) {
+        return res.status(400).json({
+          message: "El correo ya existe",
+        })
+      }
+
+      const saltRounds = 10;
+      const hashedPassword = await bcrypt.hash(password, saltRounds);
+      console.log(hashedPassword);
+
       const userObject = {
         name,
         lastName,
         role,
         email,
-        password,
+        password: hashedPassword,
       }
 
       if (req.file) {
@@ -156,12 +168,14 @@ const userController = {
             try {
               for (const studentData of results) {
                 try {
+                  const saltRounds = 10;
+                  const hashedPassword = await bcrypt.hash(studentData.password, saltRounds);
                   // Create a new User instance
                   const newUser = new User({
                     name: studentData.name,
                     lastName: studentData.lastName,
                     email: studentData.email,
-                    password: studentData.password,
+                    password: hashedPassword,
                     role: studentData.role || "student",
                     // Add any other necessary fields
                   });
@@ -209,7 +223,11 @@ const userController = {
       if (lastName) updateFields.lastName = lastName;
       if (role) updateFields.role = role;
       if (email) updateFields.email = email;
-      if (password) updateFields.password = password;
+      if (password) {
+        const saltRounds = 10;
+        const hashedPassword = await bcrypt.hash(updateFields.password, saltRounds);
+        updateFields.password = hashedPassword
+      }
 
       if (req.file) {
         updateFields.user_picture = {
