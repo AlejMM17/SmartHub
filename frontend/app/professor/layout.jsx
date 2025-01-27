@@ -1,7 +1,7 @@
 import { SidebarDemo } from "@/components/SidebarProfessor";
 
 export const metadata = {
-    title: "Professors Home",
+    title: "Home Profesores",
     description: "Professors index page",
 };
 

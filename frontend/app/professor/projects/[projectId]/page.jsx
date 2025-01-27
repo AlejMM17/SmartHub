@@ -161,9 +161,10 @@ export default function Page() {
 
             { selectedItems?.length > 0
                 ? <div className="w-4/5 mx-auto">
+                    <h3 className="text-xl font-semibold mb-3 text-primary">Estudiantes:</h3>
                     <SelectedStudents selectedItems={selectedItems} setSelectedItems={setSelectedItems} projectId={projectId} />
                   </div>
-                : <p className="mb-8 w-4/5 mx-auto text-right text-red-600 italic">*No hay ningun estudiando asignado a este proyecto</p>
+                : <p className="mb-8 w-4/5 mx-auto text-right text-red-600 italic">*No hay ningún estudiando asignado a este proyecto</p>
             }
             <ActivityList activities={activities} isLoading={loadingRequest} handleDeleteActivity={handleDeleteActivity} handleModifyActivity={handleModifyActivity} formData={formData} setFormData={setFormData} projectId={projectId}/>
         </div>
@@ -171,10 +172,10 @@ export default function Page() {
 }
 
 const ActivityList = ({ activities, isLoading, handleDeleteActivity, handleModifyActivity, formData, setFormData, projectId }) => {
-    if ((!Array.isArray(activities) || activities.length <= 0) && !isLoading) return <p>No activities found</p>;
+    if ((!Array.isArray(activities) || activities.length <= 0) && !isLoading) return <p className="w-4/5 mx-auto text-right text-red-600 italic">El proyecto no tiene actividades</p>;
 
     return (
-        <div className="flex justify-center flex-col flex-1 gap-3 lg:flex-row lg:w-4/5 lg:mx-auto lg:flex-wrap  md:max-h-[70vh] lg:max-h-[65vh] overflow-y-scroll">
+        <div className="flex justify-center flex-col flex-1 gap-3 lg:flex-row lg:w-4/5 lg:mx-auto lg:flex-wrap  md:max-h-[70vh] lg:max-h-[65vh]">
             {activities.map(activity => (
                 <FollowingPointerDemo
                     key={activity._id}

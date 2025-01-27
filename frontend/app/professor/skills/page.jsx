@@ -206,7 +206,7 @@ const SkillsList = ({
 
     return (
         <>
-            <div className="mb-8 flex flex-row justify-between">
+            <div className="mb-8 flex flex-col gap-y-4 lg:flex-row lg:gap-0 justify-between">
                 <div>
                     <Label htmlFor="filterByName">Buscar por nombre:</Label>
                     <Input
@@ -274,7 +274,7 @@ const SkillsList = ({
                             </SelectContent>
                         </Select>
                     </div>
-                    <div className="flex flex-row gap-x-2 items-center">
+                    <div className="flex flex-row gap-x-2 items-center ms-auto">
                         <TooltipProvider>
                             <Tooltip>
                                 <TooltipTrigger>

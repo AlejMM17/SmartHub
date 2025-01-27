@@ -70,7 +70,7 @@ export default function Page() {
 
     }
 
-    if (error) return <p className="text-red-600 text-2xl">Ups... Something bad happened!</p>
+    if (error) return <p className="text-red-600 text-2xl text-center">Ups... Parece que ha habido un problema!</p>
 
     useEffect(() => {
 
@@ -87,7 +87,7 @@ export default function Page() {
     return (
         <div className="w-full">
             <h1 className="w-4/5 mx-auto text-4xl sm:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-8">
-                Proyectos
+                Tus Proyectos
             </h1>
             <div className="flex flex-row justify-end items-center mx-auto w-4/5 mb-8">
                 <DialogCloseButton
@@ -112,9 +112,9 @@ export default function Page() {
 }
 
 const ProjectList = ({ projects, isLoading, handleDeleteProject, handleModifyProject, formData, setFormData }) => {
-    if ((!Array.isArray(projects) || projects.length <= 0) && !isLoading) return <p>No projects found</p>
+    if ((!Array.isArray(projects) || projects.length <= 0) && !isLoading) return <p className="w-4/5 mx-auto text-right text-red-600 italic">No tienes ningún proyecto creado</p>
     return (
-        <div className="flex justify-center flex-col flex-1 gap-3 lg:flex-row lg:w-4/5 lg:mx-auto lg:flex-wrap lg:max-h-[65vh] overflow-y-scroll">
+        <div className="flex justify-center flex-col flex-1 gap-3 lg:flex-row lg:w-4/5 lg:mx-auto lg:flex-wrap lg:max-h-[65vh]">
             { projects.map(project => (
                 <Project
                     key={ project._id }
@@ -135,10 +135,6 @@ const Project = ({projectID, handleDeleteProject, project, handleModifyProject, 
     const [skillsFetched, setSkillsFetched] = useState([])
     const { getSkillById, loading, error } = useSkills()
     const router = useRouter();
-
-    const handleProjectClick = (projectId) => {
-        router.push(`/professor/projects/${projectId}/`);
-    };
 
     useEffect(() => {
         const fetchSkills = async () => {

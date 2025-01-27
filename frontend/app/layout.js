@@ -4,6 +4,7 @@ import "./globals.css"; // IMPORTANTE aqui es donde se define todo lo necessario
 import { UserProvider } from "@/context/UserContext";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/theme-provider"
+import Head from "next/head";
 
 
 const geistSans = Geist({
@@ -19,6 +20,9 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title: "SmartHub",
   description: "El mejor portal de aprendizaje",
+  icons: {
+    icon: "/favicon.webp",
+  }
 };
 
 export default function RootLayout({ children }) {
@@ -28,16 +32,6 @@ export default function RootLayout({ children }) {
         <body
             className={`${geistSans.variable} ${geistMono.variable} antialiased flex`}
         >
-            {/*
-                El UserProvider es un context que contiene la informacion del user, se puede utilizar en sus hijos para acceder y modificar su informacion mediante al useUser() que te devuelve user y setUser.
-
-                Ejemplo de como obtener los datos en hijos:
-
-                import { useUser } from "./context/UserContext";
-                const { user, setUser } = useUser()
-
-                Con estas dos variables ya puedes ver la información del usuario ( user ) y modificarla ( setUser )
-            */}
             <ThemeProvider
                 attribute="class"
                 defaultTheme="system"
