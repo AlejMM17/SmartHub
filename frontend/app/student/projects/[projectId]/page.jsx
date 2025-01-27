@@ -2,7 +2,6 @@
 
 import { useUser } from '@/context/UserContext';
 import useActivities from '@/hooks/useActivities';
-import { useRouter } from 'next/navigation';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { toast } from '@/hooks/use-toast';
@@ -19,7 +18,6 @@ export default function Activities() {
     const [project, setProject] = useState({})
     const { user } = useUser();
     const [loadingRequest, setLoadingRequest] = useState(true);
-    const router = useRouter();
     const [scores, setScores] = useState([]);
 
 
@@ -69,7 +67,7 @@ export default function Activities() {
 
         getProjectByIdFunc()
     }, [projectId])
-    console.log(error)
+
     if (error) return <p className="text-red-600 text-2xl">Ups... Something bad happened!</p>;
     return (
         <div className="w-full ">
@@ -83,9 +81,9 @@ export default function Activities() {
 }
 
 const ActivityList = ({ activities, isLoading, projectId, scores }) => {
-    if ((!Array.isArray(activities) || activities.length <= 0) && !isLoading) return <div className="flex flex-col flex-1 gap-3 lg:flex-row lg:w-4/5 lg:mx-auto lg:flex-wrap  md:max-h-[70vh] lg:max-h-[65vh] overflow-y-scroll"><p>No hi han activitats per aquest projecte</p></div>;
+    if ((!Array.isArray(activities) || activities.length <= 0) && !isLoading) return <div className="flex flex-col flex-1 gap-3 lg:flex-row lg:w-4/5 lg:mx-auto lg:flex-wrap  md:max-h-[70vh] lg:max-h-[65vh] "><p>No hi han activitats per aquest projecte</p></div>;
     return (
-        <div className="flex justify-center flex-col flex-1 gap-3 lg:flex-row lg:w-4/5 lg:mx-auto lg:flex-wrap  md:max-h-[70vh] lg:max-h-[65vh]  overflow-y-scroll">
+        <div className="flex justify-center flex-col flex-1 gap-3 lg:flex-row lg:w-4/5 lg:mx-auto lg:flex-wrap  md:max-h-[70vh] lg:max-h-[65vh]">
             {activities.map(activity => (
                 <FollowingPointerDemoActivity
                     key={activity._id}

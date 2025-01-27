@@ -2,14 +2,12 @@
 
 import { useUser } from '@/context/UserContext';
 import useProjects from '@/hooks/useProjects';
-import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { toast } from '@/hooks/use-toast';
 import useSkills from "@/hooks/useSkills";
 import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip";
 import Link from "next/link";
 import {Button} from "@/components/ui/button";
-import {ArrowRight, Trash2} from "lucide-react";
+import {ArrowRight} from "lucide-react";
 import {Badge} from "@/components/ui/badge";
 import useActivities from '@/hooks/useActivities';
 import { Slider } from "@/components/ui/slider"
@@ -50,7 +48,7 @@ const ProjectList = ({ projects }) => {
     if (!Array.isArray(projects) || projects.length <= 0) return <p>No projects found</p>;
 
     return (
-        <div className="flex justify-center flex-col flex-1 gap-3 lg:flex-row lg:w-4/5 lg:mx-auto lg:flex-wrap md:max-h-[70vh] lg:max-h-[65vh] overflow-y-scroll">
+        <div className="flex justify-center flex-col flex-1 gap-3 lg:flex-row lg:w-4/5 lg:mx-auto lg:flex-wrap md:max-h-[70vh] lg:max-h-[65vh]">
             {projects.map(project => (
                 <Project
                     key={project._id}
