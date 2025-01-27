@@ -31,6 +31,7 @@ export default function DialogCloseButtonImport({ setFormData, formData, clickFu
                 return;
             }
             if (selectedFile.size > 5 * 1024 * 1024) {
+                console.log("size")
                 setErrorMessage("El archivo no puede exceder los 5MB.");
                 setFormData(null);
                 setSelectedFileName("");
@@ -65,7 +66,7 @@ export default function DialogCloseButtonImport({ setFormData, formData, clickFu
                 {errorMessage && <p className="text-red-500 text-sm mt-1">{errorMessage}</p>}
                 {selectedFileName && <p className="text-green-500 text-sm mt-1">Selected File: {selectedFileName}</p>}
                 <DialogFooter className="">
-                    <Button type="button" variant="primary" disabled={!isSendable} className="bg-blue-500 text-white hover:bg-blue-800" onClick={() => action === "Modify" ? clickFunction(projectID) : clickFunction()}>
+                    <Button type="button" variant="primary" disabled={!isSendable} className="bg-blue-500 text-white hover:bg-blue-800" onClick={() => clickFunction()}>
                         Enviar
                     </Button>
                     <DialogClose asChild>
