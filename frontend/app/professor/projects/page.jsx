@@ -134,7 +134,6 @@ const Project = ({projectID, handleDeleteProject, project, handleModifyProject, 
     const { name, description, activities, skills } = project
     const [skillsFetched, setSkillsFetched] = useState([])
     const { getSkillById, loading, error } = useSkills()
-    const router = useRouter();
 
     useEffect(() => {
         const fetchSkills = async () => {

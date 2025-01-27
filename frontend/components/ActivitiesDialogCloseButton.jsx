@@ -94,7 +94,7 @@ export default function ActivitiesDialogCloseButton({ setFormData, formData, cli
                             id="skills"
                             setSelectedItems={setSelectedItems}
                             selectedItems={selectedItems}
-                            skills={skills}
+                            skills={skills.filter(skill => !skill.archive_date)}
                         />
                         {Array.isArray(selectedItems) && selectedItems.length > 0 && (
                             <SelectedSkills
