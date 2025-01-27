@@ -107,17 +107,17 @@ export default function Page() {
             <h1 className="text-4xl sm:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 py-8">
                 Skills
             </h1>
-                <SkillsList
-                    skills={skills}
-                    page={page}
-                    isLoading={loadingRequest}
-                    handleDeleteSkill={handleDeleteSkill}
-                    handleFormSubmit={handleFormSubmit}
-                    formData={formData}
-                    setFormData={setFormData}
-                    handleUpdateSkill={handleUpdateSkill}
-                />
-                <PaginationComponent page={page} setPage={setPage} pagesNumber={pagesNumber} />
+            <SkillsList
+                skills={skills}
+                page={page}
+                isLoading={loadingRequest}
+                handleDeleteSkill={handleDeleteSkill}
+                handleFormSubmit={handleFormSubmit}
+                formData={formData}
+                setFormData={setFormData}
+                handleUpdateSkill={handleUpdateSkill}
+            />
+            { Array.isArray(skills) && skills.length > 0 && <PaginationComponent page={page} setPage={setPage} pagesNumber={pagesNumber}/>}
         </div>
     )
 }
@@ -132,8 +132,6 @@ const SkillsList = ({
                           handleFormSubmit,
                           handleUpdateSkill,
                       }) => {
-
-    if ((!Array.isArray(skills) || skills.length <= 0) && !isLoading) return <p>No skills found</p>
 
     const [modifiedSkills, setModifiedSkills] = useState(skills)
     const [filter, setFilter] = useState({
@@ -295,62 +293,65 @@ const SkillsList = ({
                     </div>
                 </div>
             </div>
-            <Table>
-                <TableHeader>
-                    <TableRow>
-                        <TableHead>Foto</TableHead>
-                        <TableHead>Nombre</TableHead>
-                        <TableHead>Descripción</TableHead>
-                        <TableHead>Estado</TableHead>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {modifiedSkills.map((skill) => (
-                        <TableRow key={skill._id}>
-                            <TableCell className="rounded">
-                                {skill.icon
-                                    ? <Image width={24} height={24} src={`${skill.icon}`} alt={`${skill.name} icon`}/>
-                                    : <Image width={24} height={24} src="/defaultPFP.webp" alt={`${skill.name} icon`}/>
-                                }
+            {!Array.isArray(skills) || skills.length <= 0 && !isLoading
+                ? <p className="text-right text-red-600 italic">*No se han encontrado skills</p>
+                : <Table>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead>Foto</TableHead>
+                            <TableHead>Nombre</TableHead>
+                            <TableHead>Descripción</TableHead>
+                            <TableHead>Estado</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {modifiedSkills.map((skill) => (
+                            <TableRow key={skill._id}>
+                                <TableCell className="rounded">
+                                    {skill.icon
+                                        ? <Image width={24} height={24} src={`${skill.icon}`} alt={`${skill.name} icon`}/>
+                                        : <Image width={24} height={24} src="/defaultPFP.webp" alt={`${skill.name} icon`}/>
+                                    }
 
-                            </TableCell>
-                            <TableCell>{skill.name}</TableCell>
-                            <TableCell>{skill.description}</TableCell>
-                            <TableCell>
-                                <div className="flex items-center gap-x-2">
+                                </TableCell>
+                                <TableCell>{skill.name}</TableCell>
+                                <TableCell>{skill.description}</TableCell>
+                                <TableCell>
+                                    <div className="flex items-center gap-x-2">
                                     <span
                                         className={`w-3 h-3 rounded-full ${
                                             skill.archive_date ? "bg-red-600" : "bg-green-600"
                                         }`}
                                     />
-                                    <p>{skill.archive_date ? "Archivado" : "Activo"}</p>
-                                </div>
-                            </TableCell>
-                            <TableCell className="text-right">
-                                <DialogCloseButtonSkills
-                                    setFormData={setFormData}
-                                    formData={formData}
-                                    clickFunction={handleUpdateSkill}
-                                    title="Modificar Skill"
-                                    description="Inserta todos los datos requeridos para modificar la skill para evaluar las notas de tus alumnos."
-                                    action={"Modify"}
-                                    skillId={skill._id}
-                                    disabled={skill.archive_date}
-                                />
-                            </TableCell>
-                            <TableCell className="text-right">
-                                <Button
-                                    disabled={skill.archive_date}
-                                    variant="destructive"
-                                    onClick={() => handleDeleteSkill(skill._id)}
-                                >
-                                    Archivar
-                                </Button>
-                            </TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
+                                        <p>{skill.archive_date ? "Archivado" : "Activo"}</p>
+                                    </div>
+                                </TableCell>
+                                <TableCell className="text-right">
+                                    <DialogCloseButtonSkills
+                                        setFormData={setFormData}
+                                        formData={formData}
+                                        clickFunction={handleUpdateSkill}
+                                        title="Modificar Skill"
+                                        description="Inserta todos los datos requeridos para modificar la skill para evaluar las notas de tus alumnos."
+                                        action={"Modify"}
+                                        skillId={skill._id}
+                                        disabled={skill.archive_date}
+                                    />
+                                </TableCell>
+                                <TableCell className="text-right">
+                                    <Button
+                                        disabled={skill.archive_date}
+                                        variant="destructive"
+                                        onClick={() => handleDeleteSkill(skill._id)}
+                                    >
+                                        Archivar
+                                    </Button>
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            }
         </>
     )
 }

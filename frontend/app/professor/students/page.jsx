@@ -163,7 +163,7 @@ export default function Page() {
                 handleImportFileSubmit={handleImportFileSubmit}
                 handleUpdateUser={handleUpdateUser}
             />
-            <PaginationComponent page={page} setPage={setPage} pagesNumber={pagesNumber} />
+            { Array.isArray(students) && students.length > 0 && <PaginationComponent page={page} setPage={setPage} pagesNumber={pagesNumber}/>}
         </div>
     )
 }
@@ -181,8 +181,6 @@ const StudentsList = ({
                           setImportFile,
                           handleUpdateUser
                       }) => {
-
-    if ((!Array.isArray(students) || students.length <= 0) && !isLoading) return <p>No students found</p>
 
     const [modifiedStudents, setModifiedStudents] = useState(students)
     const [filter, setFilter] = useState({
@@ -360,63 +358,66 @@ const StudentsList = ({
                     </div>
                 </div>
             </div>
-            <Table>
-                <TableHeader>
-                    <TableRow>
-                        <TableHead>Foto</TableHead>
-                        <TableHead>Nombre</TableHead>
-                        <TableHead>Apellido</TableHead>
-                        <TableHead>Correo</TableHead>
-                        <TableHead>Estado</TableHead>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {modifiedStudents.map((student) => (
-                        <TableRow key={student._id}>
-                            <TableCell className="rounded">
-                                {student.user_picture
-                                    ? <Image width={24} height={24} src={student.user_picture} alt={`${student.name} icon`}/>
-                                    : <Image width={24} height={24} src="/defaultPFP.webp" alt={`${student.name} icon`}/>
-                                }
-                            </TableCell>
-                            <TableCell>{student.name}</TableCell>
-                            <TableCell>{student.lastName}</TableCell>
-                            <TableCell>{student.email}</TableCell>
-                            <TableCell>
-                                <div className="flex items-center gap-x-2">
+            { !Array.isArray(students) || students.length <= 0 && !isLoading
+                ? <p className="text-right text-red-600 italic">*No se han encontrado alumnos</p>
+                : <Table>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead>Foto</TableHead>
+                            <TableHead>Nombre</TableHead>
+                            <TableHead>Apellido</TableHead>
+                            <TableHead>Correo</TableHead>
+                            <TableHead>Estado</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {modifiedStudents.map((student) => (
+                            <TableRow key={student._id}>
+                                <TableCell className="rounded">
+                                    {student.user_picture
+                                        ? <Image width={24} height={24} src={student.user_picture} alt={`${student.name} icon`}/>
+                                        : <Image width={24} height={24} src="/defaultPFP.webp" alt={`${student.name} icon`}/>
+                                    }
+                                </TableCell>
+                                <TableCell>{student.name}</TableCell>
+                                <TableCell>{student.lastName}</TableCell>
+                                <TableCell>{student.email}</TableCell>
+                                <TableCell>
+                                    <div className="flex items-center gap-x-2">
                                     <span
                                         className={`w-3 h-3 rounded-full ${
                                             student.archive_date ? "bg-red-600" : "bg-green-600"
                                         }`}
                                     />
-                                    <p>{student.archive_date ? "Archivado" : "Activo"}</p>
-                                </div>
-                            </TableCell>
-                            <TableCell className="text-right">
-                                <DialogCloseButtonUsers
-                                    setFormData={setFormData}
-                                    formData={formData}
-                                    clickFunction={handleUpdateUser}
-                                    title="Modificar Alumno"
-                                    description="Modifica todos los datos requeridos para crear un nuevo alumno."
-                                    action={"Modify"}
-                                    userId={student._id}
-                                    disabled={student.archive_date}
-                                />
-                            </TableCell>
-                            <TableCell className="text-right">
-                                <Button
-                                    disabled={student.archive_date}
-                                    variant="destructive"
-                                    onClick={() => handleDeleteStudent(student._id)}
-                                >
-                                    Archivar
-                                </Button>
-                            </TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
+                                        <p>{student.archive_date ? "Archivado" : "Activo"}</p>
+                                    </div>
+                                </TableCell>
+                                <TableCell className="text-right">
+                                    <DialogCloseButtonUsers
+                                        setFormData={setFormData}
+                                        formData={formData}
+                                        clickFunction={handleUpdateUser}
+                                        title="Modificar Alumno"
+                                        description="Modifica todos los datos requeridos para crear un nuevo alumno."
+                                        action={"Modify"}
+                                        userId={student._id}
+                                        disabled={student.archive_date}
+                                    />
+                                </TableCell>
+                                <TableCell className="text-right">
+                                    <Button
+                                        disabled={student.archive_date}
+                                        variant="destructive"
+                                        onClick={() => handleDeleteStudent(student._id)}
+                                    >
+                                        Archivar
+                                    </Button>
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            }
         </>
     )
 }
