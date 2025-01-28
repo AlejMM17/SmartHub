@@ -22,12 +22,12 @@ export default function middleware(request) {
     const userRole = user.role
 
     // Rutas que solo los estudiantes pueden acceder
-    if (pathname.startsWith("/student") && userRole !== "student") {
+    if (pathname.startsWith("/student/projects") && userRole !== "student") {
         return NextResponse.redirect(new URL("/", request.url))
     }
 
     // Rutas que solo los profesores pueden acceder
-    if (pathname.startsWith("/professor") && userRole !== "professor") {
+    if (pathname.startsWith("/professor/projects") && userRole !== "professor") {
         return NextResponse.redirect(new URL("/", request.url))
     }
 
